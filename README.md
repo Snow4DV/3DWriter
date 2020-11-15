@@ -1,32 +1,27 @@
-# 3DWriter
-Use your 3D Printer with a pen to write letters, birthday cards etc  
+# 3DWriter Handwiritng edition
+Use your 3D printer or plotter to write your homework/letters/etc. It's a fork of boy1dr software with amount of major improvements that let you to pretend that the result is something written not by a machine.
 
-Try the new (still free) version https://3dwriter.io
-
-I couldn't find any small programs that i could use to write letters using my 3D Printer as a plotter so i wrote one.
-After mucking about with different fonts i found a fontset called the Hershey fonts. These are the only fonts used in this application since they are primarily stroke based fonts rather than outline fonts that every other program i tried had.
-
-Video demo over on youtube [https://youtu.be/yK_YGwMRR40](https://youtu.be/yK_YGwMRR40)
-
-Windows executable is in 3DWriter/bin/Release/3DWriter.exe  
-Note: Windows10 users may get a security warning, this is normal because i do not sign my applications, click "more info" then "run anyay".  
-Feel free to check and compile your own :)
-
+# Improvements comparing to the boy1dr/3DWriter repo 
+The main point of the fork was to add the ability
+ 
 ## How to use it
 There are 3 main columns. 
 - Text entry
 - Preview
-- GCode settings
+- GCode settings and handwriting modifiers
 
-Once you have selected the font from the toolstrip at the top, you can click right next to it on the "Preview" button to see a rendered character set of the font. There is a check button beside that "Simple fonts" which will alternate between the full set of fonts and a simple list.
-Fonts in other languages will most likely not map to the english character set. Appologies, i only know english.  
+Once you have selected the font at the top left drop-down list, you can click right next to it on the "thumbnail" or "thmb" button to see a rendered character set of the preinstalled font. There is a check button beside that "Simple fonts" which will alternate between the full set of fonts and a simple list.
 
-Type some text in to the Text input. Choose your scale (0.2 is pretty close to handwriting) then click the Preview button to see your text rendered in the preview window.  
+Type some text into the Text input. Choose your scale in mm (there are some tips to help you) then click the Preview button to see your text rendered in the preview window.  
 There are options for scaling up the preview render to make it easier to see what it might look like.  
-
+Then you can activate some handwriting modifiers that will improve the reality of your work.
 If your GCode settings are complete, just click "Generate GCode" and save the file for your printer.
 
 ![alt text](https://github.com/boy1dr/3DWriter/blob/master/interface.PNG "Interface")
+
+## Make your own font
+
+If you click on the menu button you will be able to find "Font editor" here. That's the feature that was about 70% finished by boy1dr and I just made it till the usable state (still needs to be improved though). Here you can add 
 
 ## GCode settings
 *Pay close attention here*
@@ -46,7 +41,7 @@ Preview magnification makes no difference to the GCode.
 The GCode output is higher resolution than the preview window.  
 
 ## What is a 'unit' ?
-The fonts are described in multiple x/y points as integers. Each font has a height around 37.
+The fonts are described in multiple x/y points as integers. Each font has a height around 200.
 This isn't mm or pixels, it's just what was used to describe the strokes so i call them units.
 This height is multiplied by the scale to render the fonts. Line and letter spacing is also multiplied by scale so the end result is proportional.
 
@@ -100,22 +95,4 @@ I have included the C# 2015 project that you can compile yourself along with a b
 
 I would love to hear your feedback :)
 
-### 13/04/2018 - Blocky text
-Some users have described a blocky / 8-bit look on some printers, comma's found in gcode file instead of periods (for decimal numbers). language localization issue, fixed.
-
-### 13/04/2018 - Update checking
-Added a more reliable method of update checking.
-
-### 12/01/2017 v1.1 released
-Added real line height to status bar.
-
-### 21/01/2017 v1.2 released
-Updated path seperators with Path.DirectorySeparatorChar.  
-Work has begun on the font editor which is included in this version but disabled in the menu since it's no where near complete.
-
-### 24/01/2017 V1.3 released
-Fixed GCode offset issue with Y axis.  
-Fixed incorrect index of character array causing erroneous moves.  
-Added version checking.  
-Changed ui font scale to font size in mm.  
-(sorry for the multiple commits, has been a long day)  
+### 15/11/2020 - Initial release!
