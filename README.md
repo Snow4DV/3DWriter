@@ -28,6 +28,7 @@ If your GCode settings are complete, just click "Generate GCode" and save the fi
 
 If you click on the menu button you will be able to find "Font editor" here. That's the feature that was finished about 70%  by boy1dr and I just made it till the usable state (still needs to be improved though). Here you can easily edit existing letters and even add new (for example, cyrillic, turkish and so on). You can also setup the input/output points to the letters - while rendering if previous letters has an output point and the current one has an input point - it would connect the letters in the same way as you do it when writing.
 
+You can also add multiple variants of one letter to the font - it would randomly choose one of these (new feature also)
 ## Handwriting modifiers
 At the right you can find some checkboxes - for example, letter connection or random letters movement. Use these to make it realistic and experiment with its settings!
 ## GCode settings
