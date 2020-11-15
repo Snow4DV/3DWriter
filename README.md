@@ -1,8 +1,13 @@
+Not commited yet! Fixing bugs.
+
 # 3DWriter Handwiritng edition
-Use your 3D printer or plotter to write your homework/letters/etc. It's a fork of boy1dr software with amount of major improvements that let you to pretend that the result is something written not by a machine.
+Use your 3D printer or plotter to write your homework/letters/etc. It's a fork of boy1dr software with amount of major improvements that let you to pretend that the result is something written not by a machine but with your hand.
 
 # Improvements comparing to the boy1dr/3DWriter repo 
-The main point of the fork was to add the ability
+*The main point of the fork was to add the ability to create your own font. You can actually transfer your in real life handwriting and use it!
+*5 times increased resolution (still not sure whatever is it good or not but it makes font making more comfortable)
+*Handwriting modifiers that makes it more realistic
+*New material design that makes it cooler :)
  
 ## How to use it
 There are 3 main columns. 
@@ -10,19 +15,21 @@ There are 3 main columns.
 - Preview
 - GCode settings and handwriting modifiers
 
-Once you have selected the font at the top left drop-down list, you can click right next to it on the "thumbnail" or "thmb" button to see a rendered character set of the preinstalled font. There is a check button beside that "Simple fonts" which will alternate between the full set of fonts and a simple list.
+Once you have selected the font at the top left drop-down list, you can click right next to it on the "thumbnail" or "thmb" button to see a rendered letter set of the preinstalled font. There is a check button beside that "Simple fonts" which will alternate between the full set of fonts and a simple list.
 
 Type some text into the Text input. Choose your scale in mm (there are some tips to help you) then click the Preview button to see your text rendered in the preview window.  
 There are options for scaling up the preview render to make it easier to see what it might look like.  
-Then you can activate some handwriting modifiers that will improve the reality of your work.
+Then you can activate some handwriting modifiers that will improve the reality of your works' look.
 If your GCode settings are complete, just click "Generate GCode" and save the file for your printer.
 
 ![alt text](https://github.com/boy1dr/3DWriter/blob/master/interface.PNG "Interface")
 
 ## Make your own font
 
-If you click on the menu button you will be able to find "Font editor" here. That's the feature that was about 70% finished by boy1dr and I just made it till the usable state (still needs to be improved though). Here you can add 
+If you click on the menu button you will be able to find "Font editor" here. That's the feature that was finished about 70%  by boy1dr and I just made it till the usable state (still needs to be improved though). Here you can easily edit existing letters and even add new (for example, cyrillic, turkish and so on). You can also setup the input/output points to the letters - while rendering if previous letters has an output point and the current one has an input point - it would connect the letters in the same way as you do it when writing.
 
+## Handwriting modifiers
+At the right you can find some checkboxes - for example, letter connection or random letters movement. Use these to make it realistic and experiment with its settings!
 ## GCode settings
 *Pay close attention here*
 
@@ -45,12 +52,12 @@ The fonts are described in multiple x/y points as integers. Each font has a heig
 This isn't mm or pixels, it's just what was used to describe the strokes so i call them units.
 This height is multiplied by the scale to render the fonts. Line and letter spacing is also multiplied by scale so the end result is proportional.
 
-## Setting up your printer as a plotter
+## Setting up your printer as a plotter (boy1dr quote)
 At first i just used a rubber band to hold the pen on but it wiggled around too much so i printed a custom holder that attached firmly to my extruder. Then i printed mating piece and glued it to my pen (4 colour Bic pen).  
 I made it so when the pen tip is retracted it is higher than my nozzle so i can keep the pen there all the time.  
 Using a program like Pronterface you can manually move your extruder around to find the correct height for pen up & down, also the X and Y offset so you don't write off the edge of the page.
 
-# Laser
+# Laser (boy1dr quote)
 I equipped my 3D Printer with a cheap 1W UV laser from ebay which work quite well on a variety of materials.
 I was using Marlin firmware but found there is no support for controlling a laser other than to connect the laser to the cooling fan and use M106/M107 to turn the laser on and off.
 
@@ -84,15 +91,12 @@ I suggest using thick cardboard on your buildplate so you don't damage it. Make 
 
 
 # USE AT YOUR OWN RISK
-The only 3D Printer i own is a RepRap i3 clone and i can confirm it has been tested and works well on that style of printer.
-I know from other software made for the ultimaker that sometimes the Z move is the wrong direction, i would advise that you simulate the gcode files prior to printing just to be sure you know what is going to happen. 
+Boy1dr tested it on RepRap i3 clone and i have an ender 3 clone (Tronxy xy-2) on marlin 2.0 software. Can confirm that everything works ok.
+I know from other software made for the ultimaker that sometimes the Z move is the wrong direction, me and boy1dr would advise that you simulate the gcode files prior to printing just to be sure you know what is going to happen. 
 And as always when trying new software with your 3D Printer, keep one hand on the off switch :)
 
 ## Final notes
-I don't claim to be the worlds best programmer, nor am i a self professed 3D Printer expert but i have many years of experience with both and i'm pretty confident that this software works.
+Boy1dr doesn't  claim to be the worlds best programmer, nor is he a self professed 3D Printer expert but he has many years of experience with both and he's pretty confident that this software works
 
-I have included the C# 2015 project that you can compile yourself along with a binary build for MS Windows (see 3DWriter/bin/Release).
-
-I would love to hear your feedback :)
 
 ### 15/11/2020 - Initial release!
