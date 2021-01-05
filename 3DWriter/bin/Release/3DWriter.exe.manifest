@@ -43,24 +43,36 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="339456">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="367104">
       <assemblyIdentity name="3DWriter" version="1.6.4.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kYfpIMqHqmJY2eIExKMGU8r9JpXOdQe6KWYpznntnsk=</dsig:DigestValue>
+        <dsig:DigestValue>1OYXbgNG1enl5e2vuycQb/hegYBCS1STlPinYZTY6lA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="3DWriter.exe.config" size="3460">
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MaterialSkin.dll" size="6620672">
+      <assemblyIdentity name="MaterialSkin" version="2.1.2.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>vO4KeJ9MQE4X0CIBgNKumbgCCJLtQPWgNBZUtHhu31A=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="3DWriter.exe.config" size="4381">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>sLqBjzh7sLJXYsMTAk8ReaIn1plXTwcO/amNbxLTizA=</dsig:DigestValue>
+      <dsig:DigestValue>qOt220phNWllFMrxdGFEuHmlXlIHc6bVgacCU+MBr1c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="3dwriter_logo_icon_icon_xIo_icon.ico" size="32177">
@@ -225,13 +237,13 @@
       <dsig:DigestValue>5ZF+uHFIs8l+Arop3NHwbPWdrR5lew6NHLI4yrB4+lA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="fonts\hershey.txt" size="5723">
+  <file name="fonts\hershey.txt" size="5606">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>KHS6VWuZROSFeC61LGlfsJjN43Xm4iLyN7tzZ6kDxLQ=</dsig:DigestValue>
+      <dsig:DigestValue>b/tjni0nmemHzsT5E0c9QRnkJwtlwTzq/hzVAvkE2FU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="fonts\japanese.png" size="18474">

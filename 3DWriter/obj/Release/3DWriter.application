@@ -4,17 +4,17 @@
   <description asmv2:publisher="3DWriter" asmv2:product="3DWriter" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="3DWriter.exe.manifest" size="19443">
+    <dependentAssembly dependencyType="install" codebase="3DWriter.exe.manifest" size="20087">
       <assemblyIdentity name="3DWriter.exe" version="1.6.4.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SgsKQjhh/dIMpFAYZR4LhPRu3GC66yVXAmtXCUXFxrI=</dsig:DigestValue>
+        <dsig:DigestValue>KkJ+NaIdUpDDYhQY3Lx2YuBDqsOPs99LIA+6hQ93k7Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
