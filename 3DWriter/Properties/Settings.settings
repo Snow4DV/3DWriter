@@ -42,13 +42,13 @@
       <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="default_text" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Welcome to 3DWriter!</Value>
+      <Value Profile="(Default)">Welcome to 3DHandwriter!</Value>
     </Setting>
     <Setting Name="linespace" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="letter_spacing" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="fonts_all" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -67,6 +67,27 @@
     </Setting>
     <Setting Name="laser_off" Type="System.String" Scope="User">
       <Value Profile="(Default)">M5</Value>
+    </Setting>
+    <Setting Name="coord_move" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-1,-1</Value>
+    </Setting>
+    <Setting Name="connectLettersCheckbox" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="rotate_letters" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="rotate_letters_angles" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-5,5</Value>
+    </Setting>
+    <Setting Name="randomize_line_spacing" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-1,-1</Value>
+    </Setting>
+    <Setting Name="line_going_down" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="correct_letters_coefficient" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>
