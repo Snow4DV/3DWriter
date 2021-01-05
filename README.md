@@ -4,10 +4,10 @@ Not commited yet! Fixing bugs.
 Use your 3D printer or plotter to write your homework/letters/etc. It's a fork of boy1dr software with amount of major improvements that let you to pretend that the result is something written not by a machine but with your hand.
 
 # Improvements comparing to the boy1dr/3DWriter repo 
-*The main point of the fork was to add the ability to create your own font. You can actually transfer your in real life handwriting and use it!
-*5 times increased resolution (still not sure whatever is it good or not but it makes font making more comfortable)
-*Handwriting modifiers that makes it more realistic
-*New material design that makes it cooler :)
+* The main point of the fork was to add the ability to create your own font. You can actually transfer your "in real life" handwriting and use it!
+* 5 times increased resolution (still not sure whatever is it good or not but it makes font making more comfortable)
+* Handwriting modifiers that makes it more realistic
+* New material design that makes it cooler :)
  
 ## How to use it
 There are 3 main columns. 
@@ -96,8 +96,4 @@ Boy1dr tested it on RepRap i3 clone and i have an ender 3 clone (Tronxy xy-2) on
 I know from other software made for the ultimaker that sometimes the Z move is the wrong direction, me and boy1dr would advise that you simulate the gcode files prior to printing just to be sure you know what is going to happen. 
 And as always when trying new software with your 3D Printer, keep one hand on the off switch :)
 
-## Final notes
-Boy1dr doesn't  claim to be the worlds best programmer, nor is he a self professed 3D Printer expert but he has many years of experience with both and he's pretty confident that this software works
-
-
-### 15/11/2020 - Initial release!
+### 5/1/2021 - Initial release!
