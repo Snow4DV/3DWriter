@@ -22,7 +22,10 @@ There are options for scaling up the preview render to make it easier to see wha
 Then you can activate some handwriting modifiers that will improve the reality of your works' look.
 If your GCode settings are complete, just click "Generate GCode" and save the file for your printer.
 
-![alt text](https://github.com/boy1dr/3DWriter/blob/master/interface.PNG "Interface")
+At first you have to convert existing fonts using font menu to increase its size 5 times! Save it and you'll get working one.
+
+![alt text](https://github.com/Snow4DV/3DWriter/blob/master/example_images/Screenshot_44.png "Interface")
+![alt text](https://github.com/Snow4DV/3DWriter/blob/master/example_images/Screenshot_45.png "Font editor")
 
 ## Make your own font [improvement]
 
