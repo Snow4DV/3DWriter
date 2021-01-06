@@ -1,5 +1,3 @@
-Not commited yet! Fixing bugs.
-
 # 3DWriter Handwiritng edition 
 Use your 3D printer or plotter to write your homework/letters/etc. It's a fork of boy1dr software with amount of major improvements that let you to pretend that the result is something written not by a machine but with your hand.
 
