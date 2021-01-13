@@ -1,4 +1,3 @@
-C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.csprojAssemblyReference.cache
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Release\fonts\astrology.png
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Release\fonts\cursive.png
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Release\fonts\cyrilc_1.png

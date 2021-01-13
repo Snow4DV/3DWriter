@@ -632,13 +632,13 @@ namespace _3DWriter
             this.materialButton3.DrawShadows = true;
             this.materialButton3.HighEmphasis = true;
             this.materialButton3.Icon = null;
-            this.materialButton3.Location = new System.Drawing.Point(666, 58);
+            this.materialButton3.Location = new System.Drawing.Point(664, 58);
             this.materialButton3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton3.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.materialButton3.MinimumSize = new System.Drawing.Size(1, 1);
             this.materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton3.Name = "materialButton3";
-            this.materialButton3.Size = new System.Drawing.Size(146, 30);
+            this.materialButton3.Size = new System.Drawing.Size(148, 30);
             this.materialButton3.TabIndex = 37;
             this.materialButton3.Text = "Del Gap";
             this.materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
