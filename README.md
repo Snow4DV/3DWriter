@@ -38,6 +38,7 @@ Old way of symbol creation: Click left mouse button if you want to move vectors'
 You can also add multiple variants of one letter to the font - it would randomly choose one of these (new feature also)
 ## Handwriting modifiers [improvement]
 At the right you can find some checkboxes - for example, letter connection or random letters movement. Use these to make it realistic and experiment with its settings!
+Work is still in progress! It might work incorrectly.
 ## GCode settings
 *Pay close attention here*
 
