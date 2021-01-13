@@ -51,3 +51,4 @@ C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.applic
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.csproj.CopyComplete
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.exe
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.pdb
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.csprojAssemblyReference.cache

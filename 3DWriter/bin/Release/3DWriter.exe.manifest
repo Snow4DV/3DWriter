@@ -4,7 +4,7 @@
   <description asmv2:iconFile="3dwriter_logo_transparent_background_square_logo_Qh2_icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="3DWriter" version="1.6.4.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="3DWriter.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="372224">
-      <assemblyIdentity name="3DWriter" version="1.6.4.0" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rMaMVCEzjpw7zVGhKjQ14qIZGxoXitg4+mELN9mQVAI=</dsig:DigestValue>
+        <dsig:DigestValue>KgA5WSbP7Wc83rfJQiUorPQA8A0LNUUYHhgsxoYF6uc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -417,7 +417,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>8PHSo5XFqNW2Neg1ADzka75cFT0qU6DA8FzoXBbMF+E=</dsig:DigestValue>
+      <dsig:DigestValue>qGukvpBbd8SToLnOjt+q6YRGwmwSYf5jaKE3K3RRZsk=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
