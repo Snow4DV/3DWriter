@@ -734,6 +734,7 @@
             this.label28.Size = new System.Drawing.Size(107, 13);
             this.label28.TabIndex = 50;
             this.label28.Text = "Letter Writing: 7.5mm";
+            this.label28.Click += new System.EventHandler(this.label28_Click);
             // 
             // label29
             // 
@@ -744,6 +745,7 @@
             this.label29.Size = new System.Drawing.Size(111, 13);
             this.label29.TabIndex = 51;
             this.label29.Text = "Letter Heading: 13mm";
+            this.label29.Click += new System.EventHandler(this.label29_Click);
             // 
             // label30
             // 
@@ -754,6 +756,7 @@
             this.label30.Size = new System.Drawing.Size(70, 13);
             this.label30.TabIndex = 52;
             this.label30.Text = "Title: 18.5mm";
+            this.label30.Click += new System.EventHandler(this.label30_Click);
             // 
             // lbl_font_height
             // 

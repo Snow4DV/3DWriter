@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="367104">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="372224">
       <assemblyIdentity name="3DWriter" version="1.6.4.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1OYXbgNG1enl5e2vuycQb/hegYBCS1STlPinYZTY6lA=</dsig:DigestValue>
+        <dsig:DigestValue>v2jU/Sx5Dc9F8m+nSODJW97qBiSXoOQK9eDRWuXQJt0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -63,6 +63,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>vO4KeJ9MQE4X0CIBgNKumbgCCJLtQPWgNBZUtHhu31A=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SimplifyCSharp.dll" size="8192">
+      <assemblyIdentity name="SimplifyCSharp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>5M32Nsp0Z8sY4CpDrjIz0LCcRj4VWhXFZ85mOOnM7fc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms.Integration;
+using System.Collections;
+using System.Drawing.Drawing2D;
+using System.Windows.Media;
+using Pen = System.Drawing.Pen;
+using Color = System.Drawing.Color;
+using SimplifyCSharp;
 
 namespace _3DWriter
 
@@ -18,11 +25,14 @@ namespace _3DWriter
     public partial class FontEditor : MaterialSkin.Controls.MaterialForm
     {
 
-    
-
-     
 
 
+
+
+        Point lastPoint = Point.Empty;
+        IList<Point> pointCollection = new List<Point>();
+        Pen pen = new Pen(Color.Black, 2);
+        bool isMouseDown = false;
         Boolean transpModeOn = false;
         ToolTip tt = new ToolTip();
         double h_height = 160;       
@@ -32,11 +42,13 @@ namespace _3DWriter
         double[][] font_chars = new double[250][];              //the main font array
         int segs = 0;
         int selected_seg = 0;
+        private int pointsCounter = 0;
 
         public FontEditor()
         {
             InitializeComponent();
-
+            pen.StartCap = LineCap.Round;
+            pen.EndCap = LineCap.Round;
             var materialSkinManager = MaterialSkin.MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
@@ -58,7 +70,9 @@ namespace _3DWriter
                     FontComboBox.Items.Add(font_name.Replace(".cmf", ""));
                 }
             }
-            load_font("futural");
+            if(FontComboBox.Items.Count > 0) FontComboBox.SelectedItem = FontComboBox.Items[0]; //Selecting the first font on startup
+            if(lv_charmap.Items.Count > 0) lv_charmap.Items[0].Selected = true; //selecting the first char on startup
+            
         }
 
         private void FontComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,7 +118,7 @@ namespace _3DWriter
 
         private void lv_charmap_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if(lv_charmap.SelectedItems.Count > 0) tb_char_to_add.Text = lv_charmap.SelectedItems[0].Text;
             lv_points.Items.Clear();
 
             int idx = 0;
@@ -173,7 +187,7 @@ namespace _3DWriter
                 }
                 lv_points.Items[0].Selected = true;
                 lv_points.Items[0].Focused = true;
-                button3_Click(null, null); //Update the array
+                setButton_Click(null, null); //Update the array
                 lv_points.Items[0].Text = "5,5,-1,-1"; //sorry didn't have motivation to fix
             }
             else
@@ -209,7 +223,7 @@ namespace _3DWriter
         }
         private void picture_box_click(object sender, EventArgs e)
         {
-            if (tb_width.Text != "" && lv_charmap.SelectedItems.Count != 0)
+            if (tb_width.Text != "" && lv_charmap.SelectedItems.Count != 0 && !drawCheckbox.Checked)
             {
                 MouseEventArgs me = (MouseEventArgs)e;
                 int scale = 2;
@@ -312,7 +326,7 @@ namespace _3DWriter
                         }
                         break;
                     case MouseButtons.Middle:
-                        button5_Click(null, null); //button 5 is add button - that func adds the point by middle mouse click
+                        AddSegment_Click(null, null); //button 5 is add button - that func adds the point by middle mouse click
                         if (lv_points.SelectedItems.Count != 0)
                         {
                             String[] sel = lv_points.SelectedItems[0].Text.Split(',');
@@ -354,8 +368,8 @@ namespace _3DWriter
                 if (Convert.ToDouble(sel[0]) > maxX) maxX = Convert.ToDouble(sel[0]); //obtaining maxX
                 if (Convert.ToDouble(sel[2]) > maxX) maxX = Convert.ToDouble(sel[2]);
             }
-            MessageBox.Show("MAX:" + maxX + "/min:" + minX); 
-            tb_width.Text = ((Single)(maxX/5 - minX/5)).ToString();
+            //MessageBox.Show("Deleted successfully!:" + maxX + "/min:" + minX); 
+            tb_width.Text = ((Single)(maxX - minX)).ToString();
             for (int i = 0; i < lvCol.Count; i++)
             {
                 String[] sel = lvCol[i].Text.Split(',');
@@ -400,46 +414,50 @@ namespace _3DWriter
       
             if (result == DialogResult.Yes)
             {
-           
-              
-            
-            for (int j = 0; j < lv_charmap.Items.Count; j++)
-            {
-                lv_charmap.Items[j].Selected = false;
-                lv_charmap.Items[j].Focused = false;
-            }
-            for (int j = 0; j < lv_charmap.Items.Count; j++) {
-                if (j != 0)
+                for(int f = 0; f < FontComboBox.Items.Count; f++)
                 {
-                    lv_charmap.Items[j - 1].Selected = false;
-                    lv_charmap.Items[j - 1].Focused = false;
-                }
-                lv_charmap.Items[j].Selected = true;
-                lv_charmap.Items[j].Focused = true;
-                double[] new_seg = new double[lv_points.Items.Count * 4 + 3];
-                new_seg[0] = Convert.ToSingle(tb_width.Text);   //width;
-                new_seg[1] = Convert.ToSingle(tb_width.Text);   //realwidth;
-                new_seg[2] = Convert.ToSingle(lv_points.Items.Count);   //size;
-                int iteration = 0;
-                for (int ptr = 0; ptr < lv_points.Items.Count * 4; ptr += 4)
-                {
-                    String[] this_seg = (lv_points.Items[iteration].Text).Split(',');
-                    new_seg[ptr + 3] = Convert.ToSingle(this_seg[0]) * 5;
-                    new_seg[ptr + 4] = Convert.ToSingle(this_seg[1]) * 5;
-                    new_seg[ptr + 5] = Convert.ToSingle(this_seg[2]) * 5;
-                    new_seg[ptr + 6] = Convert.ToSingle(this_seg[3]) * 5;
-                    iteration++;
-                }
-                font_chars[lv_charmap.SelectedItems[0].Index] = new_seg;
+                    FontComboBox.SelectedItem = FontComboBox.Items[f];
+                    
+                    for (int j = 0; j < lv_charmap.Items.Count; j++)
+                    {
+                    lv_charmap.Items[j].Selected = false;
+                    lv_charmap.Items[j].Focused = false;
+                    }
+                    for (int j = 0; j < lv_charmap.Items.Count; j++) {
+                    if (j != 0)
+                    {
+                        lv_charmap.Items[j - 1].Selected = false;
+                     lv_charmap.Items[j - 1].Focused = false;
+                    }
+                    lv_charmap.Items[j].Selected = true;
+                    lv_charmap.Items[j].Focused = true;
+                    tb_width.Text = Convert.ToString(Convert.ToDouble(tb_width.Text) * 5);
+                    double[] new_seg = new double[lv_points.Items.Count * 4 + 3];
+                    new_seg[0] = Convert.ToSingle(tb_width.Text);   //width;
+                    new_seg[1] = Convert.ToSingle(tb_width.Text);   //realwidth;
+                    new_seg[2] = Convert.ToSingle(lv_points.Items.Count);   //size;
+                    int iteration = 0;
+                    for (int ptr = 0; ptr < lv_points.Items.Count * 4; ptr += 4)
+                    {
+                     String[] this_seg = (lv_points.Items[iteration].Text).Split(',');
+                        new_seg[ptr + 3] = Convert.ToSingle(this_seg[0]) * 5;
+                        new_seg[ptr + 4] = Convert.ToSingle(this_seg[1]) * 5;
+                        new_seg[ptr + 5] = Convert.ToSingle(this_seg[2]) * 5;
+                        new_seg[ptr + 6] = Convert.ToSingle(this_seg[3]) * 5;
+                        iteration++;
+                    }
+                    font_chars[lv_charmap.SelectedItems[0].Index] = new_seg;
                 
-            }
+                    }
+                    btn_save_as_Click(null, null); //clicking save button. Dev func only!
+                }
             }
         }
         private void update_preview()
         {
-            Pen bluePen = new Pen(Brushes.Blue);
+            Pen bluePen = new Pen(System.Drawing.Brushes.Blue);
             bluePen.Width = 3.0F;
-            Pen greenPen = new Pen(Brushes.Green);
+            Pen greenPen = new Pen(System.Drawing.Brushes.Green);
             greenPen.Width = 3.0F;
 
 
@@ -459,14 +477,14 @@ namespace _3DWriter
                 //previewGraphics.DrawLine(semiTransPen, 0 * scale, 0 * scale, Convert.ToSingle(tb_width.Text) * scale, 0 * scale);
                 //previewGraphics.DrawLine(semiTransPen, 0 * scale, Convert.ToSingle(h_height) * scale, Convert.ToSingle(tb_width.Text) * scale, Convert.ToSingle(h_height) * scale);
 
-                previewGraphics.DrawLine(semiTransPen, 0 * scale * 5, 0 * scale * 5, Convert.ToSingle(tb_width.Text) * scale*5, 0 * scale*5);
-                previewGraphics.DrawLine(semiTransPen, 0 * scale * 5, Convert.ToSingle(h_height) * scale * 5, Convert.ToSingle(tb_width.Text) * scale * 5, Convert.ToSingle(h_height) * scale * 5);
+                previewGraphics.DrawLine(semiTransPen, 0 * scale * 5, 0 * scale * 5, Convert.ToSingle(tb_width.Text) * scale, 0 * scale*5);
+                previewGraphics.DrawLine(semiTransPen, 0 * scale * 5, Convert.ToSingle(h_height) * scale * 5, Convert.ToSingle(tb_width.Text) * scale , Convert.ToSingle(h_height) * scale * 5);
 
                 //width
                 //previewGraphics.DrawLine(semiTransPen, 0 * scale, 0 * scale, 0 * scale, Convert.ToSingle(h_height) * scale);
                 //previewGraphics.DrawLine(semiTransPen, Convert.ToSingle(tb_width.Text) * scale, 0 * scale, Convert.ToSingle(tb_width.Text) * scale, Convert.ToSingle(h_height) * scale);
                 previewGraphics.DrawLine(semiTransPen, 0 * scale * 5, 0 * scale * 5, 0 * scale * 5, Convert.ToSingle(h_height) * scale * 5);
-                previewGraphics.DrawLine(semiTransPen, Convert.ToSingle(tb_width.Text) * scale * 5, 0 * scale * 5, Convert.ToSingle(tb_width.Text) * scale * 5, Convert.ToSingle(h_height) * scale * 5);
+                previewGraphics.DrawLine(semiTransPen, Convert.ToSingle(tb_width.Text) * scale, 0 * scale * 5, Convert.ToSingle(tb_width.Text) * scale, Convert.ToSingle(h_height) * scale * 5);
 
 
                 for (int point = 0; point < segs; point++)
@@ -519,7 +537,7 @@ namespace _3DWriter
             update_preview();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void setButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -549,7 +567,7 @@ namespace _3DWriter
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void AddSegment_Click(object sender, EventArgs e)
         {
             if (lv_charmap.SelectedItems.Count != 0) 
             { 
@@ -567,9 +585,7 @@ namespace _3DWriter
                 
             }
             else
-            {
-           
-               
+            { 
                 tt.Show("Choose character to add the line", this, button5.Location);
             }
 
@@ -580,22 +596,44 @@ namespace _3DWriter
                 tt.Hide(this);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void deleteSegment_Click(object sender, EventArgs e)
         {
             if (lv_points.SelectedItems.Count != 0)
             {
-                lv_points.Items.Remove(lv_points.SelectedItems[0]);
-                segs--;
-                selected_seg = segs - 1;
-                if (selected_seg < 0) selected_seg = 0;
-                else lv_points.Items[selected_seg].Selected = true;
-                update_preview(); //buttons' listener just updates the array to currentlistview
-                //update_preview();
+                if (lv_points.Items.Count == 1) //if there's only one item it sets it to 0;0 - 0;0
+                {
+                    lv_points.Items.Remove(lv_points.SelectedItems[0]);
+                    lv_points.Items.Insert(0, "0,0,0,0");
+                    lv_points.Items[0].Selected = true;
+                    update_preview();
+                }
+                else
+                {   //if > 1 - removes it.
+                    lv_points.Items.Remove(lv_points.SelectedItems[0]);
+                    segs--;
+                    selected_seg = segs - 1;
+                    if (selected_seg < 0) selected_seg = 0;
+                    else lv_points.Items[selected_seg].Selected = true;
+                    update_preview(); //buttons' listener just updates the array to currentlistview
+                                      //update_preview();
+                }
             }
+     
             else
             {
-                tt.Show("Choose character and line to remove", this, button2.Location);
+                if (lv_points.Items.Count != 0)
+                {
+                    lv_points.Items[segs - 1].Selected = true;
+                    lv_points.Items[segs - 1].Focused = true;
+
+                }
+                else
+                {
+                    tt.Show("Choose character and line to remove", this, button2.Location);
+                }
+                
             }
+            setButton_Click(null, null); //clicks set button
         }
 
         private void btn_add_char_Click(object sender, EventArgs e)
@@ -700,6 +738,132 @@ namespace _3DWriter
             }
         }
 
+      
 
+        public void ProcessCallBackDrawing(List<String> points)
+        {
+            for(int i = 0; i < points.Count; i++)
+            {
+                string[] curPoints = points[i].Split(',');
+                if(curPoints.Length == 4) //checking if there is correct argument
+                {
+                    if (lv_charmap.SelectedItems.Count != 0)
+                    {
+                        lv_points.Items.Add(points[i]);
+                        segs++;
+                        selected_seg = segs - 1;
+                        for (int j = 0; j < segs; j++)
+                        {
+                            lv_points.Items[j].Selected = false;
+                            lv_points.Items[j].Focused = false;
+                        }
+                        lv_points.Items[segs - 1].Selected = true;
+                        lv_points.Items[segs - 1].Focused = true;
+                    }
+                    else
+                    {
+                        tt.Show("Choose character to add the line", this, materialButton2.Location);
+
+                    }
+                }
+            }
+            setButton_Click(null, null);
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            if (lv_points.Items.Count != 0)
+            {
+                lv_points.Items.Clear();
+                lv_points.Items.Add("0,0,0,0");
+                segs = 1;
+                selected_seg = 0;
+                lv_points.Items[0].Selected = true;
+                lv_points.Items[0].Focused = true;
+                setButton_Click(null, null); //Update the array
+                update_preview();
+            }
+        }
+
+
+        private void pb_Draw_MouseDown(object sender, MouseEventArgs e)
+        {
+            pointsCounter = 0;
+            lastPoint = e.Location;
+            isMouseDown = true;
+        }
+
+        private void pb_Draw_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMouseDown = false;
+            if (drawCheckbox.Checked)
+            {
+                try
+                {
+                    IList<Point> simplifiedPointsLine = SimplificationHelpers.Simplify<Point>(
+                        pointCollection,
+                        (p1, p2) => p1 == p2,
+                        (p) => p.X,
+                        (p) => p.Y,
+                        Convert.ToDouble(tolerance_textbox.Text),
+                        hq_checkbox.Checked
+                        );
+                    pointCollection = new List<Point>();
+                    outputPointsLabel.Text = "Output points: " + simplifiedPointsLine.Count;
+                    if(tb_width.Text != "" && lv_charmap.SelectedItems.Count != 0)
+                    {
+                        for(int i = 0; i < simplifiedPointsLine.Count - 1; i++) //iterating through every point except the last one because line builds of two points - this and next
+                        {
+                            lv_points.Items.Add(simplifiedPointsLine[i].X / 2 + "," + simplifiedPointsLine[i].Y / 2 + "," + (simplifiedPointsLine[i+1].X / 2 + "," + simplifiedPointsLine[i+1].Y / 2));
+                            segs++;
+                        }
+                        selected_seg = segs - 1;
+                        for (int i = 0; i < segs; i++)
+                        {
+                            lv_points.Items[i].Selected = false;
+                            lv_points.Items[i].Focused = false;
+                        }
+                        lv_points.Items[segs - 1].Selected = true;
+                        lv_points.Items[segs - 1].Focused = true;
+                        setButton_Click(null, null); //save points
+                    }
+                    else
+                    {
+                        MessageBox.Show("Select the char and enter the width first!");
+                    }
+                    
+                }
+                catch(FormatException exep)
+                {
+                    MessageBox.Show("Tolerance value is incorrect!");
+                }
+                //simplifying the pointcollection
+            }
+        }
+
+        private void pb_Draw_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown && drawCheckbox.Checked)
+            {
+                if (lastPoint != null)
+                {
+                    using (Graphics g = Graphics.FromImage(pb_editor.Image))
+                    {
+                        g.DrawLine(pen, lastPoint, e.Location);
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    }
+                    pb_editor.Invalidate();
+                    lastPoint = e.Location;
+                    pointCollection.Add(new System.Drawing.Point(e.Location.X, e.Location.Y));
+                    pointsCounter++;
+                    PointsAmountLabel.Text = "Points: " + pointsCounter;
+                }
+            }
+        }
+
+        private void p(object sender, EventArgs e)
+        {
+
+        }
     }
 }

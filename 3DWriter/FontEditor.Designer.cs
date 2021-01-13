@@ -32,7 +32,6 @@ namespace _3DWriter
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontEditor));
             this.FontComboBox = new MaterialSkin.Controls.MaterialComboBox();
-            this.button1 = new MaterialSkin.Controls.MaterialButton();
             this.btn_save_as = new MaterialSkin.Controls.MaterialButton();
             this.lv_charmap = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,9 +56,15 @@ namespace _3DWriter
             this.materialButton2 = new MaterialSkin.Controls.MaterialButton();
             this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.materialButton3 = new MaterialSkin.Controls.MaterialButton();
             this.materialButton4 = new MaterialSkin.Controls.MaterialButton();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.hq_checkbox = new MaterialSkin.Controls.MaterialCheckbox();
+            this.tolerance_textbox = new MaterialSkin.Controls.MaterialTextBox();
+            this.outputPointsLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.PointsAmountLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.drawCheckbox = new MaterialSkin.Controls.MaterialCheckbox();
+            this.clearButton = new MaterialSkin.Controls.MaterialButton();
+            this.materialButton3 = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -89,25 +94,6 @@ namespace _3DWriter
             this.FontComboBox.TabIndex = 0;
             this.FontComboBox.SelectedIndexChanged += new System.EventHandler(this.FontComboBox_SelectedIndexChanged);
             // 
-            // button1
-            // 
-            this.button1.AutoSize = false;
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Depth = 0;
-            this.button1.DrawShadows = true;
-            this.button1.HighEmphasis = true;
-            this.button1.Icon = null;
-            this.button1.Location = new System.Drawing.Point(664, 299);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.button1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Reload";
-            this.button1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.button1.UseAccentColor = false;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // btn_save_as
             // 
             this.btn_save_as.AutoSize = false;
@@ -116,17 +102,17 @@ namespace _3DWriter
             this.btn_save_as.DrawShadows = true;
             this.btn_save_as.HighEmphasis = true;
             this.btn_save_as.Icon = null;
-            this.btn_save_as.Location = new System.Drawing.Point(665, 345);
+            this.btn_save_as.Location = new System.Drawing.Point(738, 370);
             this.btn_save_as.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btn_save_as.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_save_as.Name = "btn_save_as";
-            this.btn_save_as.Size = new System.Drawing.Size(147, 55);
+            this.btn_save_as.Size = new System.Drawing.Size(74, 35);
             this.btn_save_as.TabIndex = 3;
-            this.btn_save_as.Text = "Save As";
+            this.btn_save_as.Text = "Save";
             this.btn_save_as.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btn_save_as.UseAccentColor = false;
             this.btn_save_as.UseVisualStyleBackColor = true;
-            this.btn_save_as.Click += new System.EventHandler(this.btn_save_as_Click);
+            this.btn_save_as.Click += new System.EventHandler(this.p);
             // 
             // lv_charmap
             // 
@@ -262,7 +248,7 @@ namespace _3DWriter
             this.button3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button3.UseAccentColor = false;
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.setButton_Click);
             // 
             // tb_width
             // 
@@ -289,13 +275,13 @@ namespace _3DWriter
             this.button6.DrawShadows = true;
             this.button6.HighEmphasis = true;
             this.button6.Icon = null;
-            this.button6.Location = new System.Drawing.Point(664, 205);
+            this.button6.Location = new System.Drawing.Point(661, 205);
             this.button6.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.button6.MouseState = MaterialSkin.MouseState.HOVER;
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(148, 36);
+            this.button6.Size = new System.Drawing.Size(63, 36);
             this.button6.TabIndex = 28;
-            this.button6.Text = "Update preview";
+            this.button6.Text = "Update";
             this.button6.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button6.UseAccentColor = false;
             this.button6.UseVisualStyleBackColor = true;
@@ -320,7 +306,7 @@ namespace _3DWriter
             this.button5.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button5.UseAccentColor = false;
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.AddSegment_Click);
             this.button5.MouseLeave += new System.EventHandler(this.button_Leave);
             // 
             // btn_add_char
@@ -379,7 +365,7 @@ namespace _3DWriter
             this.button2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button2.UseAccentColor = false;
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.deleteSegment_Click);
             this.button2.MouseLeave += new System.EventHandler(this.button_Leave);
             // 
             // pb_editor
@@ -391,6 +377,9 @@ namespace _3DWriter
             this.pb_editor.TabIndex = 25;
             this.pb_editor.TabStop = false;
             this.pb_editor.Click += new System.EventHandler(this.picture_box_click);
+            this.pb_editor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseDown);
+            this.pb_editor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseMove);
+            this.pb_editor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseUp);
             // 
             // button4
             // 
@@ -400,14 +389,14 @@ namespace _3DWriter
             this.button4.DrawShadows = true;
             this.button4.HighEmphasis = true;
             this.button4.Icon = null;
-            this.button4.Location = new System.Drawing.Point(665, 253);
+            this.button4.Location = new System.Drawing.Point(735, 207);
             this.button4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.button4.MinimumSize = new System.Drawing.Size(10, 10);
             this.button4.MouseState = MaterialSkin.MouseState.HOVER;
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(148, 34);
+            this.button4.Size = new System.Drawing.Size(79, 34);
             this.button4.TabIndex = 33;
-            this.button4.Text = "Transparent mode";
+            this.button4.Text = "Transp";
             this.button4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button4.UseAccentColor = false;
             this.button4.UseVisualStyleBackColor = true;
@@ -433,6 +422,7 @@ namespace _3DWriter
             this.button7.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button7.UseAccentColor = false;
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
             this.button7.Click += new System.EventHandler(this.scaleFontBy5);
             // 
             // panel1
@@ -498,53 +488,6 @@ namespace _3DWriter
             this.panel2.Size = new System.Drawing.Size(118, 55);
             this.panel2.TabIndex = 36;
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.materialButton3);
-            this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.FontComboBox);
-            this.panel3.Controls.Add(this.button7);
-            this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.button6);
-            this.panel3.Controls.Add(this.tb_width);
-            this.panel3.Controls.Add(this.button3);
-            this.panel3.Controls.Add(this.tb_x2);
-            this.panel3.Controls.Add(this.tb_x1);
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.lv_charmap);
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.btn_save_as);
-            this.panel3.Controls.Add(this.panel1);
-            this.panel3.Controls.Add(this.lv_points);
-            this.panel3.Controls.Add(this.pb_editor);
-            this.panel3.Location = new System.Drawing.Point(0, 64);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(825, 419);
-            this.panel3.TabIndex = 37;
-            // 
-            // materialButton3
-            // 
-            this.materialButton3.AutoSize = false;
-            this.materialButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton3.Depth = 0;
-            this.materialButton3.DrawShadows = true;
-            this.materialButton3.HighEmphasis = true;
-            this.materialButton3.Icon = null;
-            this.materialButton3.Location = new System.Drawing.Point(745, 58);
-            this.materialButton3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton3.MaximumSize = new System.Drawing.Size(1000, 1000);
-            this.materialButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton3.Name = "materialButton3";
-            this.materialButton3.Size = new System.Drawing.Size(67, 30);
-            this.materialButton3.TabIndex = 37;
-            this.materialButton3.Text = "Del Gap";
-            this.materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton3.UseAccentColor = false;
-            this.materialButton3.UseVisualStyleBackColor = true;
-            this.materialButton3.Click += new System.EventHandler(this.remove_gaps);
-            // 
             // materialButton4
             // 
             this.materialButton4.AutoSize = false;
@@ -563,6 +506,145 @@ namespace _3DWriter
             this.materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButton4.UseAccentColor = false;
             this.materialButton4.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.hq_checkbox);
+            this.panel3.Controls.Add(this.tolerance_textbox);
+            this.panel3.Controls.Add(this.outputPointsLabel);
+            this.panel3.Controls.Add(this.PointsAmountLabel);
+            this.panel3.Controls.Add(this.drawCheckbox);
+            this.panel3.Controls.Add(this.clearButton);
+            this.panel3.Controls.Add(this.materialButton3);
+            this.panel3.Controls.Add(this.panel2);
+            this.panel3.Controls.Add(this.FontComboBox);
+            this.panel3.Controls.Add(this.button7);
+            this.panel3.Controls.Add(this.button4);
+            this.panel3.Controls.Add(this.button6);
+            this.panel3.Controls.Add(this.tb_width);
+            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.tb_x2);
+            this.panel3.Controls.Add(this.tb_x1);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.lv_charmap);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.btn_save_as);
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Controls.Add(this.lv_points);
+            this.panel3.Controls.Add(this.pb_editor);
+            this.panel3.Location = new System.Drawing.Point(0, 64);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(825, 419);
+            this.panel3.TabIndex = 37;
+            // 
+            // hq_checkbox
+            // 
+            this.hq_checkbox.Depth = 0;
+            this.hq_checkbox.Location = new System.Drawing.Point(733, 337);
+            this.hq_checkbox.Margin = new System.Windows.Forms.Padding(0);
+            this.hq_checkbox.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.hq_checkbox.MouseState = MaterialSkin.MouseState.HOVER;
+            this.hq_checkbox.Name = "hq_checkbox";
+            this.hq_checkbox.Ripple = true;
+            this.hq_checkbox.Size = new System.Drawing.Size(79, 30);
+            this.hq_checkbox.TabIndex = 42;
+            this.hq_checkbox.Text = "HQ";
+            this.hq_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // tolerance_textbox
+            // 
+            this.tolerance_textbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tolerance_textbox.Depth = 0;
+            this.tolerance_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tolerance_textbox.Hint = "Draw tolerance";
+            this.tolerance_textbox.Location = new System.Drawing.Point(661, 248);
+            this.tolerance_textbox.MaxLength = 50;
+            this.tolerance_textbox.MouseState = MaterialSkin.MouseState.OUT;
+            this.tolerance_textbox.Multiline = false;
+            this.tolerance_textbox.Name = "tolerance_textbox";
+            this.tolerance_textbox.Size = new System.Drawing.Size(153, 50);
+            this.tolerance_textbox.TabIndex = 41;
+            this.tolerance_textbox.Text = "1";
+            // 
+            // outputPointsLabel
+            // 
+            this.outputPointsLabel.Depth = 0;
+            this.outputPointsLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.outputPointsLabel.Location = new System.Drawing.Point(663, 319);
+            this.outputPointsLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.outputPointsLabel.Name = "outputPointsLabel";
+            this.outputPointsLabel.Size = new System.Drawing.Size(151, 19);
+            this.outputPointsLabel.TabIndex = 40;
+            this.outputPointsLabel.Text = "Output points: 0";
+            // 
+            // PointsAmountLabel
+            // 
+            this.PointsAmountLabel.Depth = 0;
+            this.PointsAmountLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.PointsAmountLabel.Location = new System.Drawing.Point(663, 300);
+            this.PointsAmountLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.PointsAmountLabel.Name = "PointsAmountLabel";
+            this.PointsAmountLabel.Size = new System.Drawing.Size(149, 23);
+            this.PointsAmountLabel.TabIndex = 39;
+            this.PointsAmountLabel.Text = "Points: 0";
+            // 
+            // drawCheckbox
+            // 
+            this.drawCheckbox.Checked = true;
+            this.drawCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.drawCheckbox.Depth = 0;
+            this.drawCheckbox.Location = new System.Drawing.Point(655, 337);
+            this.drawCheckbox.Margin = new System.Windows.Forms.Padding(0);
+            this.drawCheckbox.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.drawCheckbox.MouseState = MaterialSkin.MouseState.HOVER;
+            this.drawCheckbox.Name = "drawCheckbox";
+            this.drawCheckbox.Ripple = true;
+            this.drawCheckbox.Size = new System.Drawing.Size(75, 30);
+            this.drawCheckbox.TabIndex = 38;
+            this.drawCheckbox.Text = "Draw";
+            this.drawCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // clearButton
+            // 
+            this.clearButton.AutoSize = false;
+            this.clearButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clearButton.Depth = 0;
+            this.clearButton.DrawShadows = true;
+            this.clearButton.HighEmphasis = true;
+            this.clearButton.Icon = null;
+            this.clearButton.Location = new System.Drawing.Point(659, 370);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.clearButton.MouseState = MaterialSkin.MouseState.HOVER;
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(71, 36);
+            this.clearButton.TabIndex = 35;
+            this.clearButton.Text = "Clear";
+            this.clearButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.clearButton.UseAccentColor = false;
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
+            // materialButton3
+            // 
+            this.materialButton3.AutoSize = false;
+            this.materialButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButton3.Depth = 0;
+            this.materialButton3.DrawShadows = true;
+            this.materialButton3.HighEmphasis = true;
+            this.materialButton3.Icon = null;
+            this.materialButton3.Location = new System.Drawing.Point(666, 58);
+            this.materialButton3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButton3.MaximumSize = new System.Drawing.Size(1000, 1000);
+            this.materialButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton3.Name = "materialButton3";
+            this.materialButton3.Size = new System.Drawing.Size(146, 30);
+            this.materialButton3.TabIndex = 37;
+            this.materialButton3.Text = "Del Gap";
+            this.materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButton3.UseAccentColor = false;
+            this.materialButton3.UseVisualStyleBackColor = true;
+            this.materialButton3.Click += new System.EventHandler(this.remove_gaps);
             // 
             // FontEditor
             // 
@@ -587,7 +669,6 @@ namespace _3DWriter
         #endregion
 
         private MaterialSkin.Controls.MaterialComboBox FontComboBox;
-        private MaterialSkin.Controls.MaterialButton button1;
         private MaterialSkin.Controls.MaterialButton btn_save_as;
         private MaterialSkin.Controls.MaterialListView lv_charmap;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -615,5 +696,11 @@ namespace _3DWriter
         private MaterialSkin.Controls.MaterialButton materialButton1;
         private MaterialSkin.Controls.MaterialButton materialButton3;
         private MaterialSkin.Controls.MaterialButton materialButton4;
+        private MaterialSkin.Controls.MaterialButton clearButton;
+        private MaterialSkin.Controls.MaterialCheckbox drawCheckbox;
+        private MaterialSkin.Controls.MaterialLabel PointsAmountLabel;
+        private MaterialSkin.Controls.MaterialLabel outputPointsLabel;
+        private MaterialSkin.Controls.MaterialCheckbox hq_checkbox;
+        private MaterialSkin.Controls.MaterialTextBox tolerance_textbox;
     }
 }

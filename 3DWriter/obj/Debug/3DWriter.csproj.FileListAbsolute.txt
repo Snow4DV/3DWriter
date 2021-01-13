@@ -347,3 +347,13 @@ C:\Users\ASUS\Source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter.TrustInf
 C:\Users\ASUS\Source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter.exe.manifest
 C:\Users\ASUS\Source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter.application
 C:\Users\ASUS\Source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter.csproj.CopyComplete
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\_3DWriter.DrawSymbol.resources
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Debug\CsPotrace.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\DrawSymbolSimplifier.g.cs
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter_Content.g.cs
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter_MarkupCompile.cache
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter_MarkupCompile.lref
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Debug\SimplifyCSharp.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Debug\SimplifyCSharp.pdb
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\DrawSymbolSimplifier.baml
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Debug\3DWriter.g.resources

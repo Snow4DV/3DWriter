@@ -48,29 +48,36 @@ namespace _3DWriter
             string line;
 
             int charcount = 0;
-           // toolStripStatusLabel1.Text = "Loading font - " + fname;//TODO OR RM
-            System.IO.StreamReader file =
-            new System.IO.StreamReader("fonts" + Path.DirectorySeparatorChar + fname + ".cmf");
-            while ((line = file.ReadLine()) != null)                                    // iterate through the font file
+            // toolStripStatusLabel1.Text = "Loading font - " + fname;//TODO OR RM
+            try
             {
-                if (counter == 0) { Double.TryParse(line, out h_char_count); }          //first line: Character count
-                if (counter == 1) { Double.TryParse(line, out h_height); }              //second line: Character height
-                if (counter == 2) { h_font_map = line; }                                //third line: Character map
-                if (counter > 2)
+                System.IO.StreamReader file =
+                new System.IO.StreamReader("fonts" + Path.DirectorySeparatorChar + fname + ".cmf");
+                while ((line = file.ReadLine()) != null)                                    // iterate through the font file
                 {
-                    //each line consists of width, realwidth, arraysize, [x/y pairs]    //arraysize is unused   //??
-                    string[] temparray = line.Split(',');
-                    font_chars[charcount] = new double[temparray.Length ];
-                    for(int idx=0; idx< temparray.Length; idx++)
+                    if (counter == 0) { Double.TryParse(line, out h_char_count); }          //first line: Character count
+                    if (counter == 1) { Double.TryParse(line, out h_height); }              //second line: Character height
+                    if (counter == 2) { h_font_map = line; }                                //third line: Character map
+                    if (counter > 2)
                     {
-                        Double.TryParse(temparray[idx], out font_chars[charcount][idx]);
+                        //each line consists of width, realwidth, arraysize, [x/y pairs]    //arraysize is unused   //??
+                        string[] temparray = line.Split(',');
+                        font_chars[charcount] = new double[temparray.Length];
+                        for (int idx = 0; idx < temparray.Length; idx++)
+                        {
+                            Double.TryParse(temparray[idx], out font_chars[charcount][idx]);
+                        }
+                        charcount++;
                     }
-                    charcount++;
+                    counter++;
                 }
-                counter++;
+                file.Close();
+                update_font_size();
             }
-            file.Close();
-            update_font_size();
+            catch(FileNotFoundException exeption)
+            {
+                MessageBox.Show("Error! Font called " + fname + " that you previously selected was not found. Select another one.");
+            }
         }
 
         public void load_font_old(string fname)
@@ -1410,6 +1417,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AboutBox box = new AboutBox();
+            
             box.Show();
         }
 
@@ -1620,6 +1628,21 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
         }
 
         private void dsaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label29_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label30_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label28_Click(object sender, EventArgs e)
         {
 
         }
