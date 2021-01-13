@@ -1,9 +1,8 @@
-# 3DWriter Handwiritng edition 
+# 3DWriter Handwriting edition 
 Use your 3D printer or plotter to write your homework/letters/etc. It's a fork of boy1dr software with amount of major improvements that let you to pretend that the result is something written not by a machine but with your hand.
 
 # Improvements comparing to the boy1dr/3DWriter repo 
 * The main point of the fork was to add the ability to create your own font. You can actually transfer your "in real life" handwriting and use it!
-* 5 times increased resolution (still not sure whatever is it good or not but it makes font making more comfortable)
 * Handwriting modifiers that makes it more realistic
 * New material design that makes it cooler :)
  
@@ -27,9 +26,14 @@ At first you have to convert existing fonts using font menu to increase its size
 
 ## Make your own font [improvement]
 
-If you click on the menu button you will be able to find "Font editor" here. That's the feature that was finished about 70%  by boy1dr and I just made it till the usable state (still needs to be improved though). Here you can easily edit existing letters and even add new (for example, cyrillic, turkish and so on). You can also setup the input/output points to the letters - while rendering if previous letters has an output point and the current one has an input point - it would connect the letters in the same way as you do it when writing.
+If you click on the menu button you will be able to find "Font editor" here. That's the feature that was finished about 70%  by boy1dr and I just made it till the usable state. Here you can easily edit existing letters and even add new (for example, cyrillic, turkish and so on). You can also setup the input/output points to the letters - while rendering if previous letters has an output point and the current one has an input point - it would connect the letters in the same way as you do it when writing.
 
-Click left mouse button if you want to move vectors' start coordinats and right if you want to move  vectors' end coordinates. When you add input points (for letter connections) you have to change only vectors' start coordinates and when you add output points it is important to change vectors' end coordinates only.
+Now you are able to add symbols just by drawing them using your graphics tablet or a mouse! Simply start drawing on the field and algorythm will do its magic:
+![alt text](https://github.com/Snow4DV/3DWriter/blob/master/example_images/symbol_drawing_example.gif "Symbol drawing")
+Thanks for it to this C# fork https://github.com/rohaanhamid/simplify-csharp by @rohaanhamid.
+
+Old way of symbol creation: Click left mouse button if you want to move vectors' start coordinats and right if you want to move  vectors' end coordinates. When you add input points (for letter connections) you have to change only vectors' start coordinates and when you add output points it is important to change vectors' end coordinates only.
+
 
 You can also add multiple variants of one letter to the font - it would randomly choose one of these (new feature also)
 ## Handwriting modifiers [improvement]
