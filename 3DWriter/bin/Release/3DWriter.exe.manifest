@@ -4,7 +4,7 @@
   <description asmv2:iconFile="3dwriter_logo_transparent_background_square_logo_Qh2_icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="3DWriter" version="1.7.0.1" language="neutral" processorArchitecture="msil" />
     <commandLine file="3DWriter.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="372224">
-      <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="544256">
+      <assemblyIdentity name="3DWriter" version="1.7.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KgA5WSbP7Wc83rfJQiUorPQA8A0LNUUYHhgsxoYF6uc=</dsig:DigestValue>
+        <dsig:DigestValue>TFnH7o/nk+QYlglL3MIFXgyx9ZQq03YTgba8ZuUafOg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -411,13 +411,13 @@
       <dsig:DigestValue>J+nZi1a0IXsA428kWd7Ao2a1PJhpTkgnHdCUUr47LY0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="version.txt" size="10">
+  <file name="version.txt" size="7">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qGukvpBbd8SToLnOjt+q6YRGwmwSYf5jaKE3K3RRZsk=</dsig:DigestValue>
+      <dsig:DigestValue>oNJekP3beeDamSf5cMm4mED0UFR1Xe3POmeO4ZQZIwU=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

@@ -1,6 +1,4 @@
-﻿
-
-namespace _3DWriter
+﻿namespace _3DWriter
 {
     partial class FontEditor
     {
@@ -49,7 +47,6 @@ namespace _3DWriter
             this.btn_add_char = new MaterialSkin.Controls.MaterialButton();
             this.tb_char_to_add = new MaterialSkin.Controls.MaterialTextBox();
             this.button2 = new MaterialSkin.Controls.MaterialButton();
-            this.pb_editor = new System.Windows.Forms.PictureBox();
             this.button4 = new MaterialSkin.Controls.MaterialButton();
             this.button7 = new MaterialSkin.Controls.MaterialButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -65,10 +62,19 @@ namespace _3DWriter
             this.drawCheckbox = new MaterialSkin.Controls.MaterialCheckbox();
             this.clearButton = new MaterialSkin.Controls.MaterialButton();
             this.materialButton3 = new MaterialSkin.Controls.MaterialButton();
-            ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).BeginInit();
+            this.topWritingLineArrow = new System.Windows.Forms.PictureBox();
+            this.bottomWritingLineArrow = new System.Windows.Forms.PictureBox();
+            this.pb_editor = new System.Windows.Forms.PictureBox();
+            this.bottomLineDrawing = new System.Windows.Forms.PictureBox();
+            this.topLineDrawing = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topWritingLineArrow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomWritingLineArrow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomLineDrawing)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topLineDrawing)).BeginInit();
             this.SuspendLayout();
             // 
             // FontComboBox
@@ -112,7 +118,7 @@ namespace _3DWriter
             this.btn_save_as.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btn_save_as.UseAccentColor = false;
             this.btn_save_as.UseVisualStyleBackColor = true;
-            this.btn_save_as.Click += new System.EventHandler(this.p);
+            this.btn_save_as.Click += new System.EventHandler(this.btn_save_as_Click);
             // 
             // lv_charmap
             // 
@@ -202,7 +208,7 @@ namespace _3DWriter
             // 
             this.tb_x1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_x1.Depth = 0;
-            this.tb_x1.Font = new System.Drawing.Font("Roboto", 12F);
+            this.tb_x1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.tb_x1.Hint = "X1,Y1";
             this.tb_x1.Location = new System.Drawing.Point(735, 92);
             this.tb_x1.Margin = new System.Windows.Forms.Padding(0);
@@ -218,7 +224,7 @@ namespace _3DWriter
             // 
             this.tb_x2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_x2.Depth = 0;
-            this.tb_x2.Font = new System.Drawing.Font("Roboto", 12F);
+            this.tb_x2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.tb_x2.Hint = "X2,Y2";
             this.tb_x2.Location = new System.Drawing.Point(735, 148);
             this.tb_x2.Margin = new System.Windows.Forms.Padding(1);
@@ -254,7 +260,7 @@ namespace _3DWriter
             // 
             this.tb_width.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_width.Depth = 0;
-            this.tb_width.Font = new System.Drawing.Font("Roboto", 12F);
+            this.tb_width.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.tb_width.Hint = "Width";
             this.tb_width.Location = new System.Drawing.Point(664, 5);
             this.tb_width.MaximumSize = new System.Drawing.Size(1000, 1000);
@@ -275,13 +281,13 @@ namespace _3DWriter
             this.button6.DrawShadows = true;
             this.button6.HighEmphasis = true;
             this.button6.Icon = null;
-            this.button6.Location = new System.Drawing.Point(661, 205);
+            this.button6.Location = new System.Drawing.Point(666, 58);
             this.button6.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.button6.MouseState = MaterialSkin.MouseState.HOVER;
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(63, 36);
+            this.button6.Size = new System.Drawing.Size(39, 30);
             this.button6.TabIndex = 28;
-            this.button6.Text = "Update";
+            this.button6.Text = "Upd";
             this.button6.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button6.UseAccentColor = false;
             this.button6.UseVisualStyleBackColor = true;
@@ -334,7 +340,7 @@ namespace _3DWriter
             // 
             this.tb_char_to_add.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_char_to_add.Depth = 0;
-            this.tb_char_to_add.Font = new System.Drawing.Font("Roboto", 12F);
+            this.tb_char_to_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.tb_char_to_add.Location = new System.Drawing.Point(0, 5);
             this.tb_char_to_add.Margin = new System.Windows.Forms.Padding(0);
             this.tb_char_to_add.MaximumSize = new System.Drawing.Size(500, 500);
@@ -368,19 +374,6 @@ namespace _3DWriter
             this.button2.Click += new System.EventHandler(this.deleteSegment_Click);
             this.button2.MouseLeave += new System.EventHandler(this.button_Leave);
             // 
-            // pb_editor
-            // 
-            this.pb_editor.Image = global::_3DWriter.Properties.Resources.red_grid;
-            this.pb_editor.Location = new System.Drawing.Point(135, 5);
-            this.pb_editor.Name = "pb_editor";
-            this.pb_editor.Size = new System.Drawing.Size(400, 400);
-            this.pb_editor.TabIndex = 25;
-            this.pb_editor.TabStop = false;
-            this.pb_editor.Click += new System.EventHandler(this.picture_box_click);
-            this.pb_editor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseDown);
-            this.pb_editor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseMove);
-            this.pb_editor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseUp);
-            // 
             // button4
             // 
             this.button4.AutoSize = false;
@@ -389,14 +382,14 @@ namespace _3DWriter
             this.button4.DrawShadows = true;
             this.button4.HighEmphasis = true;
             this.button4.Icon = null;
-            this.button4.Location = new System.Drawing.Point(735, 207);
+            this.button4.Location = new System.Drawing.Point(710, 58);
             this.button4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.button4.MinimumSize = new System.Drawing.Size(10, 10);
             this.button4.MouseState = MaterialSkin.MouseState.HOVER;
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(79, 34);
+            this.button4.Size = new System.Drawing.Size(56, 30);
             this.button4.TabIndex = 33;
-            this.button4.Text = "Transp";
+            this.button4.Text = "TRANSP";
             this.button4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button4.UseAccentColor = false;
             this.button4.UseVisualStyleBackColor = true;
@@ -410,7 +403,7 @@ namespace _3DWriter
             this.button7.DrawShadows = true;
             this.button7.HighEmphasis = true;
             this.button7.Icon = null;
-            this.button7.Location = new System.Drawing.Point(665, 58);
+            this.button7.Location = new System.Drawing.Point(35, 328);
             this.button7.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.button7.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.button7.MinimumSize = new System.Drawing.Size(1, 1);
@@ -509,7 +502,12 @@ namespace _3DWriter
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.topLineDrawing);
+            this.panel3.Controls.Add(this.bottomLineDrawing);
+            this.panel3.Controls.Add(this.topWritingLineArrow);
+            this.panel3.Controls.Add(this.bottomWritingLineArrow);
             this.panel3.Controls.Add(this.hq_checkbox);
+            this.panel3.Controls.Add(this.button7);
             this.panel3.Controls.Add(this.tolerance_textbox);
             this.panel3.Controls.Add(this.outputPointsLabel);
             this.panel3.Controls.Add(this.PointsAmountLabel);
@@ -518,7 +516,6 @@ namespace _3DWriter
             this.panel3.Controls.Add(this.materialButton3);
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.FontComboBox);
-            this.panel3.Controls.Add(this.button7);
             this.panel3.Controls.Add(this.button4);
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.tb_width);
@@ -557,7 +554,7 @@ namespace _3DWriter
             this.tolerance_textbox.Depth = 0;
             this.tolerance_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tolerance_textbox.Hint = "Draw tolerance";
-            this.tolerance_textbox.Location = new System.Drawing.Point(661, 248);
+            this.tolerance_textbox.Location = new System.Drawing.Point(661, 249);
             this.tolerance_textbox.MaxLength = 50;
             this.tolerance_textbox.MouseState = MaterialSkin.MouseState.OUT;
             this.tolerance_textbox.Multiline = false;
@@ -632,19 +629,78 @@ namespace _3DWriter
             this.materialButton3.DrawShadows = true;
             this.materialButton3.HighEmphasis = true;
             this.materialButton3.Icon = null;
-            this.materialButton3.Location = new System.Drawing.Point(664, 58);
+            this.materialButton3.Location = new System.Drawing.Point(772, 58);
             this.materialButton3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton3.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.materialButton3.MinimumSize = new System.Drawing.Size(1, 1);
             this.materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton3.Name = "materialButton3";
-            this.materialButton3.Size = new System.Drawing.Size(148, 30);
+            this.materialButton3.Size = new System.Drawing.Size(40, 30);
             this.materialButton3.TabIndex = 37;
-            this.materialButton3.Text = "Del Gap";
+            this.materialButton3.Text = "Gap";
             this.materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButton3.UseAccentColor = false;
             this.materialButton3.UseVisualStyleBackColor = true;
             this.materialButton3.Click += new System.EventHandler(this.remove_gaps);
+            // 
+            // topWritingLineArrow
+            // 
+            this.topWritingLineArrow.BackColor = System.Drawing.Color.Transparent;
+            this.topWritingLineArrow.Image = global::_3DWriter.Properties.Resources.keyboard_arrow_left_black_96x96__1_;
+            this.topWritingLineArrow.Location = new System.Drawing.Point(483, 29);
+            this.topWritingLineArrow.Name = "topWritingLineArrow";
+            this.topWritingLineArrow.Size = new System.Drawing.Size(24, 24);
+            this.topWritingLineArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.topWritingLineArrow.TabIndex = 44;
+            this.topWritingLineArrow.TabStop = false;
+            this.topWritingLineArrow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topWritingLineArrow_MouseMove);
+            // 
+            // bottomWritingLineArrow
+            // 
+            this.bottomWritingLineArrow.BackColor = System.Drawing.Color.Transparent;
+            this.bottomWritingLineArrow.Image = global::_3DWriter.Properties.Resources.keyboard_arrow_left_black_96x96__1_;
+            this.bottomWritingLineArrow.Location = new System.Drawing.Point(486, 343);
+            this.bottomWritingLineArrow.Name = "bottomWritingLineArrow";
+            this.bottomWritingLineArrow.Size = new System.Drawing.Size(24, 24);
+            this.bottomWritingLineArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.bottomWritingLineArrow.TabIndex = 43;
+            this.bottomWritingLineArrow.TabStop = false;
+            this.bottomWritingLineArrow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.bottomWritingLineArrow_MouseMove);
+            // 
+            // pb_editor
+            // 
+            this.pb_editor.Image = ((System.Drawing.Image)(resources.GetObject("pb_editor.Image")));
+            this.pb_editor.Location = new System.Drawing.Point(133, 5);
+            this.pb_editor.Name = "pb_editor";
+            this.pb_editor.Size = new System.Drawing.Size(400, 400);
+            this.pb_editor.TabIndex = 25;
+            this.pb_editor.TabStop = false;
+            this.pb_editor.Click += new System.EventHandler(this.picture_box_click);
+            this.pb_editor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseDown);
+            this.pb_editor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseMove);
+            this.pb_editor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseUp);
+            // 
+            // bottomLineDrawing
+            // 
+            this.bottomLineDrawing.BackColor = System.Drawing.Color.Transparent;
+            this.bottomLineDrawing.Image = global::_3DWriter.Properties.Resources.line;
+            this.bottomLineDrawing.Location = new System.Drawing.Point(136, 354);
+            this.bottomLineDrawing.Name = "bottomLineDrawing";
+            this.bottomLineDrawing.Size = new System.Drawing.Size(352, 2);
+            this.bottomLineDrawing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.bottomLineDrawing.TabIndex = 45;
+            this.bottomLineDrawing.TabStop = false;
+            // 
+            // topLineDrawing
+            // 
+            this.topLineDrawing.BackColor = System.Drawing.Color.Transparent;
+            this.topLineDrawing.Image = global::_3DWriter.Properties.Resources.line;
+            this.topLineDrawing.Location = new System.Drawing.Point(131, 40);
+            this.topLineDrawing.Name = "topLineDrawing";
+            this.topLineDrawing.Size = new System.Drawing.Size(352, 2);
+            this.topLineDrawing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.topLineDrawing.TabIndex = 44;
+            this.topLineDrawing.TabStop = false;
             // 
             // FontEditor
             // 
@@ -657,11 +713,15 @@ namespace _3DWriter
             this.Name = "FontEditor";
             this.Text = "FontEditor";
             this.Load += new System.EventHandler(this.FontEditor_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topWritingLineArrow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomWritingLineArrow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomLineDrawing)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topLineDrawing)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -702,5 +762,9 @@ namespace _3DWriter
         private MaterialSkin.Controls.MaterialLabel outputPointsLabel;
         private MaterialSkin.Controls.MaterialCheckbox hq_checkbox;
         private MaterialSkin.Controls.MaterialTextBox tolerance_textbox;
+        private System.Windows.Forms.PictureBox bottomWritingLineArrow;
+        private System.Windows.Forms.PictureBox topWritingLineArrow;
+        private System.Windows.Forms.PictureBox bottomLineDrawing;
+        private System.Windows.Forms.PictureBox topLineDrawing;
     }
 }

@@ -30,6 +30,7 @@ namespace _3DWriter
 
 
         Point lastPoint = Point.Empty;
+        int pointsCounter = 0;
         IList<Point> pointCollection = new List<Point>();
         Pen pen = new Pen(Color.Black, 2);
         bool isMouseDown = false;
@@ -38,11 +39,10 @@ namespace _3DWriter
         double h_height = 160;       
         //font character height
         double h_char_count;                                    //font character count
-        string h_font_map;                                      //font map - Character index array
+        string h_font_map;                                      //font mapz - Character index array
         double[][] font_chars = new double[250][];              //the main font array
         int segs = 0;
         int selected_seg = 0;
-        private int pointsCounter = 0;
 
         public FontEditor()
         {
@@ -53,12 +53,10 @@ namespace _3DWriter
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new MaterialSkin.ColorScheme(MaterialSkin.Primary.BlueGrey800, MaterialSkin.Primary.BlueGrey900, MaterialSkin.Primary.BlueGrey500, MaterialSkin.Accent.LightBlue200, MaterialSkin.TextShade.WHITE);
-  
+
 
         }
 
-       
-      
         private void FontEditor_Load(object sender, EventArgs e)
         {
             string[] fileEntries = Directory.GetFiles("fonts");
@@ -223,9 +221,16 @@ namespace _3DWriter
         }
         private void picture_box_click(object sender, EventArgs e)
         {
+            MouseEventArgs me = (MouseEventArgs)e;
+            if(drawCheckbox.Checked && lv_charmap.SelectedItems.Count != 0)
+            {
+                if(me.Button == MouseButtons.Right)
+                {
+                    clearButton_Click(null, null);
+                }
+            }
             if (tb_width.Text != "" && lv_charmap.SelectedItems.Count != 0 && !drawCheckbox.Checked)
             {
-                MouseEventArgs me = (MouseEventArgs)e;
                 int scale = 2;
                 switch (me.Button)
                 {
@@ -790,6 +795,7 @@ namespace _3DWriter
         {
             pointsCounter = 0;
             lastPoint = e.Location;
+            pointCollection.Add(e.Location);
             isMouseDown = true;
         }
 
@@ -814,6 +820,7 @@ namespace _3DWriter
                     {
                         for(int i = 0; i < simplifiedPointsLine.Count - 1; i++) //iterating through every point except the last one because line builds of two points - this and next
                         {
+                          
                             lv_points.Items.Add(simplifiedPointsLine[i].X / 2 + "," + simplifiedPointsLine[i].Y / 2 + "," + (simplifiedPointsLine[i+1].X / 2 + "," + simplifiedPointsLine[i+1].Y / 2));
                             segs++;
                         }
@@ -855,15 +862,30 @@ namespace _3DWriter
                     pb_editor.Invalidate();
                     lastPoint = e.Location;
                     pointCollection.Add(new System.Drawing.Point(e.Location.X, e.Location.Y));
-                    pointsCounter++;
+                    pointsCounter = pointCollection.Count;
                     PointsAmountLabel.Text = "Points: " + pointsCounter;
                 }
             }
         }
 
-        private void p(object sender, EventArgs e)
-        {
+        
 
+        private void bottomWritingLineArrow_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                bottomWritingLineArrow.Location = new Point(bottomWritingLineArrow.Location.X, Convert.ToInt32(e.Location.Y + bottomWritingLineArrow.Location.Y - bottomWritingLineArrow.Height/2));
+                bottomLineDrawing.Location = new Point(bottomLineDrawing.Location.X, Convert.ToInt32(e.Location.Y + bottomWritingLineArrow.Location.Y - bottomLineDrawing.Height / 2));
+            }
+        }
+
+        private void topWritingLineArrow_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                topWritingLineArrow.Location = new Point(topWritingLineArrow.Location.X, Convert.ToInt32(e.Location.Y + topWritingLineArrow.Location.Y - topWritingLineArrow.Height / 2));
+                topLineDrawing.Location = new Point(topLineDrawing.Location.X, Convert.ToInt32(e.Location.Y + topWritingLineArrow.Location.Y - topLineDrawing.Height / 2));
+            }
         }
     }
 }

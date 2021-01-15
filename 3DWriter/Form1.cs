@@ -229,15 +229,15 @@ namespace _3DWriter
                 //read the version file from github
                 Random random = new Random();
                 WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://raw.githubusercontent.com/Snow4DV/3DWriter/master/3DWriter/version.txt?random=" + random.Next().ToString());
+                Stream stream = client.OpenRead("https://raw.githubusercontent.com/Snow4DV/3DWriter/master/3DWriter/version.txt?random=" + Application.ProductVersion.ToString());
                 StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                if(content!="" && Application.ProductVersion.ToString() != content)
+                String content = reader.ReadToEnd().Trim('\n');
+                if(content!="" && !Application.ProductVersion.ToString().Equals(content))
                 {
-                    DialogResult dialogResult = MessageBox.Show("Open github page?", "Update available", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show("Open github page? Current version is \"" + Application.ProductVersion.ToString() + "\"", "Update available - \"" + content + "\"", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        Process.Start("https://github.com/boy1dr/3DWriter");
+                        Process.Start("https://github.com/Snow4DV/3DWriter");
                     }
                     else if (dialogResult == DialogResult.No)
                     {

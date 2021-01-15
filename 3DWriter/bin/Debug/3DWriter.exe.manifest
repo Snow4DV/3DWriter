@@ -4,7 +4,7 @@
   <description asmv2:iconFile="3dwriter_logo_transparent_background_square_logo_Qh2_icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="3DWriter" version="1.6.4.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="3DWriter.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,26 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="394240">
-      <assemblyIdentity name="3DWriter" version="1.6.4.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="566272">
+      <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>euvEM1nNROd/6/fF6O8a3lFoU7NwS6Tmp88kusypS+8=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CsPotrace.dll" size="31232">
-      <assemblyIdentity name="CsPotrace" version="2.0.0.1" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4cO0Bonu1bUSX31t/w7BPWJJ1pHOcFX33yNAH5dmtGU=</dsig:DigestValue>
+        <dsig:DigestValue>cho4scZAmyfkkMMY+xio1EbL+ca4lXWui9EC287y0g4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -124,15 +112,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>k2afJwTeQvQEyYTEZnqpj7H2GmplnD+FyCYYC21xFeg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="CsPotrace.dll" size="31232">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>4cO0Bonu1bUSX31t/w7BPWJJ1pHOcFX33yNAH5dmtGU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="fonts\astrology.png" size="11735">
@@ -432,13 +411,22 @@
       <dsig:DigestValue>J+nZi1a0IXsA428kWd7Ao2a1PJhpTkgnHdCUUr47LY0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="version.txt" size="10">
+  <file name="Resources\keyboard_arrow_left_black_96x96 (1).png" size="3364">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>8PHSo5XFqNW2Neg1ADzka75cFT0qU6DA8FzoXBbMF+E=</dsig:DigestValue>
+      <dsig:DigestValue>lzO0Rx1LxwOOf9LcwF7EAf+RCMQpEGI5PO+6E9Z6JDY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="version.txt" size="94">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>5kkJ3aNmnC0vwMbTPf6W3/93It3eQSK06KthVioAFPA=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
