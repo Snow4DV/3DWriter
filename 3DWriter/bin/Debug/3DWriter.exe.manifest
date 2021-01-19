@@ -4,7 +4,7 @@
   <description asmv2:iconFile="3dwriter_logo_transparent_background_square_logo_Qh2_icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="3DWriter" version="1.7.0.1" language="neutral" processorArchitecture="msil" />
     <commandLine file="3DWriter.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="566272">
-      <assemblyIdentity name="3DWriter" version="1.7.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="570880">
+      <assemblyIdentity name="3DWriter" version="1.7.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cho4scZAmyfkkMMY+xio1EbL+ca4lXWui9EC287y0g4=</dsig:DigestValue>
+        <dsig:DigestValue>jIpmjqF3iP+nMgfE9QKHLk+5qzgpl7MPJbSv4arFtrk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,13 +78,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="3DWriter.exe.config" size="4381">
+  <file name="3DWriter.exe.config" size="4605">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qOt220phNWllFMrxdGFEuHmlXlIHc6bVgacCU+MBr1c=</dsig:DigestValue>
+      <dsig:DigestValue>1jI5GDMuxKslS9MQObcY+RVKKYc6KJnADaLaquzbJpQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="3dwriter_logo_icon_icon_xIo_icon.ico" size="32177">
@@ -411,22 +411,13 @@
       <dsig:DigestValue>J+nZi1a0IXsA428kWd7Ao2a1PJhpTkgnHdCUUr47LY0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Resources\keyboard_arrow_left_black_96x96 (1).png" size="3364">
+  <file name="version.txt" size="7">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>lzO0Rx1LxwOOf9LcwF7EAf+RCMQpEGI5PO+6E9Z6JDY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="version.txt" size="94">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>5kkJ3aNmnC0vwMbTPf6W3/93It3eQSK06KthVioAFPA=</dsig:DigestValue>
+      <dsig:DigestValue>on/qoA66xSvNFcwPEZOnzZO1cyYIaHc+ocK86DZ+Qgg=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

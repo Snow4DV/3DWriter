@@ -55,26 +55,29 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.materialButton4 = new MaterialSkin.Controls.MaterialButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.autogapCheckbox = new MaterialSkin.Controls.MaterialCheckbox();
             this.hq_checkbox = new MaterialSkin.Controls.MaterialCheckbox();
+            this.autoInputOutputPoints = new MaterialSkin.Controls.MaterialCheckbox();
+            this.topLineDrawing = new System.Windows.Forms.PictureBox();
+            this.bottomLineDrawing = new System.Windows.Forms.PictureBox();
+            this.topWritingLineArrow = new System.Windows.Forms.PictureBox();
+            this.bottomWritingLineArrow = new System.Windows.Forms.PictureBox();
             this.tolerance_textbox = new MaterialSkin.Controls.MaterialTextBox();
             this.outputPointsLabel = new MaterialSkin.Controls.MaterialLabel();
             this.PointsAmountLabel = new MaterialSkin.Controls.MaterialLabel();
             this.drawCheckbox = new MaterialSkin.Controls.MaterialCheckbox();
             this.clearButton = new MaterialSkin.Controls.MaterialButton();
             this.materialButton3 = new MaterialSkin.Controls.MaterialButton();
-            this.topWritingLineArrow = new System.Windows.Forms.PictureBox();
-            this.bottomWritingLineArrow = new System.Windows.Forms.PictureBox();
             this.pb_editor = new System.Windows.Forms.PictureBox();
-            this.bottomLineDrawing = new System.Windows.Forms.PictureBox();
-            this.topLineDrawing = new System.Windows.Forms.PictureBox();
+            this.symbolsMapSettings = new MaterialSkin.Controls.MaterialButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topLineDrawing)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomLineDrawing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topWritingLineArrow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bottomWritingLineArrow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomLineDrawing)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topLineDrawing)).BeginInit();
             this.SuspendLayout();
             // 
             // FontComboBox
@@ -208,7 +211,7 @@
             // 
             this.tb_x1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_x1.Depth = 0;
-            this.tb_x1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.tb_x1.Font = new System.Drawing.Font("Roboto", 12F);
             this.tb_x1.Hint = "X1,Y1";
             this.tb_x1.Location = new System.Drawing.Point(735, 92);
             this.tb_x1.Margin = new System.Windows.Forms.Padding(0);
@@ -224,7 +227,7 @@
             // 
             this.tb_x2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_x2.Depth = 0;
-            this.tb_x2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.tb_x2.Font = new System.Drawing.Font("Roboto", 12F);
             this.tb_x2.Hint = "X2,Y2";
             this.tb_x2.Location = new System.Drawing.Point(735, 148);
             this.tb_x2.Margin = new System.Windows.Forms.Padding(1);
@@ -260,7 +263,7 @@
             // 
             this.tb_width.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_width.Depth = 0;
-            this.tb_width.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.tb_width.Font = new System.Drawing.Font("Roboto", 12F);
             this.tb_width.Hint = "Width";
             this.tb_width.Location = new System.Drawing.Point(664, 5);
             this.tb_width.MaximumSize = new System.Drawing.Size(1000, 1000);
@@ -323,11 +326,11 @@
             this.btn_add_char.DrawShadows = true;
             this.btn_add_char.HighEmphasis = true;
             this.btn_add_char.Icon = null;
-            this.btn_add_char.Location = new System.Drawing.Point(84, 6);
+            this.btn_add_char.Location = new System.Drawing.Point(91, 364);
             this.btn_add_char.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btn_add_char.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_add_char.Name = "btn_add_char";
-            this.btn_add_char.Size = new System.Drawing.Size(30, 19);
+            this.btn_add_char.Size = new System.Drawing.Size(34, 44);
             this.btn_add_char.TabIndex = 30;
             this.btn_add_char.Text = "+";
             this.btn_add_char.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -340,7 +343,7 @@
             // 
             this.tb_char_to_add.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_char_to_add.Depth = 0;
-            this.tb_char_to_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.tb_char_to_add.Font = new System.Drawing.Font("Roboto", 12F);
             this.tb_char_to_add.Location = new System.Drawing.Point(0, 5);
             this.tb_char_to_add.Margin = new System.Windows.Forms.Padding(0);
             this.tb_char_to_add.MaximumSize = new System.Drawing.Size(500, 500);
@@ -473,9 +476,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.materialButton4);
             this.panel2.Controls.Add(this.tb_char_to_add);
-            this.panel2.Controls.Add(this.btn_add_char);
             this.panel2.Location = new System.Drawing.Point(9, 359);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(118, 55);
@@ -489,11 +490,11 @@
             this.materialButton4.DrawShadows = true;
             this.materialButton4.HighEmphasis = true;
             this.materialButton4.Icon = null;
-            this.materialButton4.Location = new System.Drawing.Point(84, 31);
+            this.materialButton4.Location = new System.Drawing.Point(134, 365);
             this.materialButton4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton4.Name = "materialButton4";
-            this.materialButton4.Size = new System.Drawing.Size(30, 19);
+            this.materialButton4.Size = new System.Drawing.Size(34, 43);
             this.materialButton4.TabIndex = 32;
             this.materialButton4.Text = "-";
             this.materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -502,11 +503,16 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btn_add_char);
+            this.panel3.Controls.Add(this.materialButton4);
+            this.panel3.Controls.Add(this.symbolsMapSettings);
+            this.panel3.Controls.Add(this.autogapCheckbox);
+            this.panel3.Controls.Add(this.hq_checkbox);
+            this.panel3.Controls.Add(this.autoInputOutputPoints);
             this.panel3.Controls.Add(this.topLineDrawing);
             this.panel3.Controls.Add(this.bottomLineDrawing);
             this.panel3.Controls.Add(this.topWritingLineArrow);
             this.panel3.Controls.Add(this.bottomWritingLineArrow);
-            this.panel3.Controls.Add(this.hq_checkbox);
             this.panel3.Controls.Add(this.button7);
             this.panel3.Controls.Add(this.tolerance_textbox);
             this.panel3.Controls.Add(this.outputPointsLabel);
@@ -534,10 +540,26 @@
             this.panel3.Size = new System.Drawing.Size(825, 419);
             this.panel3.TabIndex = 37;
             // 
+            // autogapCheckbox
+            // 
+            this.autogapCheckbox.Checked = true;
+            this.autogapCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autogapCheckbox.Depth = 0;
+            this.autogapCheckbox.Location = new System.Drawing.Point(687, 207);
+            this.autogapCheckbox.Margin = new System.Windows.Forms.Padding(0);
+            this.autogapCheckbox.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.autogapCheckbox.MouseState = MaterialSkin.MouseState.HOVER;
+            this.autogapCheckbox.Name = "autogapCheckbox";
+            this.autogapCheckbox.Ripple = true;
+            this.autogapCheckbox.Size = new System.Drawing.Size(98, 30);
+            this.autogapCheckbox.TabIndex = 47;
+            this.autogapCheckbox.Text = "Autogap";
+            this.autogapCheckbox.UseVisualStyleBackColor = true;
+            // 
             // hq_checkbox
             // 
             this.hq_checkbox.Depth = 0;
-            this.hq_checkbox.Location = new System.Drawing.Point(733, 337);
+            this.hq_checkbox.Location = new System.Drawing.Point(28, 300);
             this.hq_checkbox.Margin = new System.Windows.Forms.Padding(0);
             this.hq_checkbox.MouseLocation = new System.Drawing.Point(-1, -1);
             this.hq_checkbox.MouseState = MaterialSkin.MouseState.HOVER;
@@ -547,6 +569,69 @@
             this.hq_checkbox.TabIndex = 42;
             this.hq_checkbox.Text = "HQ";
             this.hq_checkbox.UseVisualStyleBackColor = true;
+            this.hq_checkbox.Visible = false;
+            // 
+            // autoInputOutputPoints
+            // 
+            this.autoInputOutputPoints.Checked = true;
+            this.autoInputOutputPoints.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoInputOutputPoints.Depth = 0;
+            this.autoInputOutputPoints.Location = new System.Drawing.Point(733, 337);
+            this.autoInputOutputPoints.Margin = new System.Windows.Forms.Padding(0);
+            this.autoInputOutputPoints.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.autoInputOutputPoints.MouseState = MaterialSkin.MouseState.HOVER;
+            this.autoInputOutputPoints.Name = "autoInputOutputPoints";
+            this.autoInputOutputPoints.Ripple = true;
+            this.autoInputOutputPoints.Size = new System.Drawing.Size(80, 30);
+            this.autoInputOutputPoints.TabIndex = 46;
+            this.autoInputOutputPoints.Text = "In/out";
+            this.autoInputOutputPoints.UseVisualStyleBackColor = true;
+            // 
+            // topLineDrawing
+            // 
+            this.topLineDrawing.BackColor = System.Drawing.Color.Transparent;
+            this.topLineDrawing.Image = global::_3DWriter.Properties.Resources.line;
+            this.topLineDrawing.Location = new System.Drawing.Point(131, 40);
+            this.topLineDrawing.Name = "topLineDrawing";
+            this.topLineDrawing.Size = new System.Drawing.Size(352, 2);
+            this.topLineDrawing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.topLineDrawing.TabIndex = 44;
+            this.topLineDrawing.TabStop = false;
+            // 
+            // bottomLineDrawing
+            // 
+            this.bottomLineDrawing.BackColor = System.Drawing.Color.Transparent;
+            this.bottomLineDrawing.Image = global::_3DWriter.Properties.Resources.line;
+            this.bottomLineDrawing.Location = new System.Drawing.Point(133, 286);
+            this.bottomLineDrawing.Name = "bottomLineDrawing";
+            this.bottomLineDrawing.Size = new System.Drawing.Size(352, 2);
+            this.bottomLineDrawing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.bottomLineDrawing.TabIndex = 45;
+            this.bottomLineDrawing.TabStop = false;
+            // 
+            // topWritingLineArrow
+            // 
+            this.topWritingLineArrow.BackColor = System.Drawing.Color.Transparent;
+            this.topWritingLineArrow.Image = global::_3DWriter.Properties.Resources.keyboard_arrow_left_black_96x96__1_;
+            this.topWritingLineArrow.Location = new System.Drawing.Point(483, 29);
+            this.topWritingLineArrow.Name = "topWritingLineArrow";
+            this.topWritingLineArrow.Size = new System.Drawing.Size(24, 24);
+            this.topWritingLineArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.topWritingLineArrow.TabIndex = 44;
+            this.topWritingLineArrow.TabStop = false;
+            this.topWritingLineArrow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topWritingLineArrow_MouseMove);
+            // 
+            // bottomWritingLineArrow
+            // 
+            this.bottomWritingLineArrow.BackColor = System.Drawing.Color.Transparent;
+            this.bottomWritingLineArrow.Image = global::_3DWriter.Properties.Resources.keyboard_arrow_left_black_96x96__1_;
+            this.bottomWritingLineArrow.Location = new System.Drawing.Point(483, 275);
+            this.bottomWritingLineArrow.Name = "bottomWritingLineArrow";
+            this.bottomWritingLineArrow.Size = new System.Drawing.Size(24, 24);
+            this.bottomWritingLineArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.bottomWritingLineArrow.TabIndex = 43;
+            this.bottomWritingLineArrow.TabStop = false;
+            this.bottomWritingLineArrow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.bottomWritingLineArrow_MouseMove);
             // 
             // tolerance_textbox
             // 
@@ -559,7 +644,7 @@
             this.tolerance_textbox.MouseState = MaterialSkin.MouseState.OUT;
             this.tolerance_textbox.Multiline = false;
             this.tolerance_textbox.Name = "tolerance_textbox";
-            this.tolerance_textbox.Size = new System.Drawing.Size(153, 50);
+            this.tolerance_textbox.Size = new System.Drawing.Size(151, 50);
             this.tolerance_textbox.TabIndex = 41;
             this.tolerance_textbox.Text = "1";
             // 
@@ -590,7 +675,7 @@
             this.drawCheckbox.Checked = true;
             this.drawCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.drawCheckbox.Depth = 0;
-            this.drawCheckbox.Location = new System.Drawing.Point(655, 337);
+            this.drawCheckbox.Location = new System.Drawing.Point(654, 337);
             this.drawCheckbox.Margin = new System.Windows.Forms.Padding(0);
             this.drawCheckbox.MouseLocation = new System.Drawing.Point(-1, -1);
             this.drawCheckbox.MouseState = MaterialSkin.MouseState.HOVER;
@@ -643,36 +728,12 @@
             this.materialButton3.UseVisualStyleBackColor = true;
             this.materialButton3.Click += new System.EventHandler(this.remove_gaps);
             // 
-            // topWritingLineArrow
-            // 
-            this.topWritingLineArrow.BackColor = System.Drawing.Color.Transparent;
-            this.topWritingLineArrow.Image = global::_3DWriter.Properties.Resources.keyboard_arrow_left_black_96x96__1_;
-            this.topWritingLineArrow.Location = new System.Drawing.Point(483, 29);
-            this.topWritingLineArrow.Name = "topWritingLineArrow";
-            this.topWritingLineArrow.Size = new System.Drawing.Size(24, 24);
-            this.topWritingLineArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.topWritingLineArrow.TabIndex = 44;
-            this.topWritingLineArrow.TabStop = false;
-            this.topWritingLineArrow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topWritingLineArrow_MouseMove);
-            // 
-            // bottomWritingLineArrow
-            // 
-            this.bottomWritingLineArrow.BackColor = System.Drawing.Color.Transparent;
-            this.bottomWritingLineArrow.Image = global::_3DWriter.Properties.Resources.keyboard_arrow_left_black_96x96__1_;
-            this.bottomWritingLineArrow.Location = new System.Drawing.Point(486, 343);
-            this.bottomWritingLineArrow.Name = "bottomWritingLineArrow";
-            this.bottomWritingLineArrow.Size = new System.Drawing.Size(24, 24);
-            this.bottomWritingLineArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.bottomWritingLineArrow.TabIndex = 43;
-            this.bottomWritingLineArrow.TabStop = false;
-            this.bottomWritingLineArrow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.bottomWritingLineArrow_MouseMove);
-            // 
             // pb_editor
             // 
             this.pb_editor.Image = ((System.Drawing.Image)(resources.GetObject("pb_editor.Image")));
             this.pb_editor.Location = new System.Drawing.Point(133, 5);
             this.pb_editor.Name = "pb_editor";
-            this.pb_editor.Size = new System.Drawing.Size(400, 400);
+            this.pb_editor.Size = new System.Drawing.Size(400, 353);
             this.pb_editor.TabIndex = 25;
             this.pb_editor.TabStop = false;
             this.pb_editor.Click += new System.EventHandler(this.picture_box_click);
@@ -680,27 +741,25 @@
             this.pb_editor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseMove);
             this.pb_editor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pb_Draw_MouseUp);
             // 
-            // bottomLineDrawing
+            // symbolsMapSettings
             // 
-            this.bottomLineDrawing.BackColor = System.Drawing.Color.Transparent;
-            this.bottomLineDrawing.Image = global::_3DWriter.Properties.Resources.line;
-            this.bottomLineDrawing.Location = new System.Drawing.Point(136, 354);
-            this.bottomLineDrawing.Name = "bottomLineDrawing";
-            this.bottomLineDrawing.Size = new System.Drawing.Size(352, 2);
-            this.bottomLineDrawing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.bottomLineDrawing.TabIndex = 45;
-            this.bottomLineDrawing.TabStop = false;
-            // 
-            // topLineDrawing
-            // 
-            this.topLineDrawing.BackColor = System.Drawing.Color.Transparent;
-            this.topLineDrawing.Image = global::_3DWriter.Properties.Resources.line;
-            this.topLineDrawing.Location = new System.Drawing.Point(131, 40);
-            this.topLineDrawing.Name = "topLineDrawing";
-            this.topLineDrawing.Size = new System.Drawing.Size(352, 2);
-            this.topLineDrawing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.topLineDrawing.TabIndex = 44;
-            this.topLineDrawing.TabStop = false;
+            this.symbolsMapSettings.AutoSize = false;
+            this.symbolsMapSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.symbolsMapSettings.Depth = 0;
+            this.symbolsMapSettings.DrawShadows = true;
+            this.symbolsMapSettings.HighEmphasis = true;
+            this.symbolsMapSettings.Icon = null;
+            this.symbolsMapSettings.Location = new System.Drawing.Point(176, 369);
+            this.symbolsMapSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.symbolsMapSettings.MouseState = MaterialSkin.MouseState.HOVER;
+            this.symbolsMapSettings.Name = "symbolsMapSettings";
+            this.symbolsMapSettings.Size = new System.Drawing.Size(135, 36);
+            this.symbolsMapSettings.TabIndex = 50;
+            this.symbolsMapSettings.Text = "Edit symbol map";
+            this.symbolsMapSettings.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.symbolsMapSettings.UseAccentColor = false;
+            this.symbolsMapSettings.UseVisualStyleBackColor = true;
+            this.symbolsMapSettings.Click += new System.EventHandler(this.symbolsMapSettings_Click);
             // 
             // FontEditor
             // 
@@ -717,11 +776,11 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topLineDrawing)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomLineDrawing)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.topWritingLineArrow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bottomWritingLineArrow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_editor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomLineDrawing)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topLineDrawing)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -766,5 +825,8 @@
         private System.Windows.Forms.PictureBox topWritingLineArrow;
         private System.Windows.Forms.PictureBox bottomLineDrawing;
         private System.Windows.Forms.PictureBox topLineDrawing;
+        private MaterialSkin.Controls.MaterialCheckbox autoInputOutputPoints;
+        private MaterialSkin.Controls.MaterialCheckbox autogapCheckbox;
+        private MaterialSkin.Controls.MaterialButton symbolsMapSettings;
     }
 }

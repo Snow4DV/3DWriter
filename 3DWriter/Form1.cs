@@ -74,9 +74,9 @@ namespace _3DWriter
                 file.Close();
                 update_font_size();
             }
-            catch(FileNotFoundException exeption)
+            catch (FileNotFoundException exeption)
             {
-                MessageBox.Show("Error! Font called " + fname + " that you previously selected was not found. Select another one.");
+                MaterialMessageBox.Show("Error! Font called " + fname + " that you previously selected was not found. Select another one.");
             }
         }
 
@@ -166,18 +166,18 @@ namespace _3DWriter
                 filewriter.WriteLine(" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
                 for (int tmpa = 0; tmpa < charcount; tmpa++)
                 {
-                       
+
                     filewriter.WriteLine(string.Join(",", font_chars[tmpa]));
                 }
-                
+
             }
         }
 
         private void update_font_size()
         {
             //toolStripStatusLabel1.Text = "Font: " + FontComboBox.Text;  TODO OR REMOVE
-           // toolStripStatusLabel2.Text = "Font Height: " + h_height + " Units";   TODO OR REMOVE
-            lbl_font_height.Text = (h_height * double.Parse(fontscale_value.Text)).ToString();
+            // toolStripStatusLabel2.Text = "Font Height: " + h_height + " Units";   TODO OR REMOVE
+            //textSize_tb.Text = (h_height * double.Parse(fontscale_value.Text)).ToString();
         }
 
         public Form1()
@@ -207,7 +207,7 @@ namespace _3DWriter
         {
             if (!File.Exists("fonts" + Path.DirectorySeparatorChar + "scriptc.cmf"))        //check for fonts folder
             {
-                MessageBox.Show("Unable to find the fonts folder in the application folder.");
+                MaterialMessageBox.Show("Unable to find the fonts folder in the application folder.");
                 appfault = true;
                 Application.Exit();
             }
@@ -215,7 +215,7 @@ namespace _3DWriter
             {
                 LoadSettings(); //reads the application settings and fills in all the UI components
                 LoadFonts(SimpleFontsCheckbox.Checked);    //fills in the font selection combobox
-                if(Properties.Settings.Default.default_font != "") load_font(Properties.Settings.Default.default_font);    //reads the selected font file in to memory
+                if (Properties.Settings.Default.default_font != "") load_font(Properties.Settings.Default.default_font);    //reads the selected font file in to memory
             }
             menuButton.BackColor = Color.Transparent;
             CheckVersion(0);
@@ -229,12 +229,12 @@ namespace _3DWriter
                 //read the version file from github
                 Random random = new Random();
                 WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://raw.githubusercontent.com/Snow4DV/3DWriter/master/3DWriter/version.txt?random=" + Application.ProductVersion.ToString());
+                Stream stream = client.OpenRead("https://raw.githubusercontent.com/Snow4DV/3DWriter/master/3DWriter/version.txt?random=" + random.Next());
                 StreamReader reader = new StreamReader(stream);
                 String content = reader.ReadToEnd().Trim('\n');
-                if(content!="" && !Application.ProductVersion.ToString().Equals(content))
+                if (content != "" && !Application.ProductVersion.ToString().Equals(content))
                 {
-                    DialogResult dialogResult = MessageBox.Show("Open github page? Current version is \"" + Application.ProductVersion.ToString() + "\"", "Update available - \"" + content + "\"", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MaterialMessageBox.Show("Open github page? Current version is \"" + Application.ProductVersion.ToString() + "\"", "Update available - \"" + content + "\"", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Process.Start("https://github.com/Snow4DV/3DWriter");
@@ -246,12 +246,12 @@ namespace _3DWriter
                 }
                 else
                 {
-                    if (notify==1 && Application.ProductVersion.ToString() == content)
+                    if (notify == 1 && Application.ProductVersion.ToString() == content)
                     {
                         MessageBox.Show("You are running the current version\n" + Application.ProductVersion.ToString());
                     }
                 }
-            }catch
+            } catch
             {
 
             }
@@ -285,12 +285,12 @@ namespace _3DWriter
 
         private void checkbox2_move_letters_randomly(object sender, EventArgs e)
         {
-            if(checkBox2.Checked == true)
+            if (checkBox2.Checked == true)
             {
                 String coeffStart = "";
                 String coeffEnd = "";
-              
-                if(InputBoxRandomMove(ref coeffStart, ref coeffEnd) == DialogResult.OK)
+
+                if (InputBoxRandomMove(ref coeffStart, ref coeffEnd) == DialogResult.OK)
                 {
                     try
                     {
@@ -298,7 +298,7 @@ namespace _3DWriter
                         double coeffEndDouble = Convert.ToDouble(coeffEnd);
                         Properties.Settings.Default.coord_move = coeffStart + "," + coeffEnd;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show("Invalid number format. Example: \"0.55\"");
                         checkBox2.Checked = false;
@@ -308,7 +308,7 @@ namespace _3DWriter
                 {
                     checkBox2.Checked = false;
                 }
-                
+
             }
             else
             {
@@ -330,7 +330,7 @@ namespace _3DWriter
                 minUnitsLineSpacingRandomize = Convert.ToInt16(Properties.Settings.Default.randomize_line_spacing.Split(',')[0]);
                 maxUnitsLineSpacingRandomize = Convert.ToInt16(Properties.Settings.Default.randomize_line_spacing.Split(',')[0]);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 minRotate = 0;
                 maxRotate = 0;
@@ -344,17 +344,17 @@ namespace _3DWriter
             try
             {
                 lineGoingDownCoefficient = Properties.Settings.Default.line_going_down;
-                if(lineGoingDownCoefficient != 0)
+                if (lineGoingDownCoefficient != 0)
                 {
                     lineGoingDownCheckbox.Checked = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-            if (Properties.Settings.Default.correct_letters_coefficient != 0) 
-            { 
+            if (Properties.Settings.Default.correct_letters_coefficient != 0)
+            {
                 correctLettersCheckbox.Checked = true;
                 incorrectLetterChance = Properties.Settings.Default.correct_letters_coefficient;
             }
@@ -369,7 +369,7 @@ namespace _3DWriter
             offsetx.Text = Properties.Settings.Default.offsetx;
             offsety.Text = Properties.Settings.Default.offsety;
             fontscale_value.Text = Properties.Settings.Default.font_scale.ToString();
-            trackBar1.Value = Convert.ToInt32( Properties.Settings.Default.font_scale*100.0  );
+            textSize_tb.Text = String.Format("{0:0.00}", Properties.Settings.Default.font_scale * 0.37 * 100);
             tb_input.Text = Properties.Settings.Default.default_text;
             lspacing.Text = (Properties.Settings.Default.linespace).ToString();
             letspacing.Text = Properties.Settings.Default.letter_spacing;
@@ -382,16 +382,16 @@ namespace _3DWriter
             if (Properties.Settings.Default.preview_multiplier == 1) { previewScale1.Checked = true; }
             if (Properties.Settings.Default.preview_multiplier == 2) { previewScale2.Checked = true; }
             if (Properties.Settings.Default.preview_multiplier == 4) { previewScale4.Checked = true; }
-            
-            if (Properties.Settings.Default.laser) { 
+
+            if (Properties.Settings.Default.laser) {
                 radio_laser_mode.Checked = true;
-            }else
+            } else
             {
                 radio_draw_mode.Checked = true;
             }
             update_bed_size();
         }
-       
+
         private void SaveSettings()
         {
             //saves the application settings from the data in the UI components
@@ -433,62 +433,62 @@ namespace _3DWriter
             }
         }
 
-        
-public static DialogResult InputBoxRandomMove(ref string value, ref string value2)
-    {
-        Form form = new Form();
-        Label label = new Label();
+
+        public static DialogResult InputBoxRandomMove(ref string value, ref string value2)
+        {
+            Form form = new Form();
+            Label label = new Label();
             Label info = new Label();
             TextBox textBox = new TextBox();
-        Label label2 = new Label();
-        TextBox textBox2 = new TextBox();
-        Button buttonOk = new Button();
-        Button buttonCancel = new Button();
+            Label label2 = new Label();
+            TextBox textBox2 = new TextBox();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
 
-        form.Text = "Moving letters modifier";
-        label.Text = "Enter min coefficient:";
+            form.Text = "Moving letters modifier";
+            label.Text = "Enter min coefficient:";
             info.Text = "That modifier randomly moves letter. Define the moving" + "\n" + " coefficient range from 0.00  to 1.00, " + "\n" + "where 1.00 equals 100% of letter width.";
             label2.Text = "Enter max coefficient:";
-        textBox.Text = value;
+            textBox.Text = value;
 
-        buttonOk.Text = "OK";
-        buttonCancel.Text = "Cancel";
-        buttonOk.DialogResult = DialogResult.OK;
-        buttonCancel.DialogResult = DialogResult.Cancel;
+            buttonOk.Text = "OK";
+            buttonCancel.Text = "Cancel";
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
 
-        label.SetBounds(9, 55, 372, 13);
-        textBox.SetBounds(12, 76, 372, 20);
+            label.SetBounds(9, 55, 372, 13);
+            textBox.SetBounds(12, 76, 372, 20);
             info.SetBounds(9, 10, 372, 13);
             label2.SetBounds(9, 100, 372, 13);
             textBox2.SetBounds(12, 115, 372, 20);
-        buttonOk.SetBounds(228, 72, 75, 23);
-        buttonCancel.SetBounds(309, 72, 75, 23);
+            buttonOk.SetBounds(228, 72, 75, 23);
+            buttonCancel.SetBounds(309, 72, 75, 23);
 
-        label.AutoSize = true;
+            label.AutoSize = true;
             label2.AutoSize = true;
             info.AutoSize = true;
-        textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
             textBox.Text = "0.20";
-        textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
+            textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
             textBox2.Text = "0.20";
-        buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-        form.ClientSize = new Size(396, 107);
-        form.Controls.AddRange(new Control[] { info, label, textBox, label2, textBox2, buttonOk, buttonCancel });
-        form.ClientSize = new Size(Math.Max(300, label2.Right + 10), form.ClientSize.Height + 80);
-        form.FormBorderStyle = FormBorderStyle.FixedDialog;
-        form.StartPosition = FormStartPosition.CenterScreen;
-        form.MinimizeBox = false;
-        form.MaximizeBox = false;
-        form.AcceptButton = buttonOk;
-        form.CancelButton = buttonCancel;
+            form.ClientSize = new Size(396, 107);
+            form.Controls.AddRange(new Control[] { info, label, textBox, label2, textBox2, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label2.Right + 10), form.ClientSize.Height + 80);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
 
-        DialogResult dialogResult = form.ShowDialog();
-        value = textBox.Text;
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
             value2 = textBox2.Text;
-        return dialogResult;
-    }
+            return dialogResult;
+        }
 
         public static DialogResult InputBoxCorrectLetters(ref string value)
         {
@@ -548,7 +548,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             Button buttonCancel = new Button();
 
             form.Text = "Line going down modifier";
-            info.Text = "That modifier makes line going down to the end" + "\n" + "(That happens if you write with no drawn lines)" + "\n" + "Enter coefficient and line will go down in coefficent * letter height" + "\n" + "slowly";
+            info.Text = "That modifier makes line going down to the end" + "\n" + "(That happens if you write with no drawn lines)" + "\n" + "Enter coefficient and line will go down up to \ncoefficent * letter height slowly:";
             label2.Text = "Enter max coefficient:";
             textBox.Text = value;
 
@@ -558,12 +558,10 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             buttonCancel.DialogResult = DialogResult.Cancel;
 
 
-            textBox.SetBounds(12, 76, 372, 20);
-            info.SetBounds(9, 10, 372, 13);
-            label2.SetBounds(9, 100, 372, 13);
-            textBox2.SetBounds(12, 115, 372, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
+            textBox.SetBounds(12, 76, 372, 10);
+            info.SetBounds(9, 10, 372, 10);
+            buttonOk.SetBounds(228, 30, 75, 23);
+            buttonCancel.SetBounds(306, 30, 75, 23);
 
 
             label2.AutoSize = true;
@@ -575,7 +573,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            form.ClientSize = new Size(396, 107);
+            form.ClientSize = new Size(396, 60);
             form.Controls.AddRange(new Control[] { info, label, textBox, label2, textBox2, buttonOk, buttonCancel });
             form.ClientSize = new Size(Math.Max(300, label2.Right + 10), form.ClientSize.Height + 80);
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -615,7 +613,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             label.SetBounds(9, 55, 372, 13);
             textBox.SetBounds(12, 76, 372, 20);
             info.SetBounds(9, 10, 372, 13);
-            label2.SetBounds(9, 100, 372, 13);
+            label2.SetBounds(9, 100, 200, 13);
             textBox2.SetBounds(12, 115, 372, 20);
             buttonOk.SetBounds(228, 72, 75, 23);
             buttonCancel.SetBounds(309, 72, 75, 23);
@@ -624,9 +622,9 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             label2.AutoSize = true;
             info.AutoSize = true;
             textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
-            textBox.Text = "10.00";
+            textBox.Text = "10";
             textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
-            textBox2.Text = "20.00";
+            textBox2.Text = "20";
             buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
@@ -657,9 +655,9 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             Button buttonOk = new Button();
             Button buttonCancel = new Button();
 
-            form.Text ="Random line space modifier";
+            form.Text = "Random line space modifier";
             label.Text = "Enter min, units:";
-            info.Text = "That modifier raandomizes line spacing. Define the" + "\n" + " range from 0. This will override line spacing!";
+            info.Text = "That modifier randomizes line spacing. Define the" + "\n" + " range from 0. This will override line spacing!";
             label2.Text = "Enter max, units:";
             textBox.Text = value;
 
@@ -723,7 +721,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
                         maxUnitsLineSpacingRandomize = -1;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Properties.Settings.Default.randomize_line_spacing = "-1,-1";
                     randomLineSpacingCheckbox.Checked = false;
@@ -743,7 +741,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
                 String coefficient = "";
                 try
                 {
-                    if(InputBoxCorrectLetters(ref coefficient) == DialogResult.OK)
+                    if (InputBoxCorrectLetters(ref coefficient) == DialogResult.OK)
                     {
                         Properties.Settings.Default.correct_letters_coefficient = Convert.ToDouble(coefficient);
                         incorrectLetterChance = Convert.ToDouble(coefficient);
@@ -754,7 +752,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
                         correctLettersCheckbox.Checked = false;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Properties.Settings.Default.correct_letters_coefficient = 0.0;
                     correctLettersCheckbox.Checked = false;
@@ -797,9 +795,9 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             }
         }
 
-       
 
-    private void toolStripButton1_Click(object sender, EventArgs e)
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
             //font preview
             String pic_file = (Application.StartupPath) + Path.DirectorySeparatorChar + "fonts" + Path.DirectorySeparatorChar + FontComboBox.Text + ".png";
@@ -807,27 +805,21 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             {
                 Process.Start(@pic_file);
             }
-            catch(System.ComponentModel.Win32Exception excep)
+            catch (System.ComponentModel.Win32Exception excep)
             {
                 MessageBox.Show(excep.Message, "Error");
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            fontscale_value.Text = (trackBar1.Value/100.0).ToString();
-            update_font_size();
-          
-        }
+        
 
-       
 
-        private void fontscale_value_DoubleClick(object sender, EventArgs e)
+        /*private void fontscale_value_DoubleClick(object sender, EventArgs e)
         {
             fontscale_value.Text = "0.2";
             trackBar1.Value = 20;
             update_font_size();
-        }
+        }*/
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -865,163 +857,177 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
 
             double scale = double.Parse(fontscale_value.Text) / 5;                      //get the font scale - divides by 5 to increase the resolution
             double char_height = h_height * scale;                                  //scale up the character height
-            
-                double line_spacing = Convert.ToSingle(lspacing.Text) * scale * 5;          //scale up the line spacing  resolution increased by 5
-                double letter_spacing = Convert.ToSingle(letspacing.Text) * scale * 5;      //scale up the letter spacing  res increased by 5
-                double font_offset_y = double.Parse(lbl_font_height.Text);              //align text with edge of bed
 
-                double offx = Convert.ToSingle(offsetx.Text);                            //get the X Offset from the UI
-                double offy = Convert.ToSingle(offsety.Text);                            //get the Y Offset from the UI
+            double line_spacing = Convert.ToSingle(lspacing.Text) * scale * 5;          //scale up the line spacing  resolution increased by 5
+            double letter_spacing = Convert.ToSingle(letspacing.Text) * scale * 5;      //scale up the letter spacing  res increased by 5
+            double font_offset_y = 7.5;
+            try
+            {
+                font_offset_y = double.Parse(textSize_tb.Text);              //align text with edge of bed
+            }
+            catch(Exception ingEx)
+            {
+                MaterialMessageBox.Show("Something wrong happened about the text size. Did you enter it correctly?");
+            }
 
-                bool out_of_bounds = false;                                             //init a boolean for general plotting fault
+            double offx = Convert.ToSingle(offsetx.Text);                            //get the X Offset from the UI
+            double offy = Convert.ToSingle(offsety.Text);                            //get the Y Offset from the UI
 
-                double max_x = Convert.ToSingle(bedwidth.Text);                          //get the Bed X setting from the UI
-                double max_y = Convert.ToSingle(beddepth.Text);                          //get the Bed Y setting from the UI
+            bool out_of_bounds = false;                                             //init a boolean for general plotting fault
 
-                int F_draw = Convert.ToInt32(dspeed.Text) * 60;                         //get the Draw speed setting from the UI
-                int F_travel = Convert.ToInt32(tspeed.Text) * 60;                       //get the Travel speed setting from the UI
-                int F_zspeed = Convert.ToInt32(zspeed.Text) * 60;                       //get the Z-Axis speed setting from the UI
-                bool first_move = true;
+            double max_x = Convert.ToSingle(bedwidth.Text);                          //get the Bed X setting from the UI
+            double max_y = Convert.ToSingle(beddepth.Text);                          //get the Bed Y setting from the UI
 
-                double lastx = 0;                                                       //keep track of where we were for pen up/pen down test
-                double lasty = 0;
+            int F_draw = Convert.ToInt32(dspeed.Text) * 60;                         //get the Draw speed setting from the UI
+            int F_travel = Convert.ToInt32(tspeed.Text) * 60;                       //get the Travel speed setting from the UI
+            int F_zspeed = Convert.ToInt32(zspeed.Text) * 60;                       //get the Z-Axis speed setting from the UI
+            bool first_move = true;
 
-                Bitmap preview = new Bitmap(pb_preview.Width, pb_preview.Height);       //init the picturebox
-                Graphics previewGraphics = Graphics.FromImage(preview);
-                Pen semiTransPen = new Pen(Color.FromArgb(25, 255, 0, 0), 2);           //create a transparent red pen for the margins (offset)
+            double lastx = 0;                                                       //keep track of where we were for pen up/pen down test
+            double lasty = 0;
 
-                //draw red offset lines
-                previewGraphics.DrawLine(semiTransPen, 0, Convert.ToSingle((offy * preview_mag)), pb_preview.Width, Convert.ToSingle((offy * preview_mag)));  //horizontal line X
-                previewGraphics.DrawLine(semiTransPen, Convert.ToSingle(offx * preview_mag), 0, Convert.ToSingle(offx * preview_mag), pb_preview.Height);   //vertical line Y
+            Bitmap preview = new Bitmap(pb_preview.Width, pb_preview.Height);       //init the picturebox
+            Graphics previewGraphics = Graphics.FromImage(preview);
+            Pen semiTransPen = new Pen(Color.FromArgb(25, 255, 0, 0), 2);           //create a transparent red pen for the margins (offset)
 
-                string output = "";                                                     //init the GCode output string
+            //draw red offset lines
+            previewGraphics.DrawLine(semiTransPen, 0, Convert.ToSingle((offy * preview_mag)), pb_preview.Width, Convert.ToSingle((offy * preview_mag)));  //horizontal line X
+            previewGraphics.DrawLine(semiTransPen, Convert.ToSingle(offx * preview_mag), 0, Convert.ToSingle(offx * preview_mag), pb_preview.Height);   //vertical line Y
 
-                //write current settings to file for debug and consistency
-                output += "; Generated with 3DWriter, fork by snow4dv " + Application.ProductVersion.ToString() + "\r\n; \r\n";
-                output += "; Font: " + FontComboBox.Text + "\r\n";
-                output += "; FontScale: " + lbl_font_height.Text + "mm (" + scale + ")\r\n";
-                output += "; Bed: " + bedwidth.Text + " x " + beddepth.Text + "\r\n";
-                output += "; Offset: " + offsetx.Text + " x " + offsety.Text + "\r\n";
-                output += "; Draw mode: " + (radio_laser_mode.Checked ? "Laser" : "Pen") + "\r\n";
-                output += "; Pen Up: " + penup.Text + "\r\n";
-                output += "; Pen Down: " + pendown.Text + "\r\n";
-                output += "; Travel speed: " + tspeed.Text + "\r\n";
-                output += "; Draw speed: " + dspeed.Text + "\r\n";
-                output += "; Z speed: " + zspeed.Text + "\r\n";
-                output += "; Line Spacing: " + lspacing.Text + "\r\n";
-                output += "; Letter spacing: " + letspacing.Text + "\r\n";
-                output += "; Home: " + (homex.Checked ? "X" : "") + (homey.Checked ? "Y" : "") + (homez.Checked ? "Z" : "") + "\r\n";
-                output += "; Dry run: " + (dryrun.Checked ? "ON" : "OFF") + "\r\n";
-                output += "; Render count: " + rendercount + "\r\n";
-                output += "; Decimal: " + Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator + "\r\n";
-                output += "; Text input...\r\n; ----\r\n;\t" + (tb_input.Text.Replace("\r\n", "\r\n;\t")) + "\r\n; ---- \r\n";
+            string output = "";                                                     //init the GCode output string
 
-                //if ( !(!homex.Checked && !homey.Checked && !homez.Checked) ) {          //Do we need to home the printer?
-                if (homex.Checked || homey.Checked || homez.Checked)
+            //write current settings to file for debug and consistency
+            output += "; Generated with 3DWriter, fork by snow4dv " + Application.ProductVersion.ToString() + "\r\n; \r\n";
+            output += "; Font: " + FontComboBox.Text + "\r\n";
+            output += "; FontScale: " + textSize_tb.Text + "mm (" + scale + ")\r\n";
+            output += "; Bed: " + bedwidth.Text + " x " + beddepth.Text + "\r\n";
+            output += "; Offset: " + offsetx.Text + " x " + offsety.Text + "\r\n";
+            output += "; Draw mode: " + (radio_laser_mode.Checked ? "Laser" : "Pen") + "\r\n";
+            output += "; Pen Up: " + penup.Text + "\r\n";
+            output += "; Pen Down: " + pendown.Text + "\r\n";
+            output += "; Travel speed: " + tspeed.Text + "\r\n";
+            output += "; Draw speed: " + dspeed.Text + "\r\n";
+            output += "; Z speed: " + zspeed.Text + "\r\n";
+            output += "; Line Spacing: " + lspacing.Text + "\r\n";
+            output += "; Letter spacing: " + letspacing.Text + "\r\n";
+            output += "; Home: " + (homex.Checked ? "X" : "") + (homey.Checked ? "Y" : "") + (homez.Checked ? "Z" : "") + "\r\n";
+            output += "; Dry run: " + (dryrun.Checked ? "ON" : "OFF") + "\r\n";
+            output += "; Render count: " + rendercount + "\r\n";
+            output += "; Decimal: " + Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator + "\r\n";
+            output += "; Text input...\r\n; ----\r\n;\t" + (tb_input.Text.Replace("\r\n", "\r\n;\t")) + "\r\n; ---- \r\n";
+
+            //if ( !(!homex.Checked && !homey.Checked && !homez.Checked) ) {          //Do we need to home the printer?
+            if (homex.Checked || homey.Checked || homez.Checked)
+            {
+                output += "G28 " + (homex.Checked ? "X" : "") + " " + (homey.Checked ? "Y" : "") + " " + (homez.Checked ? "Z" : "") + " F" + F_travel + "\r\n";
+            }
+            output += "G21" + "\r\n";               //set units to millimeters
+            if (radio_laser_mode.Checked)
+            {
+                output += "M452" + "\r\n";          //select laser print mode
+                output += "M3 S255" + "\r\n";       //Spindle On, Clockwise (CNC specific)
+
+                output += "G90" + "\r\n";           // G90: Set to Absolute Positioning
+                output += "G21" + "\r\n";           // G21: Set Units to Millimeters
+
+                output += penup.Text + "\r\n";                                      //Laser off before any moves
+            }
+            else
+            {
+                output += "G0 Z" + penup.Text + " F" + F_travel + "\r\n";           //Pen up before any moves
+            }
+
+            string[] lines = (tb_input.Text).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None); //split the text input up in to lines
+            bool symbolMovingError = false;
+            Random rnd = new Random();
+            for (int ptr = 0; ptr < lines.Length; ptr++)                            //interate through the lines
+            {
+                if (randomLineSpacingCheckbox.Checked && !(minUnitsLineSpacingRandomize == -1 || maxUnitsLineSpacingRandomize == -1)) //function to increase/decrease line spacing randomly
+                    line_spacing = (((double)rnd.Next((int)(minUnitsLineSpacingRandomize * 100), (int)(maxUnitsLineSpacingRandomize * 100))) / 100) * scale * 5;
+                string thisline = lines[ptr];                                       //gets the line
+                double prevOutputPointX = -1;
+                double prevOutputPointY = -1;
+                bool correctedLetter = false;
+                bool prevCorrectedLetter = false;
+                for (int a = 0; a < thisline.Length; a++)                           //interate through each character of the line
                 {
-                    output += "G28 " + (homex.Checked ? "X" : "") + " " + (homey.Checked ? "Y" : "") + " " + (homez.Checked ? "Z" : "") + " F" + F_travel + "\r\n";
-                }
-                output += "G21" + "\r\n";               //set units to millimeters
-                if (radio_laser_mode.Checked)
-                {
-                    output += "M452" + "\r\n";          //select laser print mode
-                    output += "M3 S255" + "\r\n";       //Spindle On, Clockwise (CNC specific)
 
-                    output += "G90" + "\r\n";           // G90: Set to Absolute Positioning
-                    output += "G21" + "\r\n";           // G21: Set Units to Millimeters
-
-                    output += penup.Text + "\r\n";                                      //Laser off before any moves
-                }
-                else
-                {
-                    output += "G0 Z" + penup.Text + " F" + F_travel + "\r\n";           //Pen up before any moves
-                }
-
-                string[] lines = (tb_input.Text).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None); //split the text input up in to lines
-                bool symbolMovingError = false;
-                Random rnd = new Random();
-                for (int ptr = 0; ptr < lines.Length; ptr++)                            //interate through the lines
-                {
-                    if(randomLineSpacingCheckbox.Checked && !(minUnitsLineSpacingRandomize == -1 || maxUnitsLineSpacingRandomize == -1)) //function to increase/decrease line spacing randomly
-                        line_spacing = (((double)rnd.Next((int) (minUnitsLineSpacingRandomize*100),(int)( maxUnitsLineSpacingRandomize*100)))/100)* scale * 5;
-                    string thisline = lines[ptr];                                       //gets the line
-                    double prevOutputPointX = -1;
-                    double prevOutputPointY = -1;
-                    bool correctedLetter = false;
-                    bool prevCorrectedLetter = false;
-                    for (int a = 0; a < thisline.Length; a++)                           //interate through each character of the line
+                    double lineFactor = 0;
+                    if (lineGoingDownCheckbox.Checked) //Line going down
                     {
-                        
-                        bool ifOuputPointFound = false; //this bool is used to clear the output point valuee if it is not found
-                        double xFactor = 0.0;  //Random character movement modifier is here.
-                        double yFactor = 0.0;
-                        int multX = 0;
-                        int multY = 0;
-                        if (Properties.Settings.Default.coord_move != "-1,-1")
-                        {
-                            try
-                            {
-                                double minMultiplyer = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[0]);
-                                double maxMultiplyer = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[1]);
-
-                                xFactor = ((double)rnd.Next((int)(minMultiplyer * 100), (int)(maxMultiplyer * 100))) / 100;
-                                yFactor = ((double)rnd.Next((int)(minMultiplyer * 100), (int)(maxMultiplyer * 100))) / 100;
-                                if (rnd.Next(0, 100) > 50)
-                                {
-                                    multX = -1;
-                                }
-                                else
-                                {
-                                    multX = 1;
-                                }
-                                if (rnd.Next(0, 100) > 50)
-                                {
-                                    multY = -1;
-                                }
-                                else
-                                {
-                                    multY = 1;
-                                }
-
-                            }
-                            catch (Exception ex)
-                            {
-                                symbolMovingError = true;
-                            }
-                        }
-
-
-
-
-                        //init cnum - this string is a map of the font. the index of the character aligns with the font_chars array for the character data.
-                        //Language other than english won't map correctly here.// Actually it would after you implemented new cmf format. I am here because i want the cyrillic support :D (snow4dv)
-                        //int cnum = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~".IndexOf(thisline.Substring(a, 1)); //font map is now read from the cmf font file
-                        int cnum = 0;
-                        bool valid = true;
-                        double thewidth = 0;
+                        int maxSymbolsInTheLine = (int)((max_x-offx)/(70 * 2.5 * scale));//70 is average symbol width - count it as is not to spend time on counting width sum
+                        lineFactor = (lineGoingDownCoefficient / maxSymbolsInTheLine) * a;//TODO: make the line going down not by amount of words but by its width
+                    }
+                    bool ifOuputPointFound = false; //this bool is used to clear the output point valuee if it is not found
+                    double xFactor = 0.0;  //Random character movement modifier is here.
+                    double yFactor = 0.0;
+                    int multX = 0;
+                    int multY = 0;
+                    if (Properties.Settings.Default.coord_move != "-1,-1")
+                    {
                         try
                         {
-                            //check to see if we have that character and if >1  - getting random of ones we have
-                            ArrayList indexes = new ArrayList();
-                            for (int iter = 0; iter < h_font_map.Length; iter++)
+                            double minMultiplyer = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[0]);
+                            double maxMultiplyer = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[1]);
+
+                            xFactor = ((double)rnd.Next((int)(minMultiplyer * 100), (int)(maxMultiplyer * 100))) / 100;
+                            yFactor = ((double)rnd.Next((int)(minMultiplyer * 100), (int)(maxMultiplyer * 100))) / 100;
+                            if (rnd.Next(0, 100) > 50)
                             {
-                                if (h_font_map.ToCharArray()[iter] == Convert.ToChar(thisline.Substring(a, 1)))
-                                {
-                                    indexes.Add(iter);
-                                }
+                                multX = -1;
+                            }
+                            else
+                            {
+                                multX = 1;
+                            }
+                            if (rnd.Next(0, 100) > 50)
+                            {
+                                multY = -1;
+                            }
+                            else
+                            {
+                                multY = 1;
                             }
 
-                            cnum = (int)indexes[rnd.Next(0, indexes.Count)];
-                            //double thewidth = Convert.ToInt32(font_chars[cnum][0]);         //gets the character width (0)
-                            thewidth = Convert.ToInt32(font_chars[cnum][1]);         //gets the character real width (1)
                         }
-                        catch (Exception excep)
+                        catch (Exception ex)
                         {
-                            valid = false;
+                            symbolMovingError = true;
                         }
-                      
-                        if ((rnd.NextDouble() <= incorrectLetterChance) && correctLettersCheckbox.Checked && !prevCorrectedLetter && valid) //checking if letter is going to be wrong and corrected
+                    }
+
+
+
+
+                    //init cnum - this string is a map of the font. the index of the character aligns with the font_chars array for the character data.
+                    //Language other than english won't map correctly here.// Actually it would after you implemented new cmf format. I am here because i want the cyrillic support :D (snow4dv)
+                    //int cnum = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~".IndexOf(thisline.Substring(a, 1)); //font map is now read from the cmf font file
+                    int cnum = 0;
+                    bool valid = true;
+                    double thewidth = 0;
+                    try
+                    {
+                        //check to see if we have that character and if >1  - getting random of ones we have
+                        ArrayList indexes = new ArrayList();
+                        for (int iter = 0; iter < h_font_map.Length; iter++)
                         {
+                            if (h_font_map.ToCharArray()[iter] == Convert.ToChar(thisline.Substring(a, 1)))
+                            {
+                                indexes.Add(iter);
+                            }
+                        }
+
+                        cnum = (int)indexes[rnd.Next(0, indexes.Count)];
+                        //double thewidth = Convert.ToInt32(font_chars[cnum][0]);         //gets the character width (0)
+                        thewidth = Convert.ToInt32(font_chars[cnum][1]);         //gets the character real width (1)
+                    }
+                    catch (Exception excep)
+                    {
+                        valid = false;
+                    }
+
+                    if ((rnd.NextDouble() <= incorrectLetterChance) && correctLettersCheckbox.Checked && !prevCorrectedLetter && valid) //checking if letter is going to be wrong and corrected
+                    {
                         correctedLetter = true;
                         prevCorrectedLetter = true;
                         int lineNum = rnd.Next(0, lines.Length);
@@ -1039,125 +1045,119 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
 
                         cnum = (int)indexes[rnd.Next(0, indexes.Count)];
                         //double thewidth = Convert.ToInt32(font_chars[cnum][0]);         //gets the character width (0)
-                        if(Convert.ToInt32(font_chars[cnum][1]) > thewidth) //if correctedSymbol and its width is larger - using its width
+                        if (Convert.ToInt32(font_chars[cnum][1]) > thewidth) //if correctedSymbol and its width is larger - using its width
                             thewidth = Convert.ToInt32(font_chars[cnum][1]);         //gets the character real width (1)
                     }
                     else
                     {
                         prevCorrectedLetter = false;
                     }
-                    
+
 
                     if (valid && cnum != 0)                                                  //if the index is 0, this is a space
+                    {
+                        //This is used to rotate symbols later 
+                        int rotatingAngle = 0; //Prepare sin/cos for rotating the segments
+
+
+                        if (rotCheckbox.Checked)
                         {
-                            //This is used to rotate symbols later 
-                            int rotatingAngle = 0; //Prepare sin/cos for rotating the segments
+                            rotatingAngle = rnd.Next(minRotate, maxRotate);
+                        }
 
-                            double sinRotate = 0.0;
-                            double cosRotate = 0.0;
-                            double midPointX = 0.0;
-                            double midPointY = 0.0;
+                        //previewGraphics.DrawEllipse(Pens.Green, new Rectangle((int)(midPointX * scale + xFactor * thewidth * 2.5 * multX + accum_x + offx), (int)(midPointY * scale + yFactor * thewidth * 2.5 * multY + offx + accum_y), 5, 5));
 
-                            if (rotCheckbox.Checked)
+                        for (int b = 0; b < font_chars[cnum].Length / 4; b++)       //loop through the stroke x/y pairs     //Needed some extra iterations here
+                        {
+
+                            if (font_chars[cnum][(b * 4) + 3 + 3] >= 0 && font_chars[cnum][b * 4 + 3] >= 0)
                             {
-                                rotatingAngle = rnd.Next(minRotate, maxRotate);
-                                sinRotate = Math.Sin(rotatingAngle * (Math.PI / 180));
-                                cosRotate = Math.Cos(rotatingAngle * (Math.PI / 180));
-                                midPointX = 0; //for future modifications (maybe center rotating?)
-                                midPointY = 0;
-
-                            }
-
-                            //previewGraphics.DrawEllipse(Pens.Green, new Rectangle((int)(midPointX * scale + xFactor * thewidth * 2.5 * multX + accum_x + offx), (int)(midPointY * scale + yFactor * thewidth * 2.5 * multY + offx + accum_y), 5, 5));
-
-                            for (int b = 0; b < font_chars[cnum].Length / 4; b++)       //loop through the stroke x/y pairs     //Needed some extra iterations here
-                            {
-
-                                if (font_chars[cnum][(b * 4) + 3 + 3] >= 0 && font_chars[cnum][b * 4 + 3] >= 0)
+                                
+                                double x1 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3]);      //the +3 is because there are 3 array elements prior to x/y pair data in the array.
+                                double y1 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 1]);
+                                double x2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 2]);
+                                double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 3]);
+                                if (lineGoingDownCheckbox.Checked)
+                                { //FUCK! exception
+                                    y1 += lineFactor*161; //161 - symbol height! 
+                                    y2 += lineFactor*161; 
+                                }
+                                if (rotCheckbox.Checked) //Rotating the line
                                 {
+                                    List<double> points = rotate(x1, y1, thewidth / 2, 161 / 2, rotatingAngle);
+                                    x1 = points[0];
+                                    y1 = points[1];
+                                    points = rotate(x2, y2, thewidth / 2, 161/2, rotatingAngle);
+                                    x2 = points[0];
+                                    y2 = points[1];
+                                }
+                                x1 = x1 * scale + xFactor * thewidth * 2.5 * multX * scale; //Increasing the size and adding random movement
+                                x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale;
+                                y1 = y1 * scale + xFactor * thewidth * 2.5 * multY * scale;
+                                y2 = y2 * scale + xFactor * thewidth * 2.5 * multY * scale;
 
-                                    double x1 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3]);      //the +3 is because there are 3 array elements prior to x/y pair data in the array.
-                                    double y1 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 1]);
-                                    double x2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 2]);
-                                    double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 3]);
-                                    if (rotCheckbox.Checked) //Rotating the line
+
+
+                                double draw_x1 = accum_x + x1 + offx;                   //calculate the scaled points for the picutrebox
+                                double draw_y1 = (offy + accum_y) + y1;
+                                double draw_x2 = accum_x + x2 + offx;
+                                double draw_y2 = (offy + accum_y) + y2;
+
+                                previewGraphics.DrawLine(Pens.Blue, Convert.ToInt32(draw_x1 * preview_mag), Convert.ToInt32(draw_y1 * preview_mag), Convert.ToInt32(draw_x2 * preview_mag), Convert.ToInt32(draw_y2 * preview_mag));    //draw a stroke to the picturebox
+
+                                //start a pen stroke
+                                GX = accum_x + x1 + offx;                                               //calculate the GCode X value
+                                GY = ((char_height - y1) + (max_y - offy) - accum_y) - font_offset_y;     //calculate the GCode Y value
+
+                                if (lastx == accum_x + x1 + offx && lasty == (char_height - y1) + (max_y - offy))           //test if the pen needs to raise for a travel
+                                {
+                                    output += "G1 X" + GX.ToString() + " Y" + (GY).ToString() + " F" + (first_move ? F_travel : F_draw) + "\r\n";     //write the move to the output string
+                                    first_move = false;
+                                }
+                                else
+                                {
+                                    if (radio_laser_mode.Checked)
                                     {
-                                        double tX1 = x1 - midPointX;
-                                        double tX2 = x2 - midPointX;
-                                        double tY1 = y1 - midPointY;
-                                        double tY2 = y2 - midPointY;
-                                        x1 = tX1 * cosRotate - tY1 * sinRotate;
-                                        y1 = tX1 * sinRotate + tY1 * cosRotate;
-                                        x2 = tX2 * cosRotate - tY2 * sinRotate;
-                                        y2 = tX2 * sinRotate + tY2 * cosRotate;
-                                    }
-                                    x1 = x1 * scale + xFactor * thewidth * 2.5 * multX * scale; //Increasing the size and adding random movement
-                                    x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale;
-                                    y1 = y1 * scale + xFactor * thewidth * 2.5 * multY * scale;
-                                    y2 = y2 * scale + xFactor * thewidth * 2.5 * multY * scale;
-
-
-
-                                    double draw_x1 = accum_x + x1 + offx;                   //calculate the scaled points for the picutrebox
-                                    double draw_y1 = (offy + accum_y) + y1;
-                                    double draw_x2 = accum_x + x2 + offx;
-                                    double draw_y2 = (offy + accum_y) + y2;
-
-                                    previewGraphics.DrawLine(Pens.Blue, Convert.ToInt32(draw_x1 * preview_mag), Convert.ToInt32(draw_y1 * preview_mag), Convert.ToInt32(draw_x2 * preview_mag), Convert.ToInt32(draw_y2 * preview_mag));    //draw a stroke to the picturebox
-
-                                    //start a pen stroke
-                                    GX = accum_x + x1 + offx;                                               //calculate the GCode X value
-                                    GY = ((char_height - y1) + (max_y - offy) - accum_y) - font_offset_y;     //calculate the GCode Y value
-
-                                    if (lastx == accum_x + x1 + offx && lasty == (char_height - y1) + (max_y - offy))           //test if the pen needs to raise for a travel
-                                    {
-                                        output += "G1 X" + GX.ToString() + " Y" + (GY).ToString() + " F" + (first_move ? F_travel : F_draw) + "\r\n";     //write the move to the output string
-                                        first_move = false;
+                                        output += penup.Text + "\r\n";                               //laser poweroff - (Pen up)
                                     }
                                     else
                                     {
-                                        if (radio_laser_mode.Checked)
-                                        {
-                                            output += penup.Text + "\r\n";                               //laser poweroff - (Pen up)
-                                        }
-                                        else
-                                        {
-                                            output += "G0 Z" + penup.Text + " F" + F_zspeed + "\r\n";                               //raise the pen - Pen up
-                                        }
-                                        output += "G0 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_travel + "\r\n";       //move the pen      
-                                        if (radio_laser_mode.Checked)
-                                        {
-                                            output += (dryrun.Checked ? penup.Text : pendown.Text) + "\r\n";     //turn laser on (unless dry run is on)
-                                        }
-                                        else
-                                        {
-                                            output += "G0 Z" + (dryrun.Checked ? penup.Text : pendown.Text) + " F" + F_zspeed + "\r\n";     //put the pen down (unless dry run is on)
-                                        }
-
+                                        output += "G0 Z" + penup.Text + " F" + F_zspeed + "\r\n";                               //raise the pen - Pen up
                                     }
-                                    if (Convert.ToInt32(GX) > max_x || Convert.ToInt32(GX) < 0) { out_of_bounds = true; }       //check if we went out of bounds
-                                    if (Convert.ToInt32(GY) > max_y || Convert.ToInt32(GY) < 0) { out_of_bounds = true; }
+                                    output += "G0 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_travel + "\r\n";       //move the pen      
+                                    if (radio_laser_mode.Checked)
+                                    {
+                                        output += (dryrun.Checked ? penup.Text : pendown.Text) + "\r\n";     //turn laser on (unless dry run is on)
+                                    }
+                                    else
+                                    {
+                                        output += "G0 Z" + (dryrun.Checked ? penup.Text : pendown.Text) + " F" + F_zspeed + "\r\n";     //put the pen down (unless dry run is on)
+                                    }
 
-                                    //end the pen stroke
-                                    GX = (accum_x + x2 + offx);                                                 //calculate the GCode X value
-                                    GY = (((char_height - y2) + (max_y - offy)) - accum_y) - font_offset_y;     //calculate the GCode Y value
-                                    output += "G1 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_draw + "\r\n";       //write the move to the output string
-
-                                    lastx = accum_x + x2 + offx;                            //keep the last x/y so we can test it for pen up on next loop
-                                    lasty = (char_height - y2) + (max_y - offy);
                                 }
-                                else if (font_chars[cnum][(b * 4) + 3 + 3] < 0 && prevOutputPointX != -1 && prevOutputPointY != -1 && connectLettersCheckBox.Checked) // found an input point! If there is an output point of previous letter - i'd draw a line
-                                {
-                                    double x1 = prevOutputPointX;
-                                    double y1 = prevOutputPointY;
+                                if (Convert.ToInt32(GX) > max_x || Convert.ToInt32(GX) < 0) { out_of_bounds = true; }       //check if we went out of bounds
+                                if (Convert.ToInt32(GY) > max_y || Convert.ToInt32(GY) < 0) { out_of_bounds = true; }
+
+                                //end the pen stroke
+                                GX = (accum_x + x2 + offx);                                                 //calculate the GCode X value
+                                GY = (((char_height - y2) + (max_y - offy)) - accum_y) - font_offset_y;     //calculate the GCode Y value
+                                output += "G1 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_draw + "\r\n";       //write the move to the output string
+
+                                lastx = accum_x + x2 + offx;                            //keep the last x/y so we can test it for pen up on next loop
+                                lasty = (char_height - y2) + (max_y - offy);
+                            }
+                            else if (font_chars[cnum][(b * 4) + 3 + 3] < 0 && prevOutputPointX != -1 && prevOutputPointY != -1 && connectLettersCheckBox.Checked) // found an input point! If there is an output point of previous letter - i'd draw a line
+                            {
+                                double x1 = prevOutputPointX;
+                                double y1 = prevOutputPointY;
                                 double x2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3]);
-                                    double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 1]);
+                                double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 1]);
                                 if (rotCheckbox.Checked) //Rotating the line
                                 {
-                                    double tX2 = x2 - midPointX;
-                                    double tY2 = y2 - midPointY;
-                                    x2 = tX2 * cosRotate - tY2 * sinRotate;
-                                    y2 = tX2 * sinRotate + tY2 * cosRotate;
+                                    List<double> points;
+                                    points = rotate(x2, y2, thewidth / 2, 161 / 2, rotatingAngle);
+                                    x2 = points[0];
+                                    y2 = points[1];
                                 }
                                 //Increasing the size and adding random movement
                                 x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale;
@@ -1166,237 +1166,238 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
 
 
                                 double draw_x1 = x1 + offx;                   //calculate the scaled points for the picutrebox
-                                    double draw_y1 = (offy) + y1 + accum_y;
-                                    double draw_x2 = accum_x + x2 + offx;
-                                    double draw_y2 = (offy + accum_y) + y2;
+                                double draw_y1 = (offy) + y1 + accum_y;
+                                double draw_x2 = accum_x + x2 + offx;
+                                double draw_y2 = (offy + accum_y) + y2;
 
-                                    previewGraphics.DrawLine(Pens.Blue, Convert.ToInt32(draw_x1 * preview_mag), Convert.ToInt32(draw_y1 * preview_mag), Convert.ToInt32(draw_x2 * preview_mag), Convert.ToInt32(draw_y2 * preview_mag));    //draw a stroke to the picturebox
+                                previewGraphics.DrawLine(Pens.Blue, Convert.ToInt32(draw_x1 * preview_mag), Convert.ToInt32(draw_y1 * preview_mag), Convert.ToInt32(draw_x2 * preview_mag), Convert.ToInt32(draw_y2 * preview_mag));    //draw a stroke to the picturebox
 
-                                    //start a pen stroke
-                                    GX = x1 + offx;                                               //calculate the GCode X value
-                                    GY = ((char_height - y1) + (max_y - offy) - accum_y) - font_offset_y;     //calculate the GCode Y value
+                                //start a pen stroke
+                                GX = x1 + offx;                                               //calculate the GCode X value
+                                GY = ((char_height - y1) + (max_y - offy) - accum_y) - font_offset_y;     //calculate the GCode Y value
 
-                                    if (lastx == accum_x + x1 + offx && lasty == (char_height - y1) + (max_y - offy))           //test if the pen needs to raise for a travel
+                                if (lastx == accum_x + x1 + offx && lasty == (char_height - y1) + (max_y - offy))           //test if the pen needs to raise for a travel
+                                {
+                                    output += "G1 X" + GX.ToString() + " Y" + (GY).ToString() + " F" + (first_move ? F_travel : F_draw) + "\r\n";     //write the move to the output string
+                                    first_move = false;
+                                }
+                                else
+                                {
+                                    if (radio_laser_mode.Checked)
                                     {
-                                        output += "G1 X" + GX.ToString() + " Y" + (GY).ToString() + " F" + (first_move ? F_travel : F_draw) + "\r\n";     //write the move to the output string
-                                        first_move = false;
+                                        output += penup.Text + "\r\n";                               //laser poweroff - (Pen up)
                                     }
                                     else
                                     {
-                                        if (radio_laser_mode.Checked)
-                                        {
-                                            output += penup.Text + "\r\n";                               //laser poweroff - (Pen up)
-                                        }
-                                        else
-                                        {
-                                            output += "G0 Z" + penup.Text + " F" + F_zspeed + "\r\n";                               //raise the pen - Pen up
-                                        }
-                                        output += "G0 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_travel + "\r\n";       //move the pen      
-                                        if (radio_laser_mode.Checked)
-                                        {
-                                            output += (dryrun.Checked ? penup.Text : pendown.Text) + "\r\n";     //turn laser on (unless dry run is on)
-                                        }
-                                        else
-                                        {
-                                            output += "G0 Z" + (dryrun.Checked ? penup.Text : pendown.Text) + " F" + F_zspeed + "\r\n";     //put the pen down (unless dry run is on)
-                                        }
-
+                                        output += "G0 Z" + penup.Text + " F" + F_zspeed + "\r\n";                               //raise the pen - Pen up
                                     }
-                                    if (Convert.ToInt32(GX) > max_x || Convert.ToInt32(GX) < 0) { out_of_bounds = true; }       //check if we went out of bounds
-                                    if (Convert.ToInt32(GY) > max_y || Convert.ToInt32(GY) < 0) { out_of_bounds = true; }
+                                    output += "G0 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_travel + "\r\n";       //move the pen      
+                                    if (radio_laser_mode.Checked)
+                                    {
+                                        output += (dryrun.Checked ? penup.Text : pendown.Text) + "\r\n";     //turn laser on (unless dry run is on)
+                                    }
+                                    else
+                                    {
+                                        output += "G0 Z" + (dryrun.Checked ? penup.Text : pendown.Text) + " F" + F_zspeed + "\r\n";     //put the pen down (unless dry run is on)
+                                    }
 
-                                    //end the pen stroke
-                                    GX = (accum_x + x2 + offx);                                                 //calculate the GCode X value
-                                    GY = (((char_height - y2) + (max_y - offy)) - accum_y) - font_offset_y;     //calculate the GCode Y value
-                                    output += "G1 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_draw + "\r\n";       //write the move to the output string
-
-                                    lastx = accum_x + x2 + offx;                            //keep the last x/y so we can test it for pen up on next loop
-                                    lasty = (char_height - y2) + (max_y - offy);
                                 }
+                                if (Convert.ToInt32(GX) > max_x || Convert.ToInt32(GX) < 0) { out_of_bounds = true; }       //check if we went out of bounds
+                                if (Convert.ToInt32(GY) > max_y || Convert.ToInt32(GY) < 0) { out_of_bounds = true; }
 
-                                else //there's an output point. Saving it and will use if there is an input point
-                                {
-                                    double x2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 2]);
-                                    double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 3]);
+                                //end the pen stroke
+                                GX = (accum_x + x2 + offx);                                                 //calculate the GCode X value
+                                GY = (((char_height - y2) + (max_y - offy)) - accum_y) - font_offset_y;     //calculate the GCode Y value
+                                output += "G1 X" + GX.ToString() + " Y" + GY.ToString() + " F" + F_draw + "\r\n";       //write the move to the output string
+
+                                lastx = accum_x + x2 + offx;                            //keep the last x/y so we can test it for pen up on next loop
+                                lasty = (char_height - y2) + (max_y - offy);
+                            }
+
+                            else //there's an output point. Saving it and will use if there is an input point
+                            {
+                                double x2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 2]);
+                                double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 3]);
                                 if (rotCheckbox.Checked) //Rotating the line
                                 {
-                                    double tX2 = x2 - midPointX;
-                                    double tY2 = y2 - midPointY;
-                                    x2 = tX2 * cosRotate - tY2 * sinRotate;
-                                    y2 = tX2 * sinRotate + tY2 * cosRotate;
+                                    List<double> points;
+                                    points = rotate(x2, y2, thewidth / 2, 161 / 2, rotatingAngle);
+                                    x2 = points[0];
+                                    y2 = points[1];
                                 }
                                 //Increasing the size and adding random movement
                                 x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale + accum_x;
                                 y2 = y2 * scale + xFactor * thewidth * 2.5 * multY * scale;
                                 ifOuputPointFound = true;
-                                    prevOutputPointY = y2;
-                                    prevOutputPointX = x2;
-
-                                }
-
+                                prevOutputPointY = y2;
+                                prevOutputPointX = x2;
 
                             }
-                            if (!ifOuputPointFound)
-                            {
-                                prevOutputPointX = -1;
-                                prevOutputPointY = -1;
-                            }
-                            if(!correctedLetter)
-                            accum_x += (Convert.ToDouble(thewidth) * scale) + letter_spacing;   //accumulated X value plus spacing
-                        correctedLetter = false;
+
+
                         }
-                        else
+                        if (!ifOuputPointFound)
                         {
-                            accum_x += Convert.ToDouble(thewidth) * scale * 5 + letter_spacing; //accumulated X value (space) plus spacing
                             prevOutputPointX = -1;
                             prevOutputPointY = -1;
                         }
+                        if (!correctedLetter)
+                            accum_x += (Convert.ToDouble(thewidth) * scale) + letter_spacing;   //accumulated X value plus spacing
+                        correctedLetter = false;
                     }
-                    accum_x = 0;    //CR                                                    //reset the accumulated X value
-                    accum_y += char_height + line_spacing;  //LF                            //increment the accumulated Y value plus spacing
-                                                            //end lines loop
-                }
-                if (symbolMovingError) MessageBox.Show("Random symbol moving function error. Check if you entered correct coefficients and try again.");
-                //end of ploting moves
-                if (radio_laser_mode.Checked)
-                {
-                    output += "G0 F3000" + "\r\n";
-                    output += penup.Text + "\r\n";                                          //poweroff the laser
-
-                    output += "G91" + "\r\n";
-                    output += "G90" + "\r\n";
-                    output += "M3 S0" + "\r\n";                                             //speed zero
-                    output += "M5 S0" + "\r\n";                                             //spindle off
-
-                    output += "M18" + "\r\n";                                               //Disable steppers
-                }
-                else
-                {
-                    output += "G0 Z" + penup.Text + " F" + F_zspeed + "\r\n";               //Raise the pen
-                }
-
-                //if (!(!homex.Checked && !homey.Checked))                                    //Home the pen (if enabled in UI)
-                if (homex.Checked || homey.Checked)
-                {
-                    output += "G0 " + (homex.Checked ? "X0" : "") + " " + (homey.Checked ? "Y0" : "") + " F" + F_travel + "\r\n";
-                }
-
-                output += "" + "\r\n";                                                      //end space
-
-                //FIXES: 14/04/2018 : remove line duplicates, enforce periods instead of comma's in decimal numbers caused by language preferences
-                //it's a bit of a hack but whatever works
-                string output_filtered = "";
-                string lastline = "";
-                int lines_omitted = 0;
-                using (StringReader reader = new StringReader(output))
-                {
-                    string line = string.Empty;
-                    do
+                    else
                     {
-                        line = reader.ReadLine();
-                        if (line != null && lastline != line)
-                        {
-                            output_filtered += line.Replace(",", ".") + "\r\n";
-                            lastline = line;
-                        }
-                        else
-                        {
-                            if (line != null)
-                            {
-                                output_filtered += line.Replace(",", ".") + "\r\n"; //DELETE ME - here for testing purposes only
-                            }
-                            lines_omitted++;
-                        }
-
-                    } while (line != null);
-                }
-                output_filtered += "; lines omitted: " + lines_omitted + "\r\n";            //keep an eye on the duplicate lines for further refinement later
-
-
-                pb_preview.Image = preview;                                                 //write the preview image to the picturebox
-                if (saving)                                                                 //if "Render GCode" was clicked, offer to save the GCode file
-                {
-                    SaveFileDialog save = new SaveFileDialog();
-                    save.FileName = last_filename != "" ? last_filename : "3DWriter.gcode";
-                    save.Filter = "Gcode File | *.gcode";
-                    if (save.ShowDialog() == DialogResult.OK)
-                    {
-                        last_filename = save.FileName;
-                        StreamWriter writer = new StreamWriter(save.OpenFile());
-                        writer.WriteLine(output_filtered);
-                        writer.Dispose();
-                        writer.Close();
+                        accum_x += Convert.ToDouble(thewidth) * scale + letter_spacing; //accumulated X value (space) plus spacing
+                        prevOutputPointX = -1;
+                        prevOutputPointY = -1;
                     }
                 }
-                //toolStripStatusLabel3.Text = "";
+                accum_x = 0;    //CR                                                    //reset the accumulated X value
+                accum_y += char_height + line_spacing;  //LF                            //increment the accumulated Y value plus spacing
+                                                        //end lines loop
+            }
+            if (symbolMovingError) MessageBox.Show("Random symbol moving function error. Check if you entered correct coefficients and try again.");
+            //end of ploting moves
+            if (radio_laser_mode.Checked)
+            {
+                output += "G0 F3000" + "\r\n";
+                output += penup.Text + "\r\n";                                          //poweroff the laser
 
-                if (out_of_bounds)
-                {                                                        //Complain about life
-                    MessageBox.Show("Warning: " + (radio_laser_mode.Checked ? "Laser" : "Pen") + " went out of bounds !");
+                output += "G91" + "\r\n";
+                output += "G90" + "\r\n";
+                output += "M3 S0" + "\r\n";                                             //speed zero
+                output += "M5 S0" + "\r\n";                                             //spindle off
+
+                output += "M18" + "\r\n";                                               //Disable steppers
+            }
+            else
+            {
+                output += "G0 Z" + penup.Text + " F" + F_zspeed + "\r\n";               //Raise the pen
+            }
+
+            //if (!(!homex.Checked && !homey.Checked))                                    //Home the pen (if enabled in UI)
+            if (homex.Checked || homey.Checked)
+            {
+                output += "G0 " + (homex.Checked ? "X0" : "") + " " + (homey.Checked ? "Y0" : "") + " F" + F_travel + "\r\n";
+            }
+
+            output += "" + "\r\n";                                                      //end space
+
+            //FIXES: 14/04/2018 : remove line duplicates, enforce periods instead of comma's in decimal numbers caused by language preferences
+            //it's a bit of a hack but whatever works
+            string output_filtered = "";
+            string lastline = "";
+            int lines_omitted = 0;
+            using (StringReader reader = new StringReader(output))
+            {
+                string line = string.Empty;
+                do
+                {
+                    line = reader.ReadLine();
+                    if (line != null && lastline != line)
+                    {
+                        output_filtered += line.Replace(",", ".") + "\r\n";
+                        lastline = line;
+                    }
+                    else
+                    {
+                        if (line != null)
+                        {
+                            output_filtered += line.Replace(",", ".") + "\r\n"; //DELETE ME - here for testing purposes only
+                        }
+                        lines_omitted++;
+                    }
+
+                } while (line != null);
+            }
+            output_filtered += "; lines omitted: " + lines_omitted + "\r\n";            //keep an eye on the duplicate lines for further refinement later
+
+
+            pb_preview.Image = preview;                                                 //write the preview image to the picturebox
+            if (saving)                                                                 //if "Render GCode" was clicked, offer to save the GCode file
+            {
+                SaveFileDialog save = new SaveFileDialog();
+                save.FileName = last_filename != "" ? last_filename : "3DWriter.gcode";
+                save.Filter = "Gcode File | *.gcode";
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    last_filename = save.FileName;
+                    StreamWriter writer = new StreamWriter(save.OpenFile());
+                    writer.WriteLine(output_filtered);
+                    writer.Dispose();
+                    writer.Close();
                 }
-                button1.Enabled = true;                                                  //re-enable the buttons
-                button2.Enabled = true;
-            
+            }
+            //toolStripStatusLabel3.Text = "";
+
+            if (out_of_bounds)
+            {                                                        //Complain about life
+                MaterialMessageBox.Show("Warning: " + (radio_laser_mode.Checked ? "Laser" : "Pen") + " went out of bounds !");
+            }
+            button1.Enabled = true;                                                  //re-enable the buttons
+            button2.Enabled = true;
+
         }
 
-            private void update_bed_size()
+        private void update_bed_size()
+        {
+            //update the preview picturebox and form size based on bed x/y settings
+            //also sets the preview magnification level
+            if (previewScale1.Checked)
             {
-                //update the preview picturebox and form size based on bed x/y settings
-                //also sets the preview magnification level
-                if (previewScale1.Checked)
-                {
-                    preview_mag = 1;
-                }
-                if (previewScale2.Checked)
-                {
-                    preview_mag = 2;
-                }
-                if (previewScale4.Checked)
-                {
-                    preview_mag = 4;
-                }
-
-                if (Screen.FromControl(this).Bounds.Height <= 1000)
-                {
-                    previewScale4.Checked = false;
-                    previewScale2.Checked = true;
-
-                    preview_mag = 2;
-                }
-
-                if (bedwidth.Text != "" && IsNumeric(bedwidth.Text) && int.Parse(bedwidth.Text) > 10)
-                {
-                    if (int.Parse(bedwidth.Text) > Screen.PrimaryScreen.Bounds.Width) { bedwidth.Text = (Screen.PrimaryScreen.Bounds.Width - 700).ToString(); }
-                    bedwidth.BackColor = System.Drawing.SystemColors.Window;
-                    pb_preview.Width = Convert.ToInt32(bedwidth.Text) * preview_mag;        //apply the magnification factor
-                    this.Width = Convert.ToInt32(bedwidth.Text) * preview_mag + 730;                                    //resize the form to fit new preview size
-                                                                                                                        //previewCard.Width = Convert.ToInt32(bedwidth.Text) * preview_mag;
-                                                                                                                        //panel4.Width = Convert.ToInt32(bedwidth.Text) * preview_mag + 400;
-                }
-                else
-                {
-                    bedwidth.BackColor = Color.Red;                                         //incorrect value entered, make it visible
-                }
-
-                if (beddepth.Text != "" && IsNumeric(beddepth.Text) && int.Parse(beddepth.Text) > 10)
-                {
-                    if (int.Parse(beddepth.Text) > Screen.PrimaryScreen.Bounds.Height) { beddepth.Text = (Screen.PrimaryScreen.Bounds.Height - 170).ToString(); }
-                    beddepth.BackColor = System.Drawing.SystemColors.Window;
-                    pb_preview.Height = Convert.ToInt32(beddepth.Text) * preview_mag;       //apply the magnification factor
-
-                    this.Height = (pb_preview.Height + 170) < 565 ? 565 : (pb_preview.Height + 170);    //resize the form to fit new preview size
-                                                                                                        //previewCard.Height = Convert.ToInt32(beddepth.Text) * preview_mag;
-                                                                                                        //panel4.Height = Convert.ToInt32(beddepth.Text) * preview_mag + 400;
-                }
-                else
-                {
-                    beddepth.BackColor = Color.Red;                                         //incorrect value entered, make it visible
-                }
-                button1_Click(null, null);
-                panel5.Location = new Point(this.Width - 50, panel5.Location.Y);
-
+                preview_mag = 1;
             }
-        
+            if (previewScale2.Checked)
+            {
+                preview_mag = 2;
+            }
+            if (previewScale4.Checked)
+            {
+                preview_mag = 4;
+            }
+
+            if (Screen.FromControl(this).Bounds.Height <= 1000)
+            {
+                previewScale4.Checked = false;
+                previewScale2.Checked = true;
+
+                preview_mag = 2;
+            }
+
+            if (bedwidth.Text != "" && IsNumeric(bedwidth.Text) && int.Parse(bedwidth.Text) > 10)
+            {
+                if (int.Parse(bedwidth.Text) > Screen.PrimaryScreen.Bounds.Width) { bedwidth.Text = (Screen.PrimaryScreen.Bounds.Width - 700).ToString(); }
+                bedwidth.BackColor = System.Drawing.SystemColors.Window;
+                pb_preview.Width = Convert.ToInt32(bedwidth.Text) * preview_mag;        //apply the magnification factor
+                this.Width = Convert.ToInt32(bedwidth.Text) * preview_mag + 730 - 285 + 109;                                    //resize the form to fit new preview size
+                                                                                                                    //previewCard.Width = Convert.ToInt32(bedwidth.Text) * preview_mag;
+                                                                                                                    //panel4.Width = Convert.ToInt32(bedwidth.Text) * preview_mag + 400;
+            }
+            else
+            {
+                bedwidth.BackColor = Color.Red;                                         //incorrect value entered, make it visible
+            }
+
+            if (beddepth.Text != "" && IsNumeric(beddepth.Text) && int.Parse(beddepth.Text) > 10)
+            {
+                if (int.Parse(beddepth.Text) > Screen.PrimaryScreen.Bounds.Height) { beddepth.Text = (Screen.PrimaryScreen.Bounds.Height - 170).ToString(); }
+                beddepth.BackColor = System.Drawing.SystemColors.Window;
+                pb_preview.Height = Convert.ToInt32(beddepth.Text) * preview_mag;       //apply the magnification factor
+                tb_input.Height = Convert.ToInt32(beddepth.Text) * preview_mag;
+                materialCard2.Height = Convert.ToInt32(beddepth.Text) * preview_mag;
+                this.Height = (pb_preview.Height + 170) < 565 ? 565 : (pb_preview.Height + 170 + 100);    //resize the form to fit new preview size
+                                                                                                    //previewCard.Height = Convert.ToInt32(beddepth.Text) * preview_mag;
+                                                                                                    //panel4.Height = Convert.ToInt32(beddepth.Text) * preview_mag + 400;
+            }
+            else
+            {
+                beddepth.BackColor = Color.Red;                                         //incorrect value entered, make it visible
+            }
+            button1_Click(null, null);
+            panel5.Location = new Point(this.Width - 50, panel5.Location.Y);
+
+        }
+
 
 
         private void bedwidth_TextChanged(object sender, EventArgs e)
@@ -1411,13 +1412,13 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
 
         private void FontComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(FontComboBox.Text != "" || FontComboBox.Text != null) load_font(FontComboBox.Text);
+            if (FontComboBox.Text != "" || FontComboBox.Text != null) load_font(FontComboBox.Text);
         }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AboutBox box = new AboutBox();
-            
+
             box.Show();
         }
 
@@ -1426,17 +1427,17 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             Process.Start("https://github.com/boy1dr");
         }
 
-       
+
         private bool IsNumeric(string s)
         {
             float output;
             return float.TryParse(s, out output);
         }
 
-        private void label28_DoubleClick(object sender, EventArgs e)
+        /*private void label28_DoubleClick(object sender, EventArgs e)
         {
             fontscale_value.Text = "0.2";
-            trackBar1.Value = 20;
+            textSize_tb.Value = 20;
             update_font_size();
         }
 
@@ -1452,7 +1453,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             fontscale_value.Text = "0.5";
             trackBar1.Value = 50;
             update_font_size();
-        }
+        }*/
 
         private void resetDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1474,7 +1475,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             offsetx.Text = "45";
             offsety.Text = "45";
             fontscale_value.Text = "0.2";
-            trackBar1.Value = 20;
+            textSize_tb.Text = "20";
             tb_input.Text = "Welcome to 3DWriter!";
             lspacing.Text = "0";
             letspacing.Text = "0";
@@ -1504,7 +1505,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
         private void editorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FontEditor editorbox = new FontEditor();
- 
+
             editorbox.Show();
         }
 
@@ -1573,7 +1574,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
                         lineGoingDownCheckbox.Checked = false;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Properties.Settings.Default.line_going_down = 0;
                     lineGoingDownCoefficient = 0;
@@ -1647,7 +1648,7 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
 
         }
 
-        private void connectLettersCheckbox(object sender, EventArgs e)
+        private void connectLettersCheckbox_Click(object sender, EventArgs e)
         {
             if (connectLettersCheckBox.Checked)
             {
@@ -1659,6 +1660,67 @@ public static DialogResult InputBoxRandomMove(ref string value, ref string value
             }
         }
 
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void sloppyCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void connectLettersCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void materialTabSelector1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textSize_tb_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                fontscale_value.Text = (Convert.ToDouble(textSize_tb.Text) /0.37)/100.0 + "";
+                update_font_size();
+            }
+            catch(Exception ex)
+            {
+                //Ignored
+            }
+        }
+
+        private List<double> rotate(double thisPointX, double thisPointY, double originPointX, double originPointY, double degrees){ 
+            double radians = (Math.PI / 180) * degrees;
+        //x, y = thispoint
+        //offset_x, offset_y = originpoint
+            double adjusted_x = (thisPointX - originPointX);
+            double adjusted_y = (thisPointY - originPointY);
+            double cos_rad = Math.Cos(radians);
+            double sin_rad = Math.Sin(radians);
+            List<double> result = new List<double>();
+            result.Add(originPointX + cos_rad * adjusted_x + sin_rad * adjusted_y);
+            result.Add(originPointY + -sin_rad * adjusted_x + cos_rad * adjusted_y);
+            return result;
+    }
         //Wow you made it, take a break :P
     }
 }

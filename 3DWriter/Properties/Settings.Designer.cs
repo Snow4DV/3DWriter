@@ -181,7 +181,7 @@ namespace _3DWriter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Welcome to 3DWriter!")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Welcome to 3DHandwriter!")]
         public string default_text {
             get {
                 return ((string)(this["default_text"]));
@@ -368,6 +368,19 @@ namespace _3DWriter.Properties {
             }
             set {
                 this["correct_letters_coefficient"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopq" +
+            "rstuvwxyz{|}~")]
+        public string symbols_map {
+            get {
+                return ((string)(this["symbols_map"]));
+            }
+            set {
+                this["symbols_map"] = value;
             }
         }
     }

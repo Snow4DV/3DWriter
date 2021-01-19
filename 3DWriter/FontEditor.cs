@@ -16,6 +16,7 @@ using System.Windows.Media;
 using Pen = System.Drawing.Pen;
 using Color = System.Drawing.Color;
 using SimplifyCSharp;
+using MaterialSkin.Controls;
 
 namespace _3DWriter
 
@@ -147,7 +148,7 @@ namespace _3DWriter
                 update_preview();
             }
             //MessageBox.Show(idx.ToString());
-            
+            getNextSymbol();
             
         }
 
@@ -362,24 +363,47 @@ namespace _3DWriter
         private void remove_gaps(object sender, EventArgs e)
         {
             ListView.ListViewItemCollection lvCol = lv_points.Items; //saving current lv_points
-            double minX = 0;
-            double maxX = 0;
+            double minX = -1;
+            double maxX = -1;
+            int startingI = -1;
+            //bool skipFirstPoint = false;
             for(int i = 0; i < lvCol.Count; i++) //getting min and max of X
             {
-                String[] sel = lvCol[i].Text.Split(',');
-                if (i == 0) minX = Convert.ToDouble(sel[0]);
-                if (Convert.ToDouble(sel[0]) < minX) minX = Convert.ToDouble(sel[0]); //obtaining minX
-                if (Convert.ToDouble(sel[2]) < minX) minX = Convert.ToDouble(sel[2]);
-                if (Convert.ToDouble(sel[0]) > maxX) maxX = Convert.ToDouble(sel[0]); //obtaining maxX
-                if (Convert.ToDouble(sel[2]) > maxX) maxX = Convert.ToDouble(sel[2]);
+                String[] sel = lvCol[i].Text.Split(','); //TODO: CURRENTLY IF THE FIRST LINE IS input/output it will fuck up - rewrite it just to skip iteration if inp/outp/0;0;0;0 and if point is ok - define the minx;
+                if (((Convert.ToDouble(sel[0]) == 0 && Convert.ToDouble(sel[2]) == 0 && Convert.ToDouble(sel[1]) == 0 && Convert.ToDouble(sel[3]) == 0) 
+                    || (Convert.ToDouble(sel[0]) == -1 && Convert.ToDouble(sel[1]) == -1) || (Convert.ToDouble(sel[2]) == -1 && Convert.ToDouble(sel[3]) == -1)))
+                { //if line is {0;0;0;0} or input or output
+                    continue; //skip iteration
+                }
+                if(minX == -1)
+                {
+                    startingI = i;
+                    minX = Convert.ToDouble(sel[0]);
+                    if (Convert.ToDouble(sel[2]) < minX) minX = Convert.ToDouble(sel[2]); //check if second point is smaller
+                }
+                if (Convert.ToDouble(sel[0]) < minX && Convert.ToDouble(sel[0]) != -1) minX = Convert.ToDouble(sel[0]); //obtaining minX
+                if (Convert.ToDouble(sel[2]) < minX && Convert.ToDouble(sel[2]) != -1) minX = Convert.ToDouble(sel[2]);
+                if (Convert.ToDouble(sel[0]) > maxX && Convert.ToDouble(sel[0]) != -1) maxX = Convert.ToDouble(sel[0]); //obtaining maxX
+                if (Convert.ToDouble(sel[2]) > maxX && Convert.ToDouble(sel[2]) != -1) maxX = Convert.ToDouble(sel[2]);
             }
             //MessageBox.Show("Deleted successfully!:" + maxX + "/min:" + minX); 
             tb_width.Text = ((Single)(maxX - minX)).ToString();
             for (int i = 0; i < lvCol.Count; i++)
             {
+                if (startingI == -1) break; //exiting if minX is not found - probably all points are input/output/0;0;0;0
+                if (lvCol[i].Text == "0,0,0,0") continue;
+                
                 String[] sel = lvCol[i].Text.Split(',');
-                int x1 = (int)(Convert.ToDouble(sel[0]) - minX);
-                int x2 = (int)(Convert.ToDouble(sel[2]) - minX);
+                double x1 = (Convert.ToDouble(sel[0]));
+                double x2 = (Convert.ToDouble(sel[2]));
+                if(x1 != -1 )
+                {
+                    x1 -= minX;
+                }
+                if (x2 != -1)
+                {
+                    x2 -= minX;
+                }
                 lv_points.Items[i].Text = x1.ToString() + ',' + sel[1] + ',' + x2.ToString() + ',' + sel[3];
             }
             save_selected_seg();
@@ -412,7 +436,7 @@ namespace _3DWriter
             const string message =
        "That function will increase the font fivefold. Its main preposition is to convert fonts from older version of 3DWriter. Are you sure?";
             const string caption = "Font multiplying";
-            var result = MessageBox.Show(message, caption,
+            var result = MaterialMessageBox.Show(message, caption,
                                          MessageBoxButtons.YesNo,
                                          MessageBoxIcon.Question);
 
@@ -507,29 +531,32 @@ namespace _3DWriter
                             //draw starting point
                             previewGraphics.DrawEllipse(Pens.Red, (Convert.ToSingle(this_seg[0]) * scale) - 3, (Convert.ToSingle(this_seg[1]) * scale) - 3, 6, 6);
                         }
-                        else if(Convert.ToDouble(this_seg[0]) > 0 && Convert.ToDouble(this_seg[3]) < 0) //entry point to the symbol - green
-                        {
-                            previewGraphics.DrawEllipse(greenPen, Convert.ToSingle(this_seg[0]) * scale - 3, Convert.ToSingle(this_seg[1]) * scale - 3, 6, 6);
-                           
-                        }
-                        else  //out-point of symbol - blue
-                        {
-                            previewGraphics.DrawEllipse(bluePen, Convert.ToSingle(this_seg[2]) * scale - 3, (Convert.ToSingle(this_seg[3]) * scale) - 3, 6, 6);
-                        }
 
                     }
                     if (!(Convert.ToDouble(this_seg[0]) < 0) && !(Convert.ToDouble(this_seg[3]) < 0))
                     {
                         //skip
                     }
-                    else if (Convert.ToDouble(this_seg[0]) > 0 && Convert.ToDouble(this_seg[3]) < 0) //entry point to the symbol - green
+                    else if (Convert.ToDouble(this_seg[0]) >= 0 && Convert.ToDouble(this_seg[3]) < 0) //entry point to the symbol - green
                     {
-                        previewGraphics.DrawEllipse(greenPen, Convert.ToSingle(this_seg[0]) * scale - 3, Convert.ToSingle(this_seg[1]) * scale - 3, 6, 6);
 
+                        double pointEntryX = Convert.ToDouble(this_seg[0]);
+                        if (pointEntryX < 0) pointEntryX = 0;
+                        double pointEntryY = Convert.ToDouble(this_seg[1]);
+                        if (pointEntryY < 0) pointEntryY = 0;
+                        previewGraphics.DrawEllipse(greenPen, ((float)pointEntryX) * scale - 3, ((float)pointEntryY) * scale -3 , 6, 6);
+                        tb_x1.Text = this_seg[0] + "," + this_seg[1];
+                        tb_x2.Text = this_seg[2] + "," + this_seg[3];
                     }
                     else  //out-point of symbol - blue
                     {
-                        previewGraphics.DrawEllipse(bluePen, Convert.ToSingle(this_seg[2]) * scale - 3, (Convert.ToSingle(this_seg[3]) * scale) - 3, 6, 6);
+                        double pointOutX = Convert.ToSingle(this_seg[2]);
+                        if (pointOutX < 3) pointOutX = 0;
+                        double pointOutY = Convert.ToDouble(this_seg[3]);
+                        if (pointOutY < 0) pointOutY = 0;
+                        previewGraphics.DrawEllipse(bluePen, ((float)pointOutX) * scale - 3, ((float)pointOutY) * scale - 3, 6, 6);
+                        tb_x1.Text = this_seg[0] + "," + this_seg[1];
+                        tb_x2.Text = this_seg[2] + "," + this_seg[3];
                     }
                 }
 
@@ -652,18 +679,22 @@ namespace _3DWriter
             }
             else
             {
-
-              
                 lv_charmap.Items.Add(tb_char_to_add.Text);
                 font_chars[lv_charmap.Items.Count] = new double[7];
-                font_chars[lv_charmap.Items.Count][0] = 5;
-                font_chars[lv_charmap.Items.Count][1] = 5;
-                font_chars[lv_charmap.Items.Count][2] = 4;
+                font_chars[lv_charmap.Items.Count][0] = 0;
+                font_chars[lv_charmap.Items.Count][1] = 0;
+                font_chars[lv_charmap.Items.Count][2] = 0;
                 font_chars[lv_charmap.Items.Count][3] = 0;
-                font_chars[lv_charmap.Items.Count][4] = 20;
-                font_chars[lv_charmap.Items.Count][5] = 5;
-                font_chars[lv_charmap.Items.Count][6] = 20;
-
+                font_chars[lv_charmap.Items.Count][4] = 0;
+                font_chars[lv_charmap.Items.Count][5] = 0;
+                font_chars[lv_charmap.Items.Count][6] = 0;
+                for(int i = 0; i < lv_charmap.Items.Count; i++)
+                {
+                    lv_charmap.Items[i].Selected = false;
+                    lv_charmap.Items[i].Focused = false;
+                }
+                lv_charmap.Items[lv_charmap.Items.Count - 1].Selected = true;
+                lv_charmap.Items[lv_charmap.Items.Count - 1].Focused = true;
             }
         }
 
@@ -818,7 +849,12 @@ namespace _3DWriter
                     outputPointsLabel.Text = "Output points: " + simplifiedPointsLine.Count;
                     if(tb_width.Text != "" && lv_charmap.SelectedItems.Count != 0)
                     {
-                        for(int i = 0; i < simplifiedPointsLine.Count - 1; i++) //iterating through every point except the last one because line builds of two points - this and next
+                        if (autoInputOutputPoints.Checked && simplifiedPointsLine.Count > 0) //if checked - adding input point as input point
+                        {
+                            lv_points.Items.Add(simplifiedPointsLine[0].X / 2 + "," + simplifiedPointsLine[0].Y / 2 + ",-1,-1");
+                            segs++;
+                        }
+                        for (int i = 0; i < simplifiedPointsLine.Count - 1; i++) //iterating through every point except the last one because line builds of two points - this and next
                         {
                           
                             lv_points.Items.Add(simplifiedPointsLine[i].X / 2 + "," + simplifiedPointsLine[i].Y / 2 + "," + (simplifiedPointsLine[i+1].X / 2 + "," + simplifiedPointsLine[i+1].Y / 2));
@@ -832,17 +868,30 @@ namespace _3DWriter
                         }
                         lv_points.Items[segs - 1].Selected = true;
                         lv_points.Items[segs - 1].Focused = true;
-                        setButton_Click(null, null); //save points
+                        if (autoInputOutputPoints.Checked && simplifiedPointsLine.Count > 0) //if checked - adding last point as output point
+                        {
+                            lv_points.Items.Add("-1,-1," + simplifiedPointsLine[simplifiedPointsLine.Count - 1].X / 2 + "," + simplifiedPointsLine[simplifiedPointsLine.Count - 1].Y / 2);
+                            segs++;
+                        }
+                        if (autogapCheckbox.Checked) //autogapping on fly
+                        {
+                            remove_gaps(null, null); //it removes gapps and saves the array
+                        }
+                        else
+                        {
+                            setButton_Click(null, null); //it saves the array
+                        }
+                        
                     }
                     else
                     {
-                        MessageBox.Show("Select the char and enter the width first!");
+                        MaterialMessageBox.Show("Select the char and enter the width first!");
                     }
                     
                 }
                 catch(FormatException exep)
                 {
-                    MessageBox.Show("Tolerance value is incorrect!");
+                    MaterialMessageBox.Show("Tolerance value is incorrect!");
                 }
                 //simplifying the pointcollection
             }
@@ -885,6 +934,83 @@ namespace _3DWriter
             {
                 topWritingLineArrow.Location = new Point(topWritingLineArrow.Location.X, Convert.ToInt32(e.Location.Y + topWritingLineArrow.Location.Y - topWritingLineArrow.Height / 2));
                 topLineDrawing.Location = new Point(topLineDrawing.Location.X, Convert.ToInt32(e.Location.Y + topWritingLineArrow.Location.Y - topLineDrawing.Height / 2));
+            }
+        }
+
+        private void materialLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void getNextSymbol()
+        {
+            if (lv_charmap.SelectedItems.Count > 0)
+            {
+                if(lv_charmap.SelectedItems[0].Text.Length > 0)
+                {
+                    String charMap = Properties.Settings.Default.symbols_map;
+                    int index = charMap.IndexOf(lv_charmap.SelectedItems[0].Text.ToCharArray()[0]);
+                    if(charMap.Length > index + 1 && index != -1)
+                    {
+                        tb_char_to_add.Text = charMap.Substring(index + 1, 1);
+                    }
+                }
+                
+            }
+        }
+
+        public static DialogResult InputBoxSymbolsMap(ref string value)
+        {
+            Form form = new Form();
+            Label label = new Label();
+            Label info = new Label();
+            TextBox textBox = new TextBox();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
+
+            form.Text = "Symbol map modifier";
+            info.Text = "It is used to suggest the next symbol." + "\n" + "Enter characters one by one with no spaces:";
+            textBox.Text = value;
+
+            buttonOk.Text = "OK";
+            buttonCancel.Text = "Cancel";
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+
+            textBox.SetBounds(12, 46, 372, 100);
+            info.SetBounds(9, 10, 372, 10);
+            buttonOk.SetBounds(228, 30, 75, 23);
+            buttonCancel.SetBounds(306, 30, 75, 23);
+
+            info.AutoSize = true;
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            textBox.Text = Properties.Settings.Default.symbols_map;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(396, 60);
+            form.Controls.AddRange(new Control[] { info, label, textBox, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height + 80);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
+
+        private void symbolsMapSettings_Click(object sender, EventArgs e)
+        {
+            string symbolsMap = Properties.Settings.Default.symbols_map;
+            if (InputBoxSymbolsMap(ref symbolsMap) == DialogResult.OK)
+            {
+
+                Properties.Settings.Default.symbols_map = symbolsMap;
             }
         }
     }

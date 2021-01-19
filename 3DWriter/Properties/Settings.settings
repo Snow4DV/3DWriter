@@ -89,5 +89,8 @@
     <Setting Name="correct_letters_coefficient" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="symbols_map" Type="System.String" Scope="User">
+      <Value Profile="(Default)">!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
