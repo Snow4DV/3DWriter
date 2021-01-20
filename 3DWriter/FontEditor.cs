@@ -41,7 +41,7 @@ namespace _3DWriter
         //font character height
         double h_char_count;                                    //font character count
         string h_font_map;                                      //font mapz - Character index array
-        double[][] font_chars = new double[250][];              //the main font array
+        double[][] font_chars = new double[2000][];              //the main font array
         int segs = 0;
         int selected_seg = 0;
 
