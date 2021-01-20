@@ -52,3 +52,12 @@ C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.csproj
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.exe
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.pdb
 C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\3DWriter.csprojAssemblyReference.cache
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Release\aa\3DWriter.resources.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Release\ru-RU\3DWriter.resources.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\_3DWriter.Form1.aa.resources
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\_3DWriter.Form1.ru-RU.resources
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\aa\3DWriter.resources.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\ru-RU\3DWriter.resources.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\bin\Release\ru\3DWriter.resources.dll
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\_3DWriter.Form1.ru.resources
+C:\Users\ASUS\source\repos\Snow4DV\3DWriter\3DWriter\obj\Release\ru\3DWriter.resources.dll

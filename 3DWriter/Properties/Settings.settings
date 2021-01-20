@@ -92,5 +92,8 @@
     <Setting Name="symbols_map" Type="System.String" Scope="User">
       <Value Profile="(Default)">!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~</Value>
     </Setting>
+    <Setting Name="randomize_size" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -43,14 +43,50 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="544256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="3DWriter.exe" size="643072">
       <assemblyIdentity name="3DWriter" version="1.7.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/VJsD61RucyJiMnbs5Xf43wmUO6ZsBYEEKqFDpgHxWk=</dsig:DigestValue>
+        <dsig:DigestValue>b6ItXW83/Kh03Dds9RbUt7MRN6FCRw8sjruIVLAiJgs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="aa\3DWriter.resources.dll" size="35840">
+      <assemblyIdentity name="3DWriter.resources" version="1.7.0.1" language="aa" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>rmcG9hg58tg7zDXUOVj5aEGsj1EI2dfZ0q4ZBiCB/9I=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru\3DWriter.resources.dll" size="35840">
+      <assemblyIdentity name="3DWriter.resources" version="1.7.0.1" language="ru" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>jigkl9t6Uz/Ui7jzpD93bQzTo8olGrNylhDRxWBle4Y=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru-RU\3DWriter.resources.dll" size="70144">
+      <assemblyIdentity name="3DWriter.resources" version="1.7.0.1" language="ru-RU" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>p3mmZeYqTpbsD6p6oItFioDzoF+Vdgn35N6zaXvJkes=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,13 +114,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="3DWriter.exe.config" size="4381">
+  <file name="3DWriter.exe.config" size="4730">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qOt220phNWllFMrxdGFEuHmlXlIHc6bVgacCU+MBr1c=</dsig:DigestValue>
+      <dsig:DigestValue>1rsQQonqsF9i8GA/NY7nvxpIoY/mAPGT2iZnbJKLhTM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="3dwriter_logo_icon_icon_xIo_icon.ico" size="32177">
@@ -417,7 +453,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>on/qoA66xSvNFcwPEZOnzZO1cyYIaHc+ocK86DZ+Qgg=</dsig:DigestValue>
+      <dsig:DigestValue>Vj3EssG80FW29bd3XlqJZbQms0ifwkxN6u83EvqeqDM=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

@@ -30,10 +30,12 @@ namespace _3DWriter
         double maxUnitsLineSpacingRandomize = -1;
         String moveCoordSettings = "-1,-1"; //Random moving string range
         double lineGoingDownCoefficient = 0;
+        double symbolSizeRandomizer = -1; //-1 means disabled
         double h_height;                                        //font character height
         double h_char_count;                                    //font character count
         string h_font_map;                                      //font map - Character index array
         int rendercount = 0;                                    //count the renders
+        private static CultureInfo ci = CultureInfo.InstalledUICulture;
 
         double[][] font_chars = new double[250][];              //the main font array
         string last_filename = "";
@@ -207,7 +209,14 @@ namespace _3DWriter
         {
             if (!File.Exists("fonts" + Path.DirectorySeparatorChar + "scriptc.cmf"))        //check for fonts folder
             {
-                MaterialMessageBox.Show("Unable to find the fonts folder in the application folder.");
+                if (ci.TwoLetterISOLanguageName != "ru")
+                {
+                    MaterialMessageBox.Show("Unable to find the fonts folder in the application folder.");
+                }
+                else
+                {
+                    MaterialMessageBox.Show("В папке с программой отсутствует папка со шрифтами \"fonts\"");
+                }
                 appfault = true;
                 Application.Exit();
             }
@@ -234,7 +243,11 @@ namespace _3DWriter
                 String content = reader.ReadToEnd().Trim('\n');
                 if (content != "" && !Application.ProductVersion.ToString().Equals(content))
                 {
-                    DialogResult dialogResult = MaterialMessageBox.Show("Open github page? Current version is \"" + Application.ProductVersion.ToString() + "\"", "Update available - \"" + content + "\"", MessageBoxButtons.YesNo);
+                    string msgBoxString = "Open github page? Current version is \"" + Application.ProductVersion.ToString() + "\"";
+                    string msgBoxTitleString = "Update available - \"" + content + "\"";
+                    if (ci.TwoLetterISOLanguageName == "ru") msgBoxString = "Открыть страницу проекта? Текущая версия - \"" + Application.ProductVersion.ToString() + "\"";
+                    if(ci.TwoLetterISOLanguageName == "ru") msgBoxTitleString = "Доступно обновление - \"" + content + "\"";
+                    DialogResult dialogResult = MaterialMessageBox.Show(msgBoxString, msgBoxTitleString, MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Process.Start("https://github.com/Snow4DV/3DWriter");
@@ -248,7 +261,8 @@ namespace _3DWriter
                 {
                     if (notify == 1 && Application.ProductVersion.ToString() == content)
                     {
-                        MessageBox.Show("You are running the current version\n" + Application.ProductVersion.ToString());
+                        if(ci.TwoLetterISOLanguageName != "ru") MessageBox.Show("You are running the current version\n" + Application.ProductVersion.ToString());
+                        else MessageBox.Show("В данный момент текущая версия софта - последняя:\n" + Application.ProductVersion.ToString());
                     }
                 }
             } catch
@@ -294,13 +308,13 @@ namespace _3DWriter
                 {
                     try
                     {
-                        double coeffStartDouble = Convert.ToDouble(coeffStart);
-                        double coeffEndDouble = Convert.ToDouble(coeffEnd);
                         Properties.Settings.Default.coord_move = coeffStart + "," + coeffEnd;
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Invalid number format. Example: \"0.55\"");
+
+                        if (ci.TwoLetterISOLanguageName != "ru")  MaterialMessageBox.Show("Invalid number format. Example: \"0.55\"");
+                        else MaterialMessageBox.Show("Неверный формат. Пример: \"0.55\"");
                         checkBox2.Checked = false;
                     }
                 }
@@ -334,13 +348,31 @@ namespace _3DWriter
             {
                 minRotate = 0;
                 maxRotate = 0;
+                if (ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Loading settings exception");
+                else MaterialMessageBox.Show("Ошибка при загрузке настроек");
+            }
+            try
+            {
+                symbolSizeRandomizer = Convert.ToDouble(Properties.Settings.Default.randomize_size);
+                if(symbolSizeRandomizer != -1)
+                {
+                    differentSizeCheckbox.Checked = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Loading settings exception");
+                else MaterialMessageBox.Show("Ошибка при загрузке настроек");
             }
             try
             {
                 minUnitsLineSpacingRandomize = Convert.ToInt16(Properties.Settings.Default.randomize_line_spacing.Split(',')[0]);
                 maxUnitsLineSpacingRandomize = Convert.ToInt16(Properties.Settings.Default.randomize_line_spacing.Split(',')[0]);
             }
-            catch (Exception ignoredEx) { }
+            catch (Exception ignoredEx) {
+                if (ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Loading settings exception");
+                else MaterialMessageBox.Show("Ошибка при загрузке настроек");
+            }
             try
             {
                 lineGoingDownCoefficient = Properties.Settings.Default.line_going_down;
@@ -351,12 +383,15 @@ namespace _3DWriter
             }
             catch (Exception ex)
             {
-
+                if (ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Loading settings exception");
+                else MaterialMessageBox.Show("Ошибка при загрузке настроек");
             }
             if (Properties.Settings.Default.correct_letters_coefficient != 0)
             {
                 correctLettersCheckbox.Checked = true;
                 incorrectLetterChance = Properties.Settings.Default.correct_letters_coefficient;
+                if (ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Loading settings exception");
+                else MaterialMessageBox.Show("Ошибка при загрузке настроек");
             }
             pendown.Text = Properties.Settings.Default.pendown;
             tspeed.Text = Properties.Settings.Default.tspeed;
@@ -446,15 +481,27 @@ namespace _3DWriter
             Button buttonCancel = new Button();
 
             form.Text = "Moving letters modifier";
-            label.Text = "Enter min coefficient:";
-            info.Text = "That modifier randomly moves letter. Define the moving" + "\n" + " coefficient range from 0.00  to 1.00, " + "\n" + "where 1.00 equals 100% of letter width.";
-            label2.Text = "Enter max coefficient:";
+            label.Text = "Enter X coefficient:";
+            info.Text = "That modifier randomly moves letter. Define the moving" + "\n" + " coefficient up to origin symbol size on X/Y axes, " + "\n" + "where 1.00 equals 100% of letter's size.";
+            label2.Text = "Enter Y coefficient:";
             textBox.Text = value;
+
+
 
             buttonOk.Text = "OK";
             buttonCancel.Text = "Cancel";
             buttonOk.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
+
+            if (ci.TwoLetterISOLanguageName == "ru")
+            {
+                form.Text = "Смещение букв";
+                label.Text = "Введите коэффициент X:";
+                info.Text = "Этот модификатор случайно смещает буквы. Объявите\nкоэффициент, на который будет смещен символ" + "\n" + "от 0 до 1.0, где 1 - высота символа.";
+                label2.Text = "Введите коэффициент Y:";
+                buttonOk.Text = "OK";
+                buttonCancel.Text = "Отменить";
+            }
 
             label.SetBounds(9, 55, 372, 13);
             textBox.SetBounds(12, 76, 372, 20);
@@ -506,6 +553,15 @@ namespace _3DWriter
 
             buttonOk.Text = "OK";
             buttonCancel.Text = "Cancel";
+
+            if(ci.TwoLetterISOLanguageName == "ru")
+            {
+                form.Text = "Модификатор исправленных символов";
+                label.Text = "Введите вероятность исправленного символа:";
+                info.Text = "Этот модификатор пишет неверную букву, а потом исправляет поверх." + "\n" + "Введите вероятность от 0.00  до 1.00, " + "\n" + "где при 1.00 каждая буква будет исправлена:";
+                buttonOk.Text = "OK";
+                buttonCancel.Text = "Отмена";
+            }
             buttonOk.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
@@ -554,6 +610,78 @@ namespace _3DWriter
 
             buttonOk.Text = "OK";
             buttonCancel.Text = "Cancel";
+
+            if(ci.TwoLetterISOLanguageName == "ru")
+            {
+                form.Text = "Съезд строки";
+                info.Text = "Строка съезжает вниз ближе к концу" + "\n" + "(Это происходит при письме без линий)" + "\n" + "Введите коэффициент съезда от 0 до \n1, строка съедет на коэф. * высоту символа:";
+                label2.Text = "";
+                textBox.Text = value;
+
+                buttonOk.Text = "OK";
+                buttonCancel.Text = "Cancel";
+            }
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+
+            textBox.SetBounds(12, 76, 372, 10);
+            info.SetBounds(9, 10, 372, 10);
+            buttonOk.SetBounds(228, 30, 75, 23);
+            buttonCancel.SetBounds(306, 30, 75, 23);
+
+
+            label2.AutoSize = true;
+            info.AutoSize = true;
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            textBox.Text = "0.05";
+            textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
+            textBox2.Text = "0.20";
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(396, 60);
+            form.Controls.AddRange(new Control[] { info, label, textBox, label2, textBox2, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label2.Right + 10), form.ClientSize.Height + 80);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
+        public static DialogResult InputBoxSizeRandomizer(ref string value)
+        {
+            Form form = new Form();
+            Label label = new Label();
+            Label info = new Label();
+            TextBox textBox = new TextBox();
+            Label label2 = new Label();
+            TextBox textBox2 = new TextBox();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
+
+            form.Text = "Random size modifier";
+            info.Text = "That modifier multiplies the symbol size by random number" + "\n" + "from the coefficient to its origin size" + "\n" + "Enter coefficient:";
+            label2.Text = "Enter max coefficient:";
+            textBox.Text = value;
+
+            buttonOk.Text = "OK";
+            buttonCancel.Text = "Cancel";
+            if (ci.TwoLetterISOLanguageName == "ru")
+            {
+                form.Text = "Модификатор случайного размера";
+                info.Text = "Этот модификатор изменяет размер символа от" + "\n" + "коэфф. до стандартного размера буквы" + "\n" + "Введите коэффициент:";
+                label2.Text = "Enter max coefficient:";
+                textBox.Text = value;
+
+                buttonOk.Text = "OK";
+                buttonCancel.Text = "Отмена";
+            }
             buttonOk.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
@@ -601,12 +729,23 @@ namespace _3DWriter
 
             form.Text = "Rotation modifier";
             label.Text = "Enter min angle:";
-            info.Text = "That modifier randomly rotates letter. Define the rotating" + "\n" + " coefficient range from -360  to 360";
+            info.Text = "That modifier randomly rotates letter. Define the rotating" + "\n" + " angle range from -360  to 360";
             label2.Text = "Enter max angle:";
             textBox.Text = value;
 
             buttonOk.Text = "OK";
             buttonCancel.Text = "Cancel";
+            if(ci.TwoLetterISOLanguageName == "ru")
+            {
+                form.Text = "Модификатор поворота";
+                label.Text = "Введите мин. угол:";
+                info.Text = "Этот модификатор поворачивает символ. Введите\nспектр" + " поворота range от -360  до 360:";
+                label2.Text = "Введите макс. угол:";
+
+                buttonOk.Text = "OK";
+                buttonCancel.Text = "Отмена";
+
+            }
             buttonOk.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
@@ -663,6 +802,15 @@ namespace _3DWriter
 
             buttonOk.Text = "OK";
             buttonCancel.Text = "Cancel";
+            if(ci.TwoLetterISOLanguageName == "ru")
+            {
+                form.Text = "Модификатор межстрочного расст.";
+                label.Text = "Введите минимум, ед.:";
+                info.Text = "Случайное расстояние между строк. Введите спектр:" + "\n" + "Это перезапишет текущее межстр. расстояние!";
+                label2.Text = "Введите макс., ед.:";
+                textBox.Text = value;
+                buttonCancel.Text = "Отмена";
+            }
             buttonOk.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
@@ -807,7 +955,8 @@ namespace _3DWriter
             }
             catch (System.ComponentModel.Win32Exception excep)
             {
-                MessageBox.Show(excep.Message, "Error");
+                if (ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show(excep.Message, "Error");
+                else MaterialMessageBox.Show(excep.Message, "Ошибка");
             }
         }
 
@@ -867,7 +1016,8 @@ namespace _3DWriter
             }
             catch(Exception ingEx)
             {
-                MaterialMessageBox.Show("Something wrong happened about the text size. Did you enter it correctly?");
+                if(ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Something wrong happened about the text size. Did you enter it correctly?");
+                else MaterialMessageBox.Show("Что-то не так с размером текста. Вы точно ввели его верно?"); 
             }
 
             double offx = Convert.ToSingle(offsetx.Text);                            //get the X Offset from the UI
@@ -967,11 +1117,12 @@ namespace _3DWriter
                     {
                         try
                         {
-                            double minMultiplyer = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[0]);
-                            double maxMultiplyer = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[1]);
+                            double xMultiplier = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[0]);
+                            double yMultiplier = Convert.ToDouble(Properties.Settings.Default.coord_move.Split(',')[1]);
 
-                            xFactor = ((double)rnd.Next((int)(minMultiplyer * 100), (int)(maxMultiplyer * 100))) / 100;
-                            yFactor = ((double)rnd.Next((int)(minMultiplyer * 100), (int)(maxMultiplyer * 100))) / 100;
+                            xFactor = rnd.NextDouble() * xMultiplier;
+                            yFactor = rnd.NextDouble() * yMultiplier;
+
                             if (rnd.Next(0, 100) > 50)
                             {
                                 multX = -1;
@@ -1064,6 +1215,11 @@ namespace _3DWriter
                         {
                             rotatingAngle = rnd.Next(minRotate, maxRotate);
                         }
+                        if (differentSizeCheckbox.Checked) //scaling by the modifier
+                        {
+                            scale = double.Parse(fontscale_value.Text) / 5;
+                            scale *= rnd.NextDouble() * (1 - symbolSizeRandomizer) + symbolSizeRandomizer;
+                        }
 
                         //previewGraphics.DrawEllipse(Pens.Green, new Rectangle((int)(midPointX * scale + xFactor * thewidth * 2.5 * multX + accum_x + offx), (int)(midPointY * scale + yFactor * thewidth * 2.5 * multY + offx + accum_y), 5, 5));
 
@@ -1078,7 +1234,7 @@ namespace _3DWriter
                                 double x2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 2]);
                                 double y2 = Convert.ToDouble(font_chars[cnum][(b * 4) + 3 + 3]);
                                 if (lineGoingDownCheckbox.Checked)
-                                { //FUCK! exception
+                                { 
                                     y1 += lineFactor*161; //161 - symbol height! 
                                     y2 += lineFactor*161; 
                                 }
@@ -1091,11 +1247,12 @@ namespace _3DWriter
                                     x2 = points[0];
                                     y2 = points[1];
                                 }
-                                x1 = x1 * scale + xFactor * thewidth * 2.5 * multX * scale; //Increasing the size and adding random movement
-                                x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale;
-                                y1 = y1 * scale + xFactor * thewidth * 2.5 * multY * scale;
-                                y2 = y2 * scale + xFactor * thewidth * 2.5 * multY * scale;
-
+                                
+                                x1 = x1 * scale + xFactor * thewidth *  multX * scale; //Increasing the size and adding random movement
+                                x2 = x2 * scale + xFactor * thewidth *  multX * scale;
+                                y1 = y1 * scale + yFactor * 37 *  multY * scale;
+                                y2 = y2 * scale + yFactor * 37 *  multY * scale;
+                               
 
 
                                 double draw_x1 = accum_x + x1 + offx;                   //calculate the scaled points for the picutrebox
@@ -1159,9 +1316,10 @@ namespace _3DWriter
                                     x2 = points[0];
                                     y2 = points[1];
                                 }
+                                
                                 //Increasing the size and adding random movement
-                                x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale;
-                                y2 = y2 * scale + xFactor * thewidth * 2.5 * multY * scale;
+                                x2 = x2 * scale + xFactor * thewidth * multX * scale;
+                                y2 = y2 * scale + yFactor * 37 * multY * scale;
 
 
 
@@ -1225,9 +1383,10 @@ namespace _3DWriter
                                     x2 = points[0];
                                     y2 = points[1];
                                 }
+                                
                                 //Increasing the size and adding random movement
-                                x2 = x2 * scale + xFactor * thewidth * 2.5 * multX * scale + accum_x;
-                                y2 = y2 * scale + xFactor * thewidth * 2.5 * multY * scale;
+                                x2 = x2 * scale + xFactor * thewidth * multX * scale + accum_x;
+                                y2 = y2 * scale + yFactor * 37 * multY * scale;
                                 ifOuputPointFound = true;
                                 prevOutputPointY = y2;
                                 prevOutputPointX = x2;
@@ -1256,7 +1415,11 @@ namespace _3DWriter
                 accum_y += char_height + line_spacing;  //LF                            //increment the accumulated Y value plus spacing
                                                         //end lines loop
             }
-            if (symbolMovingError) MessageBox.Show("Random symbol moving function error. Check if you entered correct coefficients and try again.");
+            if (symbolMovingError)
+            {
+                if(ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Random symbol moving function error. Check if you entered correct coefficients and try again.");
+                else MaterialMessageBox.Show("Ошибка во время случайного смещения символа. Проверьте, правильно ли введены коэффициенты и попробуйте снова.");
+            }
             //end of ploting moves
             if (radio_laser_mode.Checked)
             {
@@ -1331,8 +1494,9 @@ namespace _3DWriter
             //toolStripStatusLabel3.Text = "";
 
             if (out_of_bounds)
-            {                                                        //Complain about life
-                MaterialMessageBox.Show("Warning: " + (radio_laser_mode.Checked ? "Laser" : "Pen") + " went out of bounds !");
+            {                                                        //Complain about life 
+                if(ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Warning: " + (radio_laser_mode.Checked ? "Laser" : "Pen") + " went out of bounds !");
+                else MaterialMessageBox.Show("Ошибка: " + (radio_laser_mode.Checked ? "Лазер" : "Ручка") + " вышла за пределы рабочей области!");
             }
             button1.Enabled = true;                                                  //re-enable the buttons
             button2.Enabled = true;
@@ -1476,7 +1640,8 @@ namespace _3DWriter
             offsety.Text = "45";
             fontscale_value.Text = "0.2";
             textSize_tb.Text = "20";
-            tb_input.Text = "Welcome to 3DWriter!";
+            if(ci.TwoLetterISOLanguageName != "ru") tb_input.Text = "Welcome to 3DWriter!";
+            else tb_input.Text = "Добро пожаловать в 3DWriter!";
             lspacing.Text = "0";
             letspacing.Text = "0";
             SimpleFontsCheckbox.Checked = true;
@@ -1527,10 +1692,20 @@ namespace _3DWriter
 
         private void set_laser_mode()
         {
-            label_mode_down.Text = "Laser ON";
-            label_mode_up.Text = "Laser OFF";
-            label_mode_down_text.Text = "GCode";
-            label_mode_up_text.Text = "GCode";
+            if (ci.TwoLetterISOLanguageName != "ru")
+            {
+                label_mode_down.Text = "Laser ON";
+                label_mode_up.Text = "Laser OFF";
+                label_mode_down_text.Text = "GCode";
+                label_mode_up_text.Text = "GCode";
+            }
+            else
+            {
+                label_mode_down.Text = "Лазер вкл.";
+                label_mode_up.Text = "Лазер выкл.";
+                label_mode_down_text.Text = "GCode";
+                label_mode_up_text.Text = "GCode";
+            }
 
             pendown.Text = Properties.Settings.Default.laser_on;
             penup.Text = Properties.Settings.Default.laser_off;
@@ -1539,15 +1714,27 @@ namespace _3DWriter
         }
         private void set_pen_mode()
         {
-            label_mode_down.Text = "Pen down";
-            label_mode_up.Text = "Pen up";
-            label_mode_down_text.Text = "mm";
-            label_mode_up_text.Text = "mm";
+            if (ci.TwoLetterISOLanguageName != "ru")
+            {
+                label_mode_down.Text = "Pen down";
+                label_mode_up.Text = "Pen up";
+                label_mode_down_text.Text = "mm";
+                label_mode_up_text.Text = "mm";
+                dryrun.Text = "(pen is always up)";
+            }
+            else
+            {
+                label_mode_down.Text = "Ручка вверху";
+                label_mode_up.Text = "Ручка внизу";
+                label_mode_down_text.Text = "мм";
+                label_mode_up_text.Text = "мм";
+                dryrun.Text = "(ручка всегда поднята)";
+            }
 
             pendown.Text = Properties.Settings.Default.pendown;
             penup.Text = Properties.Settings.Default.penup;
 
-            dryrun.Text = "(pen is always up)";
+            
         }
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1705,6 +1892,40 @@ namespace _3DWriter
             catch(Exception ex)
             {
                 //Ignored
+            }
+        }
+
+        private void differentSizeCheckbox_Click(object sender, EventArgs e)
+        {
+            if (differentSizeCheckbox.Checked)
+            {
+                try
+                {
+                    String coeff = "-1";
+                    if (InputBoxSizeRandomizer(ref coeff) == DialogResult.OK)
+                    {
+                        Properties.Settings.Default.randomize_size = Convert.ToDouble(coeff);
+                        symbolSizeRandomizer = Convert.ToDouble(coeff);
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.randomize_size = -1;
+                        symbolSizeRandomizer = -1;
+                        differentSizeCheckbox.Checked = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if(ci.TwoLetterISOLanguageName != "ru") MaterialMessageBox.Show("Check if entered value is correct");
+                    else MaterialMessageBox.Show("Проверьте, верно ли введенное значение");
+                    Properties.Settings.Default.randomize_size = -1;
+                    symbolSizeRandomizer = -1;
+                    differentSizeCheckbox.Checked = false;
+                }
+            }
+            else
+            {
+
             }
         }
 

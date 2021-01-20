@@ -383,5 +383,17 @@ namespace _3DWriter.Properties {
                 this["symbols_map"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public double randomize_size {
+            get {
+                return ((double)(this["randomize_size"]));
+            }
+            set {
+                this["randomize_size"] = value;
+            }
+        }
     }
 }
