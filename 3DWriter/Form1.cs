@@ -37,7 +37,7 @@ namespace _3DWriter
         int rendercount = 0;                                    //count the renders
         private static CultureInfo ci = CultureInfo.InstalledUICulture;
 
-        double[][] font_chars = new double[250][];              //the main font array
+        double[][] font_chars = new double[2000][];              //the main font array
         string last_filename = "";
         bool appfault = false;
         int preview_mag = 2;
